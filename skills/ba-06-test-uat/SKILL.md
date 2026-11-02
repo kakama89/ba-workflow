@@ -25,7 +25,7 @@ Xác minh sản phẩm đáp ứng yêu cầu bằng bằng chứng và hỗ tr�
 | Story / AC | Có | Bản đã xác nhận, đúng phiên bản |
 | Business Rules | Có | Để giải thích kết quả mong đợi |
 | Build test | Có | Ghi rõ phiên bản build |
-| Test Plan / Test Case | Có | Do QA sở hữu |
+| Test Plan / Test Case | Có | Do QA sở hữu; AC còn thiếu Test Case được xử lý ở Bước 1 |
 | Tiêu chí nghiệm thu | Có | Nếu chưa có, dừng và hỏi — không tự đặt |
 | Môi trường và dữ liệu kiểm thử | Có | Chỉ dùng dữ liệu được phép |
 
@@ -49,7 +49,7 @@ Riêng ở BA-06: **không bao giờ ghi `Pass` khi chưa có kết quả thực
 ### Bước 1 — BA và QA review liên kết yêu cầu–AC–Test Case
 - Gọi `ba-agent-traceability` để đối chiếu chuỗi `Requirement → Story → AC → Test Case`.
 - Xử lý `Missing Link` và `Orphan` trước khi chạy test.
-- AC chưa có Test Case: ghi nhận, không tự viết thay QA.
+- AC chưa có Test Case: ghi nhận, BA không viết thay QA. QA có thể gọi `ba-agent-test-design` tạo bản nháp và phải review trước khi dùng.
 
 ### Bước 2 — QA thực hiện kiểm thử, BA hỗ trợ
 - QA thực hiện; BA giải thích quy tắc nghiệp vụ và kết quả mong đợi, kèm nguồn.
@@ -60,13 +60,16 @@ Mỗi sai khác xếp vào đúng một loại:
 | Loại | Nghĩa | Chuyển tới |
 | --- | --- | --- |
 | Defect | Code không đúng AC đã duyệt | QA/Dev xử lý |
-| Requirement gap | AC/Business Rule chưa mô tả hành vi này | `ba-03-specification` hoặc `ba-05-change-management` |
+| Requirement gap | AC/Business Rule chưa mô tả hành vi này | `ba-05-change-management`, rồi quay lại theo Bước 6 của BA-05 |
 | Change request | Nghiệp vụ muốn hành vi khác | `ba-05-change-management` |
 
 Không tự quyết định loại khi chưa rõ: ghi `[Unknown]` và hỏi Business Owner.
 
+Vòng sửa lỗi: Dev sửa defect, QA retest trên build mới và ghi bằng chứng, rồi mới đóng defect. Nếu build đổi sau khi đã chạy UAT, người có thẩm quyền quyết định phạm vi chạy lại và ghi vào UAT Report.
+
 ### Bước 4 — Chuẩn bị UAT
-- Dựng UAT Scenario từ AC đã duyệt; mỗi Scenario một `Scenario ID` (dạng `UAT-001`).
+- BA dựng UAT Scenario từ AC đã duyệt; mỗi Scenario một `Scenario ID` (dạng `UAT-001`) và trỏ về `Story ID` + `AC ID`.
+- Tuỳ chọn: gọi `ba-agent-qa-review` để rà soát tài liệu trước UAT.
 - Chuẩn bị dữ liệu và hướng dẫn Business User.
 - Chỉ dùng dữ liệu được phép; không đưa dữ liệu nhạy cảm vào môi trường chưa phê duyệt.
 
@@ -76,26 +79,37 @@ Không tự quyết định loại khi chưa rõ: ghi `[Unknown]` và hỏi Busi
 
 ### Bước 6 — Tổng hợp và cập nhật RTM
 - Tổng hợp Pass/Fail/Blocked, defect và rủi ro còn mở.
-- Cập nhật `Test Result`, `UAT Result`, `Evidence Link`, `Coverage Status` trong RTM.
+- Cập nhật RTM tại `ba-records/<project>/rtm.md`: QA ghi `Test Result`; BA ghi `UAT Result`, `Evidence Link` và `Coverage Status`.
+- Gọi `ba-agent-traceability` để đối chiếu lại RTM; Agent chỉ đề xuất, không tự cập nhật.
 - Gọi `ba-agent-test-design` nếu phát hiện thiếu scenario cho luồng biên có căn cứ.
 
 ### Bước 7 — Quyết định nghiệm thu
 Người có thẩm quyền quyết định `Accept` / `Reject` / `Conditional Acceptance` nếu được phép.
 BA trình bày bằng chứng, không khuyến nghị thay cho người quyết định.
 
+| Quyết định | Việc tiếp theo |
+| --- | --- |
+| `Accept` | Kiểm tra G4, rồi chuyển BA-07 |
+| `Conditional Acceptance` | Ghi từng điều kiện kèm owner và hạn vào `Conditions`; kiểm tra G4, rồi chuyển BA-07 và bàn giao các điều kiện đó |
+| `Reject` | Không chuyển BA-07. Phân loại lý do theo Bước 3, xử lý, rồi chạy lại từ Bước 2 hoặc Bước 5 trên build mới với một đợt UAT mới |
+| `Pending` | Dừng; chưa đóng G4 |
+
 ## Đầu ra
+Đường dẫn `assets/` trong bảng là template chỉ đọc; bản ghi thật lưu tại `ba-records/<project>/` (xem mục "Template và bản ghi dự án" trong `POWER.md`).
+
 | Đầu ra | Vị trí |
 | --- | --- |
 | Test Review | Kết quả Bước 1 |
-| RTM | `skills/ba-03-specification/assets/rtm.md` |
+| RTM | `ba-records/<project>/rtm.md` (template: `skills/ba-03-specification/assets/rtm.md`) |
 | UAT Report | `assets/uat-report.md` — khớp sheet `UAT Report` (17 cột) |
 | Defect Log | Theo hệ thống của QA; ghi `Defect ID` vào UAT Report |
-| Quyết định nghiệm thu | Cột `Decision` và `Approver` |
+| Quyết định nghiệm thu | `Decision`, `Approver`, `Approval Date`, `Conditions` ⚠ |
 
 ## Quality Gate G4
 Chi tiết tại `references/quality-gate-g4.md`. Tóm tắt:
 - [ ] Kết quả có bằng chứng
 - [ ] Defect nghiêm trọng đã được xử lý hoặc được chấp nhận rủi ro đúng thẩm quyền
+- [ ] ⚠ `Decision` là `Accept` hoặc `Conditional Acceptance`, có `Approver` và ngày
 
 Không đạt G4 thì không chuyển sang BA-07.
 
@@ -109,5 +123,5 @@ Không đạt G4 thì không chuyển sang BA-07.
 - `assets/uat-report.md` — template UAT Report.
 - `references/quality-gate-g4.md` — checklist G4, quy tắc phân loại sai khác, quy tắc dừng bước.
 - RTM dùng chung: `skills/ba-03-specification/assets/rtm.md`.
-- Skill liên quan: `ba-agent-traceability` (Bước 1, Bước 6), `ba-agent-test-design` (Bước 4, Bước 6), `ba-agent-qa-review` (rà soát tài liệu trước UAT).
-- Quy trình trước: `ba-05-change-management`. Kế tiếp: `ba-07-release-handover`.
+- Skill liên quan: `ba-agent-traceability` (Bước 1, Bước 6), `ba-agent-test-design` (Bước 1, Bước 6), `ba-agent-qa-review` (Bước 4, tuỳ chọn).
+- Quy trình trước: `ba-04-refinement`, qua Sprint. Phát sinh thay đổi: `ba-05-change-management`. Kế tiếp: `ba-07-release-handover`.

@@ -8,8 +8,8 @@ Gate này đóng lại BA-03. Không đạt G3 thì Story chưa được đưa v
 | --- | --- | --- | --- |
 | 1 | AC kiểm thử được | Mỗi AC có `Given` đủ điều kiện, `When` xác định, `Then` quan sát được | |
 | 2 | Không che giấu giả định | Mọi nội dung chưa xác nhận gắn `[Assumption]` hoặc `[Unknown]` | |
-| 3 | Có xác nhận | Tên người xác nhận (PO/Business) và ngày | |
-| 4 | Có phiên bản | `Version` và `Review Status` được cập nhật | |
+| 3 | Có xác nhận | `Confirmed By / Date` ⚠: tên người xác nhận (PO/Business) và ngày | |
+| 4 | Có phiên bản | `Version` ⚠ và `Review Status` được cập nhật | |
 
 ## Tiêu chí bổ sung nên kiểm tra
 - [ ] Mỗi Story có `Epic ID`, `Story ID`, `Requirement IDs` và `Business Rule IDs`.
@@ -19,7 +19,7 @@ Gate này đóng lại BA-03. Không đạt G3 thì Story chưa được đưa v
 - [ ] Không có AC trùng lặp trong cùng Story hoặc giữa các Story.
 - [ ] NFR chỉ gồm nội dung có nguồn; không có ngưỡng tự đặt.
 - [ ] `Open Questions` quan trọng đã có câu trả lời hoặc có owner và hạn.
-- [ ] RTM đã có dòng tương ứng cho Story/AC mới (`../assets/rtm.md`).
+- [ ] RTM của dự án đã có dòng tương ứng cho Story/AC mới và đã bỏ ghi chú nháp (mẫu: `../assets/rtm.md`).
 - [ ] Dev/Tech Lead đã xem khả thi; QA đã xem testability.
 
 ## Tiêu chí "AC kiểm thử được"

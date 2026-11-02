@@ -8,7 +8,7 @@ Phiên bản: 1.0 · Nguồn: `assets/_archive/sop-v1.0.md`, `assets/_archive/wo
 
 ## Trạng thái tài liệu nguồn — đọc trước khi dùng
 
-Bốn tài liệu gốc (`01_SOP_BA_Agile_AI.docx`, `02_Bo_Template_BA.xlsx`, `03_Prompt_Pack_BA_AI.md`, `README.md`) **đã bị xoá khỏi thư mục dự án vào 2026-10-30** theo quyết định của chủ tài liệu, và đó là **bản duy nhất** — thư mục này không phải git repo, không có bản sao ở Confluence/SharePoint/Jira.
+Bốn tài liệu gốc (`01_SOP_BA_Agile_AI.docx`, `02_Bo_Template_BA.xlsx`, `03_Prompt_Pack_BA_AI.md`, `README.md`) **đã bị xoá khỏi thư mục dự án vào 2026-10-30** theo quyết định của chủ tài liệu, và đó là **bản duy nhất** — thời điểm đó thư mục chưa là git repo, không có bản sao ở Confluence/SharePoint/Jira.
 
 Toàn bộ nội dung chữ của chúng được lưu tại **`assets/_archive/`**, trích xuất bằng script trực tiếp từ file nhị phân chứ không gõ lại tay. Đã kiểm tra trước khi xoá: cả hai file nhị phân **không chứa** ảnh, media, drawing, textbox, OLE object, comment, footnote, endnote, header/footer, công thức, data validation, conditional formatting, chart hay defined name — nên không mất nội dung nào. Thứ không giữ lại được là định dạng trực quan (font, màu, độ rộng cột, freeze pane) và khả năng mở bằng Word/Excel.
 
@@ -46,9 +46,11 @@ Chi tiết: `assets/_archive/README.md`.
 | `ba-agent-requirement` | Requirement Agent | Prompt Pack §1 | BA-01 Bước 4 |
 | `ba-agent-analysis` | Analysis Agent | Prompt Pack §2 | BA-02 Bước 6 |
 | `ba-agent-specification` | Specification Agent | Prompt Pack §3 | BA-03 Bước 5 |
-| `ba-agent-qa-review` | QA Review Agent | Prompt Pack §4 | BA-03 Bước 5–6, BA-04 Bước 5 |
-| `ba-agent-test-design` | Test Design Agent | Prompt Pack §5 | BA-06 Bước 1, Bước 4 |
-| `ba-agent-traceability` | Traceability Agent | Prompt Pack §6 | BA-05 Bước 3/5, BA-06 Bước 1/6 |
+| `ba-agent-qa-review` | QA Review Agent | Prompt Pack §4 | BA-01 Bước 5; BA-02 Bước 6; BA-03 Bước 5; BA-04 Bước 5; BA-05 Bước 5; BA-06 Bước 4; BA-07 Bước 2 |
+| `ba-agent-test-design` | Test Design Agent | Prompt Pack §5 | BA-06 Bước 1, 6 |
+| `ba-agent-traceability` | Traceability Agent | Prompt Pack §6 | BA-04 Bước 5; BA-05 Bước 3, 5; BA-06 Bước 1, 6; BA-07 Bước 1 |
+
+`ba-agent-qa-review` là bắt buộc ở BA-03 và BA-04, tuỳ chọn ở các quy trình còn lại.
 
 ## Tài nguyên dùng chung
 
@@ -56,8 +58,9 @@ Chi tiết: `assets/_archive/README.md`.
 | --- | --- |
 | `skills/ba-03-specification/assets/rtm.md` | `ba-03`, `ba-06`, `ba-07`, `ba-agent-test-design`, `ba-agent-traceability` |
 | `skills/ba-05-change-management/assets/decision-log-cr.md` | `ba-04` (PO chấp nhận rủi ro), `ba-06` (requirement gap / CR) |
+| `assets/ai-run-log.md` | Cả 6 agent, BA-07 Bước 4 |
 
-RTM đặt ở `ba-03` vì đó là nơi dòng truy vết đầu tiên được tạo (SOP BA-03 liệt kê RTM trong đầu ra). Các skill khác chỉ tham chiếu theo đường dẫn, không tạo bản sao.
+RTM đặt ở `ba-03` vì đó là nơi dòng truy vết đầu tiên được tạo (SOP BA-03 liệt kê RTM trong đầu ra). Các file này là template chỉ đọc. Bản ghi thật lưu tại `ba-records/<project>/` trong repo dự án — xem mục "Template và bản ghi dự án" trong `POWER.md`.
 
 ## Luồng gọi điển hình
 
@@ -67,10 +70,16 @@ Yêu cầu mới
   → /ba-02-business-analysis       (gọi ba-agent-analysis ở Bước 6)      → G2
   → /ba-03-specification           (gọi ba-agent-specification, ba-agent-qa-review) → G3 + tạo RTM
   → /ba-04-refinement              (gọi ba-agent-qa-review)              → DoR
-  → [Sprint] /ba-05-change-management (gọi ba-agent-traceability)        → Gate thay đổi
+  → Sprint
   → /ba-06-test-uat                (gọi ba-agent-traceability, ba-agent-test-design) → G4
   → /ba-07-release-handover        (gọi ba-agent-traceability)           → Gate bàn giao
+
+Theo sự kiện, từ BA-03 trở đi:
+  /ba-05-change-management         (gọi ba-agent-traceability)           → Gate thay đổi
+  → quay lại BA-02, BA-03, BA-04 hoặc BA-06 theo Bước 6 của BA-05
 ```
+
+Sau G1, PO chọn đường đi theo `Request Type`; `Defect` và `Technical Change` có đường rút gọn (đề xuất, chủ quy trình cần chốt — xem BA-01). Không đạt G4 hoặc `Decision = Reject` thì quay lại theo Bước 7 của BA-06.
 
 Nguyên tắc: **skill quy trình điều phối con người, skill agent chỉ tạo bản nháp.** Không skill nào tự đóng gate.
 
@@ -79,7 +88,8 @@ Nguyên tắc: **skill quy trình điều phối con người, skill agent chỉ
 - Thân skill viết tiếng Việt, giữ nguyên thuật ngữ tiếng Anh như SOP.
 - Khối **"Rào cản bắt buộc"** 10 điều giống hệt nhau ở cả 13 skill (Grounding · Fact/Assumption/Inference/Unknown · không tự tạo Business Rules · không tự phê duyệt · DRAFT · không đoán · Idempotency · Error handling · Data protection · Audit trail).
 - Đầu ra agent theo 6 phần: Summary · Facts with sources · Findings/Open Questions · Suggested actions · Confidence limitations · `Status = DRAFT`.
-- Cột biểu mẫu khớp đúng tên cột trong `assets/_archive/workbook-v1.0.md`.
+- Cột biểu mẫu khớp đúng tên cột trong `assets/_archive/workbook-v1.0.md`; trường đánh dấu ⚠ là phần thêm.
+- Kiểm định sau khi sửa: `python scripts/validate_power.py`.
 
 ## Khác biệt giữa SOP §6 và workbook — đã xử lý trong assets
 
@@ -87,9 +97,23 @@ Nguyên tắc: **skill quy trình điều phối con người, skill agent chỉ
 | --- | --- | --- |
 | BA-T02 / sheet `Analysis` | `owner`, `Success Metrics`, `Out of Scope`, `Decision Log`, `Review & Approval` | Thêm vào `skills/ba-02-business-analysis/assets/business-analysis-doc.md`, đánh dấu ⚠ |
 | BA-T06 / sheet `UAT Report` | Cột gộp `Scope & Acceptance Criteria`, các ô tổng `Total/Passed/Failed/Blocked/Not Run`, `Open Risks`, `Approver / Date` | Tách thành "Phần 3 — Tổng hợp và quyết định" trong `skills/ba-06-test-uat/assets/uat-report.md` |
-| BA-T07 / sheet `Handover` | `Support owner identified` | Thêm dòng `HO-008` ⚠ trong `skills/ba-07-release-handover/assets/handover-checklist.md` |
 
-BA-T01, BA-T03, BA-T04, BA-T05: sheet workbook đầy đủ hơn hoặc bằng SOP, không cần bổ sung.
+BA-T01, BA-T03, BA-T04, BA-T05, BA-T07: sheet workbook đầy đủ hơn hoặc bằng SOP, không cần bổ sung vì lý do này.
+
+## Mở rộng so với SOP/workbook v1.0
+
+Các phần dưới đây không có trong bản gốc, được đánh dấu ⚠ tại chỗ dùng. `assets/_archive/` giữ nguyên.
+
+| Phần mở rộng | Lý do |
+| --- | --- |
+| `Request Type` trong Intake | Bước 2 và G1 cần nơi ghi kết quả phân loại |
+| Đường đi theo `Request Type` trong BA-01 | Tránh bắt mọi yêu cầu đi hết chuỗi; **chủ quy trình cần chốt** |
+| `Version`, `Confirmed By / Date` trong Story | G3 cần bằng chứng cho hai tiêu chí này |
+| `Ready for Sprint` | Tách "được vào refinement" với "đạt DoR" |
+| DoR tiêu chí 7, 8 | Bổ sung truy vết và kích thước Story |
+| Bước 6 của BA-05 | Thay đổi đã duyệt phải qua lại điểm kiểm soát |
+| G4 tiêu chí 3, `Conditions`, `Skipped` trong tổng hợp UAT | G4 phải có quyết định cho phép đi tiếp; số liệu phải cộng khớp |
+| `ai-run-log.md` | SOP §8 yêu cầu audit trail nhưng workbook chưa có nơi ghi |
 
 Workbook gốc đã bị xoá; cấu trúc của nó được lưu tại `assets/_archive/workbook-v1.0.md`. Nếu tổ chức ban hành workbook phiên bản mới, đối chiếu lại với bản archive đó rồi cập nhật các file `assets/` tương ứng.
 

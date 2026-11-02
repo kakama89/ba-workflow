@@ -12,22 +12,25 @@ compatibility: "Cần quyền đọc RTM, tài liệu phân tích, Story/AC, Tes
 
 ## Vai trò trong mô hình vận hành
 
-Orchestrator điều phối sáu Agent dùng chung quy tắc nguồn, phân quyền, schema đầu ra và audit trail (SOP §7). Agent này phát hiện liên kết thiếu và hỗ trợ Impact Analysis. Agent KHÔNG coi liên kết suy luận là liên kết đã xác nhận và KHÔNG cập nhật RTM hay Change Log chính thức; mọi thay đổi chính thức cần người có quyền review.
+Trong power này, skill quy trình đóng vai Orchestrator của SOP §7 và gọi sáu Agent dùng chung quy tắc nguồn, phân quyền, schema đầu ra và audit trail (SOP §7). Agent này phát hiện liên kết thiếu và hỗ trợ Impact Analysis. Agent KHÔNG coi liên kết suy luận là liên kết đã xác nhận và KHÔNG cập nhật RTM hay Change Log chính thức; mọi thay đổi chính thức cần người có quyền review.
 
 ## Được gọi từ quy trình nào
 
 | Quy trình | Bước | Mục đích |
 |---|---|---|
-| BA-05. Hỗ trợ phát triển và quản lý thay đổi | Bước 5 | So sánh phiên bản, đề xuất liên kết bị ảnh hưởng |
+| BA-04. Refinement và chuẩn bị Sprint | Bước 5 | Kiểm tra liên kết Requirement–Story–AC khi có Story bị tách |
+| BA-05. Hỗ trợ phát triển và quản lý thay đổi | Bước 3 | So sánh phiên bản, đề xuất liên kết bị ảnh hưởng trước khi quyết định |
+| BA-05. Hỗ trợ phát triển và quản lý thay đổi | Bước 5 | Đối chiếu lại RTM sau khi con người cập nhật |
 | BA-06. Kiểm thử, UAT và nghiệm thu nghiệp vụ | Bước 1 | Review liên kết yêu cầu–AC–Test Case |
-| BA-06. Kiểm thử, UAT và nghiệm thu nghiệp vụ | Bước 6 | Cập nhật RTM |
+| BA-06. Kiểm thử, UAT và nghiệm thu nghiệp vụ | Bước 6 | Đối chiếu RTM sau khi con người cập nhật kết quả; Agent không tự cập nhật |
+| BA-07. Release, bàn giao và cải tiến | Bước 1 | Phát hiện `Version Mismatch`, `Missing Link`, `Orphan` trước khi phát hành |
 
 ## Đầu vào
 
 - RTM hiện hành, kèm phiên bản.
 - Tài liệu phân tích và danh sách Requirement (`Requirement ID`).
 - Bộ Story/AC (`Story ID`, `AC ID`).
-- Danh sách Test Case (`Test Case ID`) và Test Result/UAT Result nếu đã có.
+- Danh sách Test Case (`Test Case ID`) và Test Result/UAT Result nếu đã có. Khi gọi từ BA-04, chuỗi đối chiếu chỉ tới AC nên chưa cần Test Case.
 - Change Log và phiên bản trước của tài liệu bị thay đổi.
 
 Thiếu RTM hoặc thiếu phiên bản tài liệu: dừng và hỏi, không đối chiếu theo trí nhớ.

@@ -83,7 +83,7 @@ Liên kết `Inferred` phải được liệt kê riêng, nêu căn cứ suy lu�
 Dừng và báo lại BA, không tự chế dữ liệu thay thế, khi:
 
 1. Không truy cập được RTM hoặc RTM không có phiên bản.
-2. Thiếu một trong các nguồn của chuỗi đối chiếu (danh sách Requirement, Story/AC, Test Case).
+2. Thiếu một trong các nguồn của phần chuỗi cần đối chiếu (danh sách Requirement, Story/AC; thêm Test Case từ BA-05 trở đi, nếu đã có). Khi gọi từ BA-04, chỉ đối chiếu tới AC và không đưa ra số coverage cho Test Case.
 3. Hai nguồn cho hai phiên bản RTM khác nhau và không xác định được bản chính thức.
 4. Phát hiện RTM thay đổi trong lúc đang đối chiếu.
 5. Test Result/UAT Result cần đối chiếu nằm ngoài phạm vi được cấp quyền.
@@ -94,5 +94,5 @@ Khi dừng: nêu rõ phần chuỗi đã đối chiếu được, phần bị ch
 ## 7. Idempotency và audit trail
 
 - Báo cáo coverage gắn với một phiên bản RTM và một thời điểm; chạy lại trên cùng phiên bản thì cập nhật báo cáo hiện có thay vì tạo báo cáo mới.
-- Agent chỉ đề xuất dòng RTM; việc cập nhật RTM chính thức do người có thẩm quyền thực hiện theo `skills/ba-03-specification/assets/rtm.md`.
-- Mỗi lần chạy ghi lại: prompt version, model/version, danh sách nguồn kèm phiên bản, báo cáo tạo thành, người review và quyết định (SOP §8).
+- Agent chỉ đề xuất dòng RTM; việc cập nhật `ba-records/<project>/rtm.md` do người có thẩm quyền thực hiện theo template `skills/ba-03-specification/assets/rtm.md`.
+- Mỗi lần chạy ghi lại: prompt version, model/version, danh sách nguồn kèm phiên bản, báo cáo tạo thành, người review và quyết định (SOP §8), theo template `assets/ai-run-log.md` ở gốc power; bản ghi thật tại `ba-records/<project>/ai-run-log.md`.

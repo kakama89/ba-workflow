@@ -27,7 +27,7 @@ Bảo đảm cách hiểu nghiệp vụ nhất quán và thay đổi được ki
 | Story / AC | Có | Bản đã xác nhận, đúng phiên bản |
 | Câu hỏi từ Dev/QA/Business | Có | Ghi nguyên văn, không diễn giải lại |
 | Change Request | Nếu có | Kèm người đề xuất và lý do |
-| RTM hiện hành | Có | `skills/ba-03-specification/assets/rtm.md` |
+| RTM hiện hành | Có | `ba-records/<project>/rtm.md` (template: `skills/ba-03-specification/assets/rtm.md`) |
 
 ## Rào cản bắt buộc (không được vượt qua)
 
@@ -48,37 +48,55 @@ Riêng ở BA-05: **không tự phê duyệt thay đổi**, không sửa Story/A
 
 ### Bước 1 — Trả lời câu hỏi và ghi nhận quyết định
 - Chỉ trả lời dựa trên nguồn đã xác nhận; trích dẫn cụ thể.
-- Câu hỏi chưa có nguồn: trả lời `Unknown` kèm hành động xác minh, **không đoán**.
+- Câu hỏi chưa có nguồn: trả lời `Unknown` kèm hành động xác minh, ghi vào `Open Questions` của Story/AC liên quan, **không đoán**.
 - Mọi câu trả lời làm rõ hành vi đều ghi vào Decision Log.
 
 ### Bước 2 — Ghi nhận Change Request và phân tích ảnh hưởng
 - Tạo `Decision/CR ID` (dạng `CR-001`); kiểm tra trùng trước khi tạo.
 - Ghi `Current Requirement` và `Proposed Change` tách bạch rõ.
 - Ghi `Business Reason` theo lời người đề xuất, không tự suy ra lý do.
+- CR mới có `Status = Proposed`.
 
 ### Bước 3 — Xác định phạm vi ảnh hưởng
-Liệt kê cụ thể, mỗi mục kèm ID:
+Chuyển CR sang `Under Review`. Liệt kê cụ thể, mỗi mục kèm ID:
 - Story và AC bị ảnh hưởng
+- Business Rules
 - API / interface
 - Dữ liệu (cấu trúc, giá trị hiện có, migration)
 - Test Case đã viết
 - Tài liệu (URD/BRD, Business Rules, hướng dẫn)
 - Sprint đang chạy và Sprint kế tiếp
+- Dòng RTM
 
-Gọi `ba-agent-traceability` để so sánh phiên bản và đề xuất liên kết bị ảnh hưởng.
+Gọi `ba-agent-traceability` để so sánh phiên bản và đề xuất liên kết bị ảnh hưởng. BA kiểm tra danh sách AI đề xuất và loại bỏ liên kết suy đoán **trước khi** trình quyết định.
 
 ### Bước 4 — Quyết định và xử lý
 - PO quyết định ưu tiên và cách xử lý Product Backlog.
 - Scrum Team xử lý Sprint theo Scrum; BA không tự điều chỉnh Sprint Backlog.
-- Ghi `Decision`, `Approver`, `Effective Version`.
+- Ghi `Decision`, `Approver`, `Effective Version`. `Deferred` hoặc `Pending`: giữ `Status = Under Review` và ghi ngày xem lại.
 - Thay đổi liên quan ngân sách, hợp đồng hoặc nghiệm thu chính thức: vượt thẩm quyền PO, phải chuyển đúng cấp theo quy định nội bộ.
 
 ### Bước 5 — BA kiểm tra và cập nhật
-- BA kiểm tra lại danh sách ảnh hưởng do AI đề xuất; loại bỏ liên kết suy đoán.
 - Cập nhật Story/AC, Business Rules, RTM và tài liệu theo `Effective Version`.
+- Gọi `ba-agent-traceability` để đối chiếu lại RTM sau cập nhật. Tuỳ chọn: gọi `ba-agent-qa-review` để rà soát tài liệu đã đổi.
 - Thực hiện `Communication` tới các bên liên quan.
 
+### Bước 6 ⚠ — Quay lại đúng điểm kiểm soát
+Áp dụng mọi dòng khớp với thay đổi đã duyệt:
+
+| Thay đổi | Quay lại | Việc phải làm |
+| --- | --- | --- |
+| Chỉ làm rõ, không đổi hành vi (Decision) | Không quay lại | Ghi Decision Log |
+| Business Rule hoặc TO-BE | `ba-02-business-analysis` | Business xác nhận lại phần đổi, đóng lại G2 cho phần đó |
+| Story hoặc AC | `ba-03-specification` Bước 5–6 | Story về `In Review`, đóng lại G3 cho phần đổi |
+| Story đã qua DoR | `ba-04-refinement` | Team và PO rà lại DoR trước khi tiếp tục |
+| Test Case | `ba-06-test-uat` | QA cập nhật Test Case, dòng RTM mới về `Not Run`, retest |
+
+CR chỉ chuyển `Implemented` khi các điểm kiểm soát trên đã xong.
+
 ## Đầu ra
+Đường dẫn `assets/` trong bảng là template chỉ đọc; bản ghi thật lưu tại `ba-records/<project>/` (xem mục "Template và bản ghi dự án" trong `POWER.md`).
+
 | Đầu ra | Vị trí |
 | --- | --- |
 | Decision Log | `assets/decision-log-cr.md` — phần Decision |
@@ -107,5 +125,5 @@ Chi tiết tại `references/quality-gate-change.md`. Tóm tắt — một thay 
 - `assets/decision-log-cr.md` — template Decision Log và Change Request.
 - `references/quality-gate-change.md` — gate thay đổi, quy tắc phân tích ảnh hưởng và quy tắc dừng bước.
 - RTM dùng chung: `skills/ba-03-specification/assets/rtm.md`.
-- Skill liên quan: `ba-agent-traceability` (Bước 3, Bước 5), `ba-agent-qa-review` (rà soát tài liệu sau thay đổi).
-- Quy trình trước: `ba-04-refinement`. Kế tiếp: `ba-06-test-uat`.
+- Skill liên quan: `ba-agent-traceability` (Bước 3, Bước 5), `ba-agent-qa-review` (Bước 5, tuỳ chọn).
+- Đây là luồng theo sự kiện, không phải một chặng cố định: gọi được từ BA-03 trở đi khi có câu hỏi hoặc thay đổi; không có thay đổi thì bỏ qua. Sau khi xong, quay lại theo Bước 6.

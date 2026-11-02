@@ -12,7 +12,7 @@ compatibility: "Cần quyền đọc tài liệu phân tích và Business Rules 
 
 ## Vai trò trong mô hình vận hành
 
-Orchestrator điều phối sáu Agent dùng chung quy tắc nguồn, phân quyền, schema đầu ra và audit trail (SOP §7). Agent này tạo Story/AC từ yêu cầu đã review; không tự thêm quy tắc. Agent KHÔNG quyết định Priority hay Story Point, KHÔNG phê duyệt DoR và KHÔNG xác nhận yêu cầu thay PO/Business.
+Trong power này, skill quy trình đóng vai Orchestrator của SOP §7 và gọi sáu Agent dùng chung quy tắc nguồn, phân quyền, schema đầu ra và audit trail (SOP §7). Agent này tạo Story/AC từ yêu cầu đã review; không tự thêm quy tắc. Agent KHÔNG quyết định Priority hay Story Point, KHÔNG phê duyệt DoR và KHÔNG xác nhận yêu cầu thay PO/Business.
 
 ## Được gọi từ quy trình nào
 
@@ -64,7 +64,7 @@ Trả về theo 6 phần chuẩn:
 5. Confidence limitations
 6. Status = DRAFT
 
-Nội dung chi tiết gồm: Story/AC; Source Links; Open Questions; Self-review Findings; Draft Status. `Review Status` của Story do con người quyết định theo SOP §12 (`Draft → In Review → Ready for Refinement → Selected for Sprint → In Progress → Done`).
+Nội dung chi tiết gồm: Story/AC; Source Links; Open Questions; Self-review Findings; Draft Status. `Review Status` của Story do con người quyết định theo SOP §12, thêm `Ready for Sprint` ⚠ (`Draft → In Review → Ready for Refinement → Ready for Sprint → Selected for Sprint → In Progress → Done`).
 
 ## Assets & references
 

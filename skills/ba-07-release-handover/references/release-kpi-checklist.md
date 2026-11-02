@@ -14,12 +14,13 @@
 - [ ] Không còn `Version Mismatch` giữa tài liệu và RTM.
 - [ ] Known Issues có mức tác động và cách xử lý tạm.
 - [ ] CR còn mở đã được bàn giao kèm `Status` và người theo dõi.
-- [ ] Đầu mối hỗ trợ sau bàn giao đã xác định (HO-008).
+- [ ] Đầu mối hỗ trợ sau phát hành đã xác định (HO-008).
+- [ ] Mọi điều kiện của `Conditional Acceptance` đã bàn giao kèm owner và hạn.
 - [ ] Action Items từ Retrospective có owner và hạn.
 - [ ] Không có dữ liệu nhạy cảm trong tài liệu đưa lên Knowledge Base chưa được phê duyệt.
 
 ### Quy tắc dừng bước
-Dừng và báo khi: chưa có quyết định nghiệm thu; RTM còn `Missing Link` ở Story phát hành; không xác định được người nhận bàn giao; tài liệu AI chưa review nhưng bị yêu cầu xuất bản.
+Dừng và báo khi: chưa có quyết định nghiệm thu hoặc `Decision` không phải `Accept` / `Conditional Acceptance`; RTM còn `Missing Link` ở Story phát hành; không xác định được người nhận bàn giao; tài liệu AI chưa review nhưng bị yêu cầu xuất bản.
 
 ---
 
@@ -35,7 +36,19 @@ Dừng và báo khi: chưa có quyết định nghiệm thu; RTM còn `Missing L
 | AI Acceptance Rate | Đầu ra AI được chấp nhận với ít hoặc không cần sửa lớn / đầu ra được review | Đo baseline | Mọi quy trình dùng AI |
 | AI Unsupported Claim Rate | Kết luận quan trọng không được nguồn hỗ trợ / kết luận được kiểm tra | Hướng tới 0 | Mọi quy trình dùng AI |
 
-SOP ghi rõ: các mục tiêu này là **ngưỡng khởi điểm đề xuất**, không phải chuẩn bắt buộc của Scrum. Đo baseline trong 2–4 Sprint trước khi điều chỉnh. `Traceability Coverage` lấy trực tiếp từ cột `Coverage Status` của RTM.
+SOP ghi rõ: các mục tiêu này là **ngưỡng khởi điểm đề xuất**, không phải chuẩn bắt buộc của Scrum. Đo baseline trong 2–4 Sprint trước khi điều chỉnh. 
+
+BA tổng hợp số đo khi đóng mỗi Release và ghi vào `ba-records/<project>/kpi.md`; PO xem xét. Nguồn số liệu:
+
+| KPI | Nguồn |
+| --- | --- |
+| Requirement Completeness | Kết quả G1, G2, G3 |
+| AC Testability | G3, DoR tiêu chí 3 |
+| Traceability Coverage | RTM: dòng cần test không ở `Missing Link` hoặc `Orphan`, trên tổng dòng cần test |
+| Rework Rate | Change Log, các Story quay lại BA-02 hoặc BA-03 |
+| Clarification Response Time | Ngày hỏi và ngày trả lời của `Open Questions`, Decision Log |
+| AI Acceptance Rate | `Review Decision` trong `ai-run-log.md` |
+| AI Unsupported Claim Rate | `ai-review-log.md` và kết quả review của BA |
 
 ---
 
@@ -70,8 +83,8 @@ Dùng khi đóng một Release để soát lại toàn chuỗi:
 | --- | --- | --- | --- |
 | G1 | BA-01 | ID, mục tiêu, nguồn, người phụ trách; tách bạch AI | Không vào BA-02 |
 | G2 | BA-02 | Rule có nguồn; giả định được đánh dấu; Business xác nhận TO-BE; câu hỏi mở có owner | Không vào BA-03 |
-| G3 | BA-03 | AC kiểm thử được; không giấu giả định; có xác nhận và phiên bản | Không vào refinement |
-| DoR | BA-04 | 8 tiêu chí DoR tham khảo | Story chưa `Ready for Refinement` |
-| Gate thay đổi | BA-05 | Người quyết định, lý do, phiên bản, thông báo, truy vết | Không chuyển `Implemented` |
-| G4 | BA-06 | Kết quả có bằng chứng; defect nghiêm trọng đã xử lý hoặc chấp nhận rủi ro đúng thẩm quyền | Không vào BA-07 |
+| G3 | BA-03 | AC kiểm thử được; không giấu giả định; có xác nhận và phiên bản | Story chưa `Ready for Refinement` |
+| DoR | BA-04 | 8 tiêu chí DoR tham khảo | Story chưa `Ready for Sprint` ⚠, trừ khi PO chấp nhận rủi ro và ghi Decision Log |
+| Gate thay đổi | BA-05, khi có thay đổi | Người quyết định, lý do, phiên bản, thông báo, truy vết; đã quay lại đúng điểm kiểm soát | Không chuyển `Implemented` |
+| G4 | BA-06 | Kết quả có bằng chứng; defect nghiêm trọng đã xử lý hoặc chấp nhận rủi ro đúng thẩm quyền; `Decision` là `Accept` hoặc `Conditional Acceptance` ⚠ | Không vào BA-07 |
 | Gate bàn giao | BA-07 | Đúng phiên bản, người nhận, tài liệu AI đã review, vấn đề mở có owner | Không đóng Release |

@@ -1,7 +1,7 @@
 # BA-T01 — Requirement Intake Record
 
-Template này khớp sheet `Intake` của `assets/_archive/workbook-v1.0.md` (16 cột). Mỗi yêu cầu là **một record**.
-Sao chép khối bên dưới, điền vào, rồi lưu vào hệ thống quản lý công việc của dự án.
+Template này khớp sheet `Intake` của `assets/_archive/workbook-v1.0.md` (16 cột). Trường ⚠ là phần thêm để ghi kết quả phân loại ở Bước 2, sheet chưa có cột này. Mỗi yêu cầu là **một record**.
+Sao chép khối bên dưới, điền vào, rồi lưu vào `ba-records/<project>/intake/` hoặc hệ thống quản lý công việc đã ánh xạ của dự án.
 
 ## Record
 
@@ -9,6 +9,7 @@ Sao chép khối bên dưới, điền vào, rồi lưu vào hệ thống quản
 | --- | --- | --- |
 | Requirement ID | `<REQ-000>` | Duy nhất toàn dự án; kiểm tra trùng trước khi phát hành |
 | Request Title | `<tiêu đề ngắn, không diễn giải>` | Lấy theo ngôn ngữ của người yêu cầu |
+| Request Type ⚠ | `<New Feature / Enhancement / Defect / Technical Change / Compliance / Unknown>` | Đúng một loại; `Unknown` phải kèm câu hỏi mở |
 | Requester | `<tên / bộ phận>` | Nếu không xác định được: `Unknown` + câu hỏi mở |
 | Business Owner | `<tên / vai trò>` | Không tự suy diễn từ nội dung yêu cầu |
 | Business Problem | `<vấn đề hiện tại>` | Chỉ ghi phần có bằng chứng |
@@ -16,12 +17,12 @@ Sao chép khối bên dưới, điền vào, rồi lưu vào hệ thống quản
 | Scope | `<phạm vi dự kiến>` | Mức sơ bộ, không chốt phạm vi cuối ở BA-01 |
 | Out of Scope | `<ngoài phạm vi>` | Ghi rõ nếu nguồn có nêu |
 | Priority | `<PO xác định>` | **BA và AI không tự điền** |
-| Source Documents + Version | `<URL + phiên bản>` | Mỗi nguồn một dòng; thiếu phiên bản là lỗi G1 |
+| Source Documents + Version | `<URL hoặc nơi lưu + phiên bản>` | Mỗi nguồn một dòng; nguồn không đánh phiên bản ghi ngày và người ghi nhận; thiếu cả hai là lỗi G1 |
 | Dependencies | `<hệ thống / nhóm / yêu cầu khác>` | Để trống nếu chưa phát hiện, không suy đoán |
 | Target Date | `<ngày mong muốn>` | Là mong muốn của requester, không phải cam kết |
 | Open Questions | `<danh sách câu hỏi>` | Mỗi câu hỏi gắn một người trả lời dự kiến |
 | AI Review Status | `<Draft - cần review / Reviewed / Not used>` | Mặc định `Draft - cần review` khi có dùng AI |
-| BA/PO Decision | `<Chưa quyết định / Accepted for Analysis / Rejected>` | Người có thẩm quyền điền |
+| BA/PO Decision | `<Chưa quyết định / Accepted for Analysis / Rejected>` | Người có thẩm quyền điền, kèm tên, ngày và đường đi đã chọn |
 | Status | `<New / Clarification Required / Accepted for Analysis / Rejected>` | Theo SOP §12 |
 
 ## Không tự điền (chỉ con người có thẩm quyền)

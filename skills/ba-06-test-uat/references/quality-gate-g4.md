@@ -8,16 +8,17 @@ Gate này đóng lại BA-06. Không đạt G4 thì không chuyển sang BA-07.
 | --- | --- | --- | --- |
 | 1 | Kết quả có bằng chứng | Mỗi dòng `Pass`/`Fail` có `Evidence Link` mở được | |
 | 2 | Defect nghiêm trọng được xử lý | Đã sửa và retest, **hoặc** có chấp nhận rủi ro đúng thẩm quyền kèm tên + ngày | |
+| 3 ⚠ | Có quyết định nghiệm thu cho phép đi tiếp | `Decision` là `Accept` hoặc `Conditional Acceptance`, có `Approver` và `Approval Date`; `Conditional Acceptance` có `Conditions` kèm owner và hạn | |
 
 ## Tiêu chí bổ sung nên kiểm tra
 - [ ] Mọi AC cần kiểm thử đều có `Test Case ID` trong RTM; không còn `Missing Link`.
 - [ ] Không có dòng RTM ở trạng thái `Orphan` chưa được giải thích.
 - [ ] `Release/Build` trong UAT Report khớp build thực sự được test.
-- [ ] Mỗi `Scenario ID` trỏ về một `AC ID`.
+- [ ] Mỗi `Scenario ID` trỏ về một `Story ID` + `AC ID`.
 - [ ] `Blocked` có lý do và tên dependency đang chặn.
-- [ ] `Not Run` không bị đếm vào `Passed`.
+- [ ] `Not Run` và `Skipped` không bị đếm vào `Passed`; `Skipped` có lý do và người duyệt.
 - [ ] Mọi sai khác đã được phân loại: Defect / Requirement gap / Change request.
-- [ ] Requirement gap đã mở CR hoặc Story sửa AC, không bị bỏ qua.
+- [ ] Requirement gap đã mở CR, không bị bỏ qua.
 - [ ] RTM đã cập nhật `Test Result`, `UAT Result`, `Evidence Link`, `Coverage Status`.
 - [ ] Dữ liệu dùng cho UAT là dữ liệu được phép, không có thông tin nhạy cảm trong môi trường chưa phê duyệt.
 - [ ] `Open Risks` có người theo dõi.
@@ -26,7 +27,7 @@ Gate này đóng lại BA-06. Không đạt G4 thì không chuyển sang BA-07.
 | Loại | Dấu hiệu | Chuyển tới | Ai quyết định |
 | --- | --- | --- | --- |
 | Defect | Hành vi khác AC đã duyệt | QA/Dev | QA về severity, PO về thứ tự sửa |
-| Requirement gap | AC/Business Rule chưa mô tả hành vi này | `ba-03-specification` hoặc `ba-05-change-management` | Business Owner về nội dung quy tắc |
+| Requirement gap | AC/Business Rule chưa mô tả hành vi này | `ba-05-change-management`, rồi quay lại theo Bước 6 của BA-05 | Business Owner về nội dung quy tắc |
 | Change request | Nghiệp vụ muốn hành vi khác AC đã duyệt | `ba-05-change-management` | PO (A*) / cấp cao hơn nếu vượt thẩm quyền |
 
 Chưa phân loại được: ghi `[Unknown]`, hỏi Business Owner. Không tự xếp loại để đóng gate.
@@ -58,7 +59,7 @@ Khi dừng: giữ `Status = Not Run`/`Blocked`, `Decision = Pending`, ghi lý do
 | Đóng defect không retest | Lỗi quay lại ở production | Bắt buộc retest kèm bằng chứng |
 | Xếp requirement gap thành defect | Sửa code sai, quy tắc vẫn thiếu | Phân loại lại, mở CR |
 | Chạy UAT trên build khác build phát hành | Bằng chứng vô hiệu | Khoá `Release/Build` trước khi chạy |
-| Để AI điền `Expected Result` | Lệch AC đã duyệt | Lấy `Expected Result` thẳng từ AC |
+| Để AI tự suy ra `Expected Result` | Lệch AC đã duyệt | Lấy `Expected Result` thẳng từ `Then` của AC |
 | Chấp nhận rủi ro không ghi tên người | Không ai chịu trách nhiệm | Ghi `Approver` + ngày |
 
 ## Người ký G4

@@ -18,6 +18,7 @@ Chuyển nhu cầu thành yêu cầu rõ ràng, có thể phát triển và ki�
 - Tài liệu phân tích đã đạt Quality Gate G2.
 - Cần phân rã Epic/Feature thành Story và viết Acceptance Criteria.
 - Story cũ viết lại vì không kiểm thử được hoặc thiếu luồng ngoại lệ.
+- Quay lại từ BA-05 sau khi CR được duyệt: chạy Bước 5–6 và G3 cho phần Story/AC thay đổi.
 
 Không dùng skill này để ước lượng Story Point hay xếp thứ tự ưu tiên — việc đó thuộc `ba-04-refinement` và thẩm quyền của Team/PO.
 
@@ -64,26 +65,29 @@ Mỗi luồng chính cần ít nhất một trường hợp lỗi hoặc ngoại
 ### Bước 4 — Liên kết truy vết
 - Gắn `Requirement IDs` và `Business Rule IDs` cho từng Story/AC.
 - Ghi nguồn cho các AC suy ra từ quy tắc nghiệp vụ.
-- Tạo/cập nhật dòng trong RTM: `assets/rtm.md`.
+- Tạo dòng RTM **nháp** trong `ba-records/<project>/rtm.md` theo template `assets/rtm.md`, ghi `Notes = Nháp - chờ xác nhận`.
 
 ### Bước 5 — AI tạo bản nháp và kiểm tra
 Gọi skill `ba-agent-specification`. Agent kiểm tra mơ hồ, thiếu luồng, trùng lặp và mâu thuẫn, nhưng **không tự thêm quy tắc**.
 Sau đó gọi `ba-agent-qa-review` để rà soát độc lập trước khi đưa ra Team.
 
 ### Bước 6 — Review và xác nhận
-- BA review toàn bộ nội dung AI tạo.
+- BA review toàn bộ nội dung AI tạo, rồi chuyển Story sang `In Review`.
 - Dev/Tech Lead đánh giá khả thi; QA đánh giá testability.
-- PO/Business xác nhận theo thẩm quyền; cập nhật `Version` và `Review Status`.
+- PO/Business xác nhận theo thẩm quyền; cập nhật `Version` ⚠, `Confirmed By / Date` ⚠ và `Review Status`.
+- Bỏ ghi chú nháp ở dòng RTM tương ứng.
 
 ## Đầu ra
+Đường dẫn `assets/` trong bảng là template chỉ đọc; bản ghi thật lưu tại `ba-records/<project>/` (xem mục "Template và bản ghi dự án" trong `POWER.md`).
+
 | Đầu ra | Vị trí |
 | --- | --- |
-| User Story + AC | `assets/user-story-ac.md` — khớp sheet `User Story AC` (18 cột) |
+| User Story + AC | `assets/user-story-ac.md` — khớp sheet `User Story AC` (18 cột), thêm các trường ⚠ |
 | RTM | `assets/rtm.md` — khớp sheet `RTM` (10 cột), dùng chung với BA-06/BA-07 |
 | URD/BRD hoặc đặc tả phù hợp | Cập nhật từ Business Analysis Document |
 | Decision Log | Dùng BA-T05 qua skill `ba-05-change-management` khi có quyết định thay đổi |
 
-Chuỗi trạng thái Story (SOP §12): `Draft` → `In Review` → `Ready for Refinement` → `Selected for Sprint` → `In Progress` → `Done`.
+Chuỗi trạng thái Story (SOP §12, thêm `Ready for Sprint` ⚠): `Draft` → `In Review` → `Ready for Refinement` → `Ready for Sprint` → `Selected for Sprint` → `In Progress` → `Done`. Người chuyển từng trạng thái: xem `POWER.md`.
 
 ## Quality Gate G3
 Chi tiết tại `references/quality-gate-g3.md`. Tóm tắt:
@@ -92,7 +96,7 @@ Chi tiết tại `references/quality-gate-g3.md`. Tóm tắt:
 - [ ] Có xác nhận của người có thẩm quyền
 - [ ] Có phiên bản tài liệu
 
-Không đạt G3 thì Story chưa được vào refinement.
+Đạt G3 thì Story chuyển `Ready for Refinement`. Không đạt G3 thì Story chưa được vào refinement.
 
 ## RACI
 | BA | PO | Dev/Tech | QA | Business |
@@ -103,5 +107,5 @@ Không đạt G3 thì Story chưa được vào refinement.
 - `assets/user-story-ac.md` — template Story và Acceptance Criteria.
 - `assets/rtm.md` — template Requirement Traceability Matrix; **dùng chung**, được `ba-06-test-uat`, `ba-07-release-handover`, `ba-agent-test-design` và `ba-agent-traceability` tham chiếu.
 - `references/quality-gate-g3.md` — checklist G3, tiêu chí AC kiểm thử được và quy tắc dừng bước.
-- Skill liên quan: `ba-agent-specification` (Bước 5), `ba-agent-qa-review` (Bước 5), `ba-agent-traceability` (Bước 4).
+- Skill liên quan: `ba-agent-specification` (Bước 5), `ba-agent-qa-review` (Bước 5).
 - Quy trình trước: `ba-02-business-analysis`. Kế tiếp: `ba-04-refinement`.

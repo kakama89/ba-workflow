@@ -1,6 +1,6 @@
 # Quality Gate G1 — Tiếp nhận và sàng lọc yêu cầu
 
-Gate này đóng lại BA-01. Không đạt G1 thì không chuyển sang BA-02.
+Gate này đóng lại BA-01. Chỉ chuyển sang BA-02 khi đạt G1 **và** PO hoặc người có thẩm quyền đã đặt `Status = Accepted for Analysis`.
 
 ## Checklist bắt buộc
 
@@ -8,12 +8,12 @@ Gate này đóng lại BA-01. Không đạt G1 thì không chuyển sang BA-02.
 | --- | --- | --- | --- |
 | 1 | Có Requirement ID | ID duy nhất, không trùng bản ghi hiện có | |
 | 2 | Có mục tiêu | `Business Objective` không trống, không phải câu chung chung | |
-| 3 | Có nguồn | `Source Documents + Version` liệt kê URL **và** phiên bản | |
+| 3 | Có nguồn | `Source Documents + Version` liệt kê URL hoặc nơi lưu **và** phiên bản; nguồn không đánh phiên bản ghi ngày và người ghi nhận | |
 | 4 | Có người phụ trách | `Requester` và `Business Owner` xác định được | |
 | 5 | Tách bạch AI và nội dung đã xác nhận | `AI Review Status` phản ánh đúng thực tế review | |
 
 ## Tiêu chí bổ sung nên kiểm tra
-- [ ] Đã phân loại đúng một trong: `New Feature`, `Enhancement`, `Defect`, `Technical Change`, `Compliance`, hoặc `Unknown` kèm câu hỏi mở.
+- [ ] `Request Type` ⚠ là đúng một trong: `New Feature`, `Enhancement`, `Defect`, `Technical Change`, `Compliance`, hoặc `Unknown` kèm câu hỏi mở.
 - [ ] `Scope` và `Out of Scope` ở mức sơ bộ, không phát biểu vượt quá nguồn.
 - [ ] Mỗi `Open Questions` đều có người trả lời dự kiến.
 - [ ] `Priority` và `BA/PO Decision` do con người điền, không phải AI.

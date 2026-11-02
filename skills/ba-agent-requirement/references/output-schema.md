@@ -30,8 +30,9 @@ Mọi phản hồi trả về đủ 6 phần, theo đúng thứ tự:
 |---|---|---|
 | Requirement ID | Định danh yêu cầu | Theo quy ước dự án; kiểm tra trùng trước khi cấp ID mới |
 | Request Title | Tên ngắn của yêu cầu | Lấy từ nguồn, không thêm phạm vi mới |
-| Requester | Người gửi yêu cầu | Chỉ điền khi có bằng chứng; nếu suy luận thì ghi nhãn `Inference` |
-| Business Owner | Người sở hữu nghiệp vụ | Chỉ điền khi có bằng chứng |
+| Request Type ⚠ | Phân loại yêu cầu | Trường thêm, sheet chưa có cột này; một giá trị enum kèm lý do và nguồn |
+| Requester | Người gửi yêu cầu | Chỉ điền khi có bằng chứng; nếu suy luận thì ghi nhãn `Inference`; không có căn cứ thì ghi `Unknown` |
+| Business Owner | Người sở hữu nghiệp vụ | Chỉ điền khi có bằng chứng; không có căn cứ thì ghi `Unknown` |
 | Business Problem | Vấn đề hiện tại | Trích từ nguồn, giữ nguyên ngữ nghĩa |
 | Business Objective | Kết quả mong muốn | Chỉ ghi objective có trong nguồn; objective chưa đo lường được → Open Question |
 | Scope | Phạm vi dự kiến | Ghi rõ đây là phạm vi *dự kiến*, chưa chốt |
@@ -47,7 +48,7 @@ Mọi phản hồi trả về đủ 6 phần, theo đúng thứ tự:
 
 ## 3. Giá trị enum
 
-- **Phân loại yêu cầu:** `New Feature | Enhancement | Defect | Technical Change | Compliance`
+- **Phân loại yêu cầu:** `New Feature | Enhancement | Defect | Technical Change | Compliance | Unknown`
 - **Nhãn bằng chứng:** `Fact | Assumption | Inference | Unknown`
 - **Status Intake (SOP §12):** `New → Clarification Required → Accepted for Analysis / Rejected`
 - **Status đầu ra của Agent:** `DRAFT` (cố định)
@@ -68,15 +69,16 @@ Không được chuyển `Assumption`, `Inference` hay `Unknown` thành `Fact` k
 Dừng và báo lại BA, không tự chế dữ liệu thay thế, khi gặp một trong các trường hợp:
 
 1. Không truy cập được Business Request hoặc tài liệu nguồn.
-2. Nguồn không có phiên bản hoặc không xác định được bản chính thức.
+2. Nguồn không có phiên bản, cũng không có ngày và người ghi nhận, hoặc không xác định được bản chính thức.
 3. Hai nguồn mâu thuẫn và không có nguồn nào được quy định là chính thức.
-4. Không xác định được Requester hoặc Business Owner từ bằng chứng.
-5. Yêu cầu có dấu hiệu trùng với Intake Record đã tồn tại.
-6. Nội dung chứa dữ liệu nhạy cảm hoặc bí mật chưa được phép xử lý bằng công cụ hiện tại.
+4. Yêu cầu có dấu hiệu trùng với Intake Record đã tồn tại.
+5. Nội dung chứa dữ liệu nhạy cảm hoặc bí mật chưa được phép xử lý bằng công cụ hiện tại.
+
+Thiếu Requester hoặc Business Owner không phải điều kiện dừng của Agent: ghi `Unknown` và tạo câu hỏi làm rõ. Record vẫn chưa thể đạt G1 cho tới khi BA xác định được.
 
 Khi dừng: nêu rõ bước dừng, lý do, nguồn liên quan và thông tin cần BA cung cấp.
 
 ## 6. Idempotency và audit trail
 
 - Trước khi tạo Intake Record mới, tra theo `Request Title` + `Source Documents + Version` + `Requester`. Nếu đã có bản ghi cho cùng Business Request, cập nhật bản nháp hiện có thay vì tạo mới.
-- Mỗi lần chạy ghi lại: prompt version, model/version, danh sách tài liệu đầu vào kèm phiên bản, đầu ra tạo thành, người review và quyết định (SOP §8).
+- Mỗi lần chạy ghi lại: prompt version, model/version, danh sách tài liệu đầu vào kèm phiên bản, đầu ra tạo thành, người review và quyết định (SOP §8), theo template `assets/ai-run-log.md` ở gốc power; bản ghi thật tại `ba-records/<project>/ai-run-log.md`.
