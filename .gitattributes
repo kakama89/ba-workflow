@@ -1,0 +1,19 @@
+# Bản lưu trữ tài liệu nguồn phải giữ nguyên byte.
+#
+# Lý do: core.autocrlf=true trên máy này sẽ đổi LF -> CRLF khi checkout,
+# làm lệch hash SHA-256 đã ghi trong assets/_archive/README.md và phá vỡ mục đích
+# lưu trữ nguyên văn của prompt-pack-v1.0.md và pack-readme-v1.0.md
+# (hai file là bản sao chép byte-for-byte từ tài liệu gốc đã bị xoá).
+#
+# Đã đo: blob trong index khớp hash gốc (436cdcc9...), nhưng bản checkout
+# không đánh dấu -text sẽ ra 148b55c7... — lệch.
+assets/_archive/prompt-pack-v1.0.md -text
+assets/_archive/pack-readme-v1.0.md -text
+
+# Chỉ hai file trên là bản sao byte-for-byte của tài liệu gốc đã bị xoá,
+# nên chỉ chúng bị đóng băng line ending. Trong cùng assets/_archive/, các file
+# sop-v1.0.md, workbook-v1.0.md và README.md là bản trích xuất/chuyển đổi
+# bằng script, không có hash gốc ràng buộc, nên không đóng băng.
+#
+# Các file skill còn lại vẫn chuẩn hoá line ending bình thường để nhất quán
+# khi làm việc chéo nền tảng.

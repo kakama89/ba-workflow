@@ -1,0 +1,27 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "ba-agile-ai",
+  "version": "1.0.0",
+  "description": "Quy trình BA Agile/Scrum có kiểm soát AI Agent: 7 quy trình (intake, analysis, specification, refinement, change management, test/UAT, release handover), 7 quality gate và 6 AI agent chỉ tạo bản nháp để người có thẩm quyền review.",
+  "author": { "name": "toaidx1" },
+  "keywords": [
+    "business analysis",
+    "BA",
+    "agile",
+    "scrum",
+    "requirement",
+    "user story",
+    "acceptance criteria",
+    "RTM",
+    "traceability",
+    "UAT",
+    "quality gate",
+    "DoR",
+    "change management",
+    "release handover",
+    "phân tích nghiệp vụ",
+    "quy trình BA",
+    "yêu cầu nghiệp vụ",
+    "kiểm soát AI"
+  ]
+}
