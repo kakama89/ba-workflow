@@ -29,7 +29,9 @@ Mọi phản hồi trả về đủ 6 phần, theo đúng thứ tự:
 | Trường | Ý nghĩa | Quy tắc |
 |---|---|---|
 | Test Case ID | Định danh test case | `TC-xxx`; kiểm tra trùng trước khi cấp ID mới |
+| Story ID | Story chứa AC | Bắt buộc vì `AC ID` chỉ duy nhất trong một Story |
 | Requirement/AC ID | Liên kết truy vết | Bắt buộc; nhiều ID phân tách bằng dấu phẩy |
+| Scenario Type | Loại scenario | Một giá trị enum ở mục 4 |
 | Preconditions | Điều kiện tiền đề | Trạng thái hệ thống, dữ liệu nền, quyền truy cập |
 | Steps | Các bước thực hiện | Đánh số, mỗi bước một hành động, chạy lại được y hệt |
 | Test Data | Dữ liệu thử nghiệm | Giá trị cụ thể hoặc dạng giá trị; boundary nêu tại biên, dưới biên, trên biên |
@@ -74,6 +76,6 @@ Khi dừng: nêu rõ test case bị chặn, AC liên quan, lý do và thông tin
 
 ## 6. Idempotency và audit trail
 
-- Trước khi tạo test case mới, tra theo `Requirement/AC ID` + loại scenario. Nếu đã có test case cho cùng AC và cùng scenario, cập nhật bản nháp hiện có thay vì tạo mới.
-- Dòng RTM đề xuất chỉ là nháp; liên kết chính thức do người có thẩm quyền cập nhật theo `skills/ba-03-specification/assets/rtm.md`.
-- Mỗi lần chạy ghi lại: prompt version, model/version, AC và Business Rule đầu vào kèm phiên bản, test case tạo thành, người review và quyết định (SOP §8).
+- Trước khi tạo test case mới, tra theo `Story ID` + `AC ID` + `Scenario Type`, cùng nội dung `Test Data`. Nếu đã có test case khớp, cập nhật bản nháp hiện có thay vì tạo mới.
+- Dòng RTM đề xuất chỉ là nháp; liên kết chính thức do người có thẩm quyền cập nhật tại `ba-records/<project>/rtm.md`, theo template `skills/ba-03-specification/assets/rtm.md`.
+- Mỗi lần chạy ghi lại: prompt version, model/version, AC và Business Rule đầu vào kèm phiên bản, test case tạo thành, người review và quyết định (SOP §8), theo template `assets/ai-run-log.md` ở gốc power; bản ghi thật tại `ba-records/<project>/ai-run-log.md`.

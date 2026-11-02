@@ -60,7 +60,7 @@ Bảng finding đặt trong phần 3, dùng đúng bố cục 7 cột của `ass
 | Minor | Ảnh hưởng chất lượng nhưng không chặn công việc: diễn đạt chưa gọn, thiếu chi tiết phụ, liên kết truy vết của trường hợp biên còn thiếu |
 | Info | Ghi nhận để cải thiện, không phải lỗi: gợi ý trình bày, điểm nên làm rõ thêm ở vòng sau |
 
-Không hạ Severity để artifact đạt Quality Gate. Khi không xác định được mức, ghi mức thấp hơn kèm ghi chú trong `Confidence limitations`.
+Không hạ Severity để artifact đạt Quality Gate. Khi phân vân giữa hai mức, ghi mức cao hơn và nêu lý do trong `Confidence limitations`, để người review quyết định.
 
 ## 5. Lỗi xác định được và rủi ro cần xác minh
 
@@ -74,7 +74,7 @@ Hai loại này không được trình bày lẫn lộn trong cùng một findin
 Dừng và báo lại BA, không tự chế nội dung thay thế, khi:
 
 1. Artifact cần review không truy cập được hoặc không có phiên bản.
-2. Thiếu nguồn đối chiếu bắt buộc (Business Rules Catalog, Requirement gốc).
+2. Thiếu nguồn đối chiếu bắt buộc của giai đoạn đang review (xem mục Đầu vào trong `SKILL.md`). Business Rules Catalog chỉ bắt buộc từ BA-03 trở đi.
 3. Artifact đang ở trạng thái chưa hoàn thiện đến mức không thể review có ý nghĩa.
 4. Phát hiện artifact đã thay đổi trong lúc đang review.
 5. Một finding yêu cầu truy cập tài nguyên ngoài phạm vi được cấp quyền.
@@ -85,4 +85,4 @@ Khi dừng: nêu rõ phạm vi đã review được, phạm vi bị chặn, lý 
 ## 7. Idempotency và audit trail
 
 - Trước khi tạo finding mới, tra log theo `Artifact ID` + `Check Category` + nội dung finding. Nếu đã có, cập nhật dòng hiện có thay vì tạo dòng mới.
-- Mỗi lần review ghi lại: prompt version, model/version, artifact kèm phiên bản, danh sách finding, người review và quyết định (SOP §8).
+- Mỗi lần review ghi lại: prompt version, model/version, artifact kèm phiên bản, danh sách finding, người review và quyết định (SOP §8), theo template `assets/ai-run-log.md` ở gốc power; bản ghi thật tại `ba-records/<project>/ai-run-log.md`.

@@ -62,20 +62,22 @@ Riêng ở BA-04: **BA và AI không ước lượng, không quyết định Pri
 ### Bước 4 — Team chia nhỏ Story và ước lượng
 - Chia nhỏ theo cách Team thống nhất; mỗi Story mới phải giữ liên kết `Requirement ID` và `AC ID`.
 - Ước lượng theo phương pháp của Team. BA ghi nhận, không đề xuất con số.
-- Sau khi chia, cập nhật RTM: `skills/ba-03-specification/assets/rtm.md`.
+- Sau khi chia, cập nhật `ba-records/<project>/rtm.md` theo template `skills/ba-03-specification/assets/rtm.md`.
 
 ### Bước 5 — AI rà soát checklist
 Gọi `ba-agent-qa-review` để rà DoR và gợi ý câu hỏi; gọi `ba-agent-traceability` nếu có Story bị tách để kiểm tra liên kết.
 Con người xác nhận từng gợi ý; AI không tự đánh dấu Ready.
 
 ## Đầu ra
+Đường dẫn `assets/` trong bảng là template chỉ đọc; bản ghi thật lưu tại `ba-records/<project>/` (xem mục "Template và bản ghi dự án" trong `POWER.md`).
+
 | Đầu ra | Vị trí |
 | --- | --- |
 | Backlog được làm rõ | Cập nhật Story/AC trong hệ thống backlog |
 | Estimate do Team thống nhất | Do Team ghi; BA không điền thay |
 | Dependency và trạng thái sẵn sàng | `assets/dor-checklist.md` |
 
-Trạng thái Story chuyển từ `In Review` → `Ready for Refinement` → `Selected for Sprint` (SOP §12).
+Story vào BA-04 ở `Ready for Refinement` và chuyển sang `Ready for Sprint` ⚠ khi Team và PO kết luận đạt DoR. Không đạt thì giữ `Ready for Refinement`, trừ khi PO chấp nhận rủi ro và ghi Decision Log. Việc chuyển sang `Selected for Sprint` diễn ra ở Sprint Planning.
 
 ## Definition of Readiness
 BA-04 **không có Quality Gate đánh số** trong SOP; thay vào đó dùng DoR tham khảo.
@@ -93,5 +95,5 @@ Xem phân giải chi tiết tại `references/raci-refinement.md`.
 ## Assets & references
 - `assets/dor-checklist.md` — Definition of Readiness tham khảo và biên bản phiên refinement.
 - `references/raci-refinement.md` — ai quyết định gì trong refinement, các tình huống ranh giới.
-- Skill liên quan: `ba-agent-qa-review` (Bước 5), `ba-agent-traceability` (Bước 4 khi tách Story).
-- Quy trình trước: `ba-03-specification`. Kế tiếp: `ba-05-change-management`.
+- Skill liên quan: `ba-agent-qa-review` (Bước 5), `ba-agent-traceability` (Bước 5, khi có Story bị tách).
+- Quy trình trước: `ba-03-specification`. Kế tiếp: Sprint, rồi `ba-06-test-uat` khi có build. Phát sinh câu hỏi hoặc thay đổi: `ba-05-change-management`.

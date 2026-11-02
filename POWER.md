@@ -28,7 +28,7 @@ skill agent chỉ tạo bản nháp. Không skill nào tự đóng gate.**
 
 Mười điều trên áp dụng cho **mọi** tương tác trong power này, kể cả khi không
 gọi skill nào. Khối này giống hệt khối `## Rào cản bắt buộc` trong cả 13 skill;
-nếu sửa, phải sửa đồng thời ở đây và ở 13 skill rồi chạy kiểm định.
+nếu sửa, phải sửa đồng thời ở đây và ở 13 skill rồi chạy `python scripts/validate_power.py`.
 
 ## Thẩm quyền gate và phê duyệt
 
@@ -71,19 +71,70 @@ AI agent (chỉ tạo bản nháp):
 | `ba-agent-requirement` | BA-01 Bước 4 |
 | `ba-agent-analysis` | BA-02 Bước 6 |
 | `ba-agent-specification` | BA-03 Bước 5 |
-| `ba-agent-qa-review` | BA-03 Bước 5–6, BA-04 Bước 5 |
-| `ba-agent-test-design` | BA-06 Bước 1, Bước 4 |
-| `ba-agent-traceability` | BA-05 Bước 3/5, BA-06 Bước 1/6 |
+| `ba-agent-qa-review` | BA-01 Bước 5; BA-02 Bước 6; BA-03 Bước 5; BA-04 Bước 5; BA-05 Bước 5; BA-06 Bước 4; BA-07 Bước 2 |
+| `ba-agent-test-design` | BA-06 Bước 1, 6 |
+| `ba-agent-traceability` | BA-04 Bước 5; BA-05 Bước 3, 5; BA-06 Bước 1, 6; BA-07 Bước 1 |
+
+`ba-agent-qa-review` là bắt buộc ở BA-03 và BA-04, tuỳ chọn ở các quy trình còn lại.
+Orchestrator trong SOP §7 là mô hình đề xuất; power này không có skill riêng cho nó,
+skill quy trình đóng vai điều phối. BA-07 Bước 4 không có agent chuyên trách.
+
+BA-05 là luồng theo sự kiện, không phải một chặng cố định: gọi được từ BA-03 trở đi
+và quay lại đúng điểm kiểm soát theo Bước 6 của BA-05.
 
 ## Tài nguyên dùng chung
 
-- `skills/ba-03-specification/assets/rtm.md` — RTM dùng chung (10 cột). Các
-  skill khác chỉ tham chiếu theo đường dẫn, không tạo bản sao.
-- `skills/ba-05-change-management/assets/decision-log-cr.md` — Decision Log /
-  Change Record dùng chung.
+- `skills/ba-03-specification/assets/rtm.md` — template RTM dùng chung (10 cột).
+- `skills/ba-05-change-management/assets/decision-log-cr.md` — template Decision
+  Log / Change Record dùng chung.
+- `assets/ai-run-log.md` — template audit trail cho mọi lần chạy AI.
 - `assets/_archive/` — bản lưu trữ nguyên văn của SOP, workbook và prompt pack
   gốc (đã bị xoá khỏi dự án). Mọi trích dẫn `SOP §n`, `Prompt Pack §n`, tên cột
   sheet đều đối chiếu được tại đây.
+
+## Template và bản ghi dự án
+
+Mọi file trong power là **template chỉ đọc**. Không ghi dữ liệu dự án vào đó, vì
+power dùng chung cho mọi dự án và có thể bị ghi đè khi cài lại. Bản ghi thật lưu
+trong repo của từng dự án:
+
+| Bản ghi | Vị trí trong `ba-records/<project>/` |
+| --- | --- |
+| Intake Record | `intake/<REQ-ID>.md` |
+| Business Analysis Document | `analysis/<BA-DOC-ID>.md` |
+| Story và AC | `stories/<US-ID>.md` |
+| RTM | `rtm.md` |
+| Decision Log và CR | `change-log.md` |
+| Biên bản refinement và DoR | `refinement/<YYYY-MM-DD>.md` |
+| Test Case | `test-cases/<TC-ID>.md` |
+| UAT Report | `uat/<Release>.md` |
+| Handover Pack | `handover/<Release>.md` |
+| Log finding của QA Review | `ai-review-log.md` |
+| Audit trail AI | `ai-run-log.md` |
+| KPI | `kpi.md` |
+
+Dự án dùng Jira, Confluence hoặc hệ thống khác thì ghi ánh xạ vào
+`ba-records/<project>/README.md`. Chưa biết `<project>` hoặc nơi lưu thì hỏi, không
+tự chọn. Các quy tắc chống trùng tra trên những bản ghi này.
+
+Quy ước đường dẫn: trong một skill, `assets/…` và `references/…` tính từ thư mục
+skill đó; riêng `assets/_archive/…`, `assets/ai-run-log.md` và `skills/…` tính từ
+gốc power.
+
+## Trạng thái Story
+
+SOP §12, thêm `Ready for Sprint` ⚠ để tách "được vào refinement" với "đạt DoR".
+
+| Chuyển sang | Điều kiện | Người chuyển |
+| --- | --- | --- |
+| `Draft` | Story mới tạo | BA hoặc AI |
+| `In Review` | BA đã review, gửi xác nhận; hoặc CR đã duyệt làm đổi Story/AC | BA |
+| `Ready for Refinement` | Đạt G3 | PO/Business theo thẩm quyền |
+| `Ready for Sprint` ⚠ | Đạt DoR | Team và PO |
+| `Selected for Sprint` | Sprint Planning | Team và PO |
+| `In Progress`, `Done` | Theo quy ước của Team | Team |
+
+Trường hoặc giá trị đánh dấu ⚠ là phần mở rộng so với SOP/workbook v1.0.
 
 ## Nguyên tắc vận hành
 
@@ -92,5 +143,5 @@ AI agent (chỉ tạo bản nháp):
 - Không đọc nguồn chưa được cấp quyền; không đọc được thì dừng và hỏi, không
   đoán nội dung.
 - Cột biểu mẫu trong `assets/` của từng skill khớp đúng tên cột trong
-  `assets/_archive/workbook-v1.0.md`.
+  `assets/_archive/workbook-v1.0.md`; trường đánh dấu ⚠ là phần thêm.
 - Chi tiết mục lục và khác biệt SOP/workbook: xem `README.md` ở gốc power.

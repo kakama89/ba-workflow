@@ -84,4 +84,4 @@ Khi dừng: nêu rõ bước dừng, lý do, nguồn liên quan, mục phân tí
 ## 6. Idempotency và audit trail
 
 - Trước khi tạo tài liệu phân tích mới, tra theo `Document ID`, `Scope` và `Source References`. Nếu đã có bản nháp cho cùng phạm vi, cập nhật và tăng `Version` thay vì tạo mới.
-- Mỗi lần chạy ghi lại: prompt version, model/version, danh sách nguồn kèm phiên bản, đầu ra tạo thành, người review và quyết định (SOP §8).
+- Mỗi lần chạy ghi lại: prompt version, model/version, danh sách nguồn kèm phiên bản, đầu ra tạo thành, người review và quyết định (SOP §8), theo template `assets/ai-run-log.md` ở gốc power; bản ghi thật tại `ba-records/<project>/ai-run-log.md`.

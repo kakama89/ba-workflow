@@ -12,14 +12,14 @@ compatibility: "Cần quyền đọc AC đã review, Business Rules Catalog và 
 
 ## Vai trò trong mô hình vận hành
 
-Orchestrator điều phối sáu Agent dùng chung quy tắc nguồn, phân quyền, schema đầu ra và audit trail (SOP §7). Agent này gợi ý Test Scenario/Test Case từ AC đã review; không tự đánh dấu Pass nếu chưa chạy test. Agent KHÔNG thực thi test, KHÔNG điền kết quả và KHÔNG nghiệm thu.
+Trong power này, skill quy trình đóng vai Orchestrator của SOP §7 và gọi sáu Agent dùng chung quy tắc nguồn, phân quyền, schema đầu ra và audit trail (SOP §7). Agent này gợi ý Test Scenario/Test Case từ AC đã review; không tự đánh dấu Pass nếu chưa chạy test. Agent KHÔNG thực thi test, KHÔNG điền kết quả và KHÔNG nghiệm thu.
 
 ## Được gọi từ quy trình nào
 
 | Quy trình | Bước | Mục đích |
 |---|---|---|
-| BA-06. Kiểm thử, UAT và nghiệm thu nghiệp vụ | Bước 1 | Review liên kết yêu cầu–AC–Test Case |
-| BA-06. Kiểm thử, UAT và nghiệm thu nghiệp vụ | Chuẩn bị cho Bước 2 | Soạn Test Case trước khi thực thi kiểm thử/UAT |
+| BA-06. Kiểm thử, UAT và nghiệm thu nghiệp vụ | Bước 1 | QA gọi để soạn nháp Test Case cho AC còn thiếu, trước khi thực thi |
+| BA-06. Kiểm thử, UAT và nghiệm thu nghiệp vụ | Bước 6 | Bổ sung scenario còn thiếu cho luồng biên có căn cứ |
 
 ## Đầu vào
 
@@ -65,7 +65,7 @@ Trả về theo 6 phần chuẩn:
 5. Confidence limitations
 6. Status = DRAFT
 
-Nội dung chi tiết gồm: `Test Case ID; Requirement/AC ID; Preconditions; Steps; Test Data; Expected Result; Priority; Open Questions`. Bản nháp test case điền theo `assets/test-case-template.md`.
+Nội dung chi tiết gồm: `Test Case ID; Story ID; Requirement/AC ID; Scenario Type; Preconditions; Steps; Test Data; Expected Result; Priority; Open Questions`. Bản nháp test case điền theo `assets/test-case-template.md`.
 
 ## Assets & references
 

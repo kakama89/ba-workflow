@@ -39,7 +39,7 @@ Self-review Findings được trình bày trong phần 3, mỗi finding nêu rõ
 | Business Value | Giá trị nghiệp vụ | Ghi theo nguồn; nếu nguồn chưa nêu → Open Question |
 | Requirement IDs | Requirement liên kết | Bắt buộc; nhiều ID phân tách bằng dấu phẩy |
 | Business Rule IDs | Business Rule áp dụng | Chỉ liên kết BR đã có trong Business Rules Catalog |
-| AC ID | Định danh AC | `AC-01`, `AC-02`... trong phạm vi Story |
+| AC ID | Định danh AC | `AC-01`, `AC-02`... chỉ duy nhất trong phạm vi Story; tham chiếu từ nơi khác phải kèm `Story ID` |
 | Given | Bối cảnh | Nêu điều kiện tiền đề và quyền truy cập |
 | When | Hành động | Một hành động xác định, không mơ hồ |
 | Then | Kết quả mong đợi | Phải kiểm thử được; không dùng từ không đo được |
@@ -48,6 +48,8 @@ Self-review Findings được trình bày trong phần 3, mỗi finding nêu rõ
 | NFR | NFR áp dụng | Liên kết `NFR-xxx` đã có; không tự đặt ngưỡng |
 | Open Questions | Câu hỏi mở | Mỗi câu hỏi gắn với AC hoặc phần Story bị chặn |
 | Review Status | Trạng thái review | **Con người sở hữu** — Agent ghi `Draft` |
+| Version ⚠ | Phiên bản Story | Trường thêm; bản nháp AI bắt đầu ở `0.1` |
+| Confirmed By / Date ⚠ | Người xác nhận và ngày | Trường thêm; **con người sở hữu** — Agent để trống |
 
 ## 3. Quy tắc viết Story và AC
 
@@ -83,5 +85,5 @@ Khi dừng: nêu rõ Story/AC bị chặn, lý do, nguồn liên quan và thông
 ## 6. Idempotency và audit trail
 
 - Trước khi tạo Story mới, tra theo `Requirement IDs` + `Title` + `Epic ID`. Nếu đã có Story cho cùng phạm vi, cập nhật bản nháp hiện có thay vì tạo mới.
-- Mỗi lần chạy ghi lại: prompt version, model/version, tài liệu đầu vào kèm phiên bản, Story/AC tạo thành, người review và quyết định (SOP §8).
-- Sau khi Story được tạo, liên kết `Requirement ID → Story ID → AC ID` cần được ghi vào RTM theo `skills/ba-03-specification/assets/rtm.md`.
+- Mỗi lần chạy ghi lại: prompt version, model/version, tài liệu đầu vào kèm phiên bản, Story/AC tạo thành, người review và quyết định (SOP §8), theo template `assets/ai-run-log.md` ở gốc power; bản ghi thật tại `ba-records/<project>/ai-run-log.md`.
+- Sau khi Story được tạo, liên kết `Requirement ID → Story ID → AC ID` cần được ghi vào `ba-records/<project>/rtm.md` theo template `skills/ba-03-specification/assets/rtm.md`.

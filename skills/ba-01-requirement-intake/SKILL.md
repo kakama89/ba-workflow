@@ -23,7 +23,7 @@ Ghi nhận yêu cầu đúng nguồn, có người phụ trách và xác định
 | Đầu vào | Bắt buộc | Ghi chú |
 | --- | --- | --- |
 | Business Request | Có | Nội dung thô từ người yêu cầu |
-| Nguồn (email / ticket / URD / BRD / Confluence) | Có | Ghi URL và phiên bản |
+| Nguồn (email / ticket / URD / BRD / Confluence) | Có | Ghi URL hoặc nơi lưu và phiên bản; nguồn không đánh phiên bản (email, trao đổi trực tiếp đã ghi biên bản) ghi ngày và người ghi nhận |
 | Requester | Có | Nếu thiếu, ghi `Unknown` và tạo câu hỏi mở |
 | Business Owner | Có | Không tự suy diễn |
 | Mục tiêu và thời hạn mong muốn | Nếu có | Thời hạn là mong muốn; PO quyết định ưu tiên |
@@ -53,7 +53,7 @@ Riêng ở BA-01: **không tự phê duyệt hoặc suy diễn quy tắc nghiệ
 
 ### Bước 2 — Phân loại yêu cầu
 Chọn đúng một loại: `New Feature` | `Enhancement` | `Defect` | `Technical Change` | `Compliance`.
-Bằng chứng chưa đủ để phân loại thì ghi `Unknown` kèm câu hỏi mở.
+Bằng chứng chưa đủ để phân loại thì ghi `Unknown` kèm câu hỏi mở. Ghi kết quả vào trường `Request Type` ⚠ của record.
 
 ### Bước 3 — Kiểm tra tài liệu, phiên bản, phạm vi sơ bộ, dependency và quyền truy cập
 - Xác nhận tài liệu là bản chính thức và đúng phiên bản.
@@ -67,12 +67,32 @@ Gọi skill `ba-agent-requirement` để trích xuất mục tiêu, dữ kiện,
 ### Bước 5 — BA xác minh và chuyển quyết định
 - BA đối chiếu từng dữ kiện với nguồn gốc; sửa hoặc loại bỏ nội dung không kiểm chứng được.
 - Trao đổi với người yêu cầu để đóng các câu hỏi mở.
+- Tuỳ chọn: gọi `ba-agent-qa-review` để rà soát record trước khi đóng G1.
 - PO hoặc người có thẩm quyền quyết định bước tiếp theo, ghi vào `BA/PO Decision`.
 
+### Đường đi sau quyết định ⚠
+
+`Rejected`: giữ record, ghi lý do, báo người yêu cầu rồi kết thúc; không xoá record.
+
+`Accepted for Analysis`: PO chọn đường đi theo `Request Type` và ghi vào `BA/PO Decision`.
+
+| Request Type | Đường đi |
+| --- | --- |
+| `New Feature`, `Enhancement`, `Compliance` | Đầy đủ BA-02 → BA-07 |
+| `Defect` lệch AC đã duyệt | QA/Dev sửa, rồi retest ở BA-06; không qua BA-02, BA-03 |
+| `Defect` chưa có AC mô tả hành vi | Coi là requirement gap, mở CR ở BA-05 |
+| `Technical Change` không đổi hành vi nghiệp vụ | Tech Lead xác nhận điều đó; BA-02 chỉ làm dependency và ảnh hưởng; vào BA-03 nếu cần Story |
+| `Technical Change` có đổi hành vi nghiệp vụ | Đầy đủ BA-02 → BA-07 |
+| `Unknown` | Giữ `Clarification Required`; chưa được đi tiếp |
+
+Bảng này là đề xuất mở rộng theo nguyên tắc "phân tích theo mức độ cần thiết" (SOP §3), chưa có trong SOP v1.0; chủ quy trình phải chốt trước khi thí điểm. Đường rút gọn không bỏ G1 và G4.
+
 ## Đầu ra
+Đường dẫn `assets/` trong bảng là template chỉ đọc; bản ghi thật lưu tại `ba-records/<project>/` (xem mục "Template và bản ghi dự án" trong `POWER.md`).
+
 | Đầu ra | Vị trí |
 | --- | --- |
-| Requirement Intake Record | `assets/requirement-intake-record.md` — khớp sheet `Intake` (16 cột) |
+| Requirement Intake Record | `assets/requirement-intake-record.md` — khớp sheet `Intake` (16 cột), thêm `Request Type` ⚠ |
 | Open Questions | cột `Open Questions` của cùng record |
 | Danh sách nguồn và trạng thái | cột `Source Documents + Version`, `Status` |
 
@@ -86,7 +106,7 @@ Chi tiết tại `references/quality-gate-g1.md`. Tóm tắt:
 - [ ] Có người phụ trách
 - [ ] Phân biệt rõ bản nháp AI với nội dung đã xác nhận
 
-Không đạt G1 thì không chuyển sang BA-02.
+Chỉ chuyển sang BA-02 khi đạt G1 **và** `Status = Accepted for Analysis`.
 
 ## RACI
 | BA | PO | Dev/Tech | QA | Business |
@@ -96,5 +116,5 @@ Không đạt G1 thì không chuyển sang BA-02.
 ## Assets & references
 - `assets/requirement-intake-record.md` — template Intake Record.
 - `references/quality-gate-g1.md` — checklist G1 chi tiết, quy tắc dừng bước và lỗi thường gặp.
-- Skill liên quan: `ba-agent-requirement` (Bước 4), `ba-agent-qa-review` (rà soát record trước khi đóng G1).
+- Skill liên quan: `ba-agent-requirement` (Bước 4), `ba-agent-qa-review` (Bước 5, tuỳ chọn).
 - Quy trình kế tiếp: `ba-02-business-analysis`.

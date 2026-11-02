@@ -23,12 +23,12 @@ Bảo đảm tài liệu, quyết định và kiến thức nghiệp vụ đư�
 ## Đầu vào
 | Đầu vào | Bắt buộc | Ghi chú |
 | --- | --- | --- |
-| UAT Result | Có | Đã đạt G4, có `Approver` |
+| UAT Result | Có | Đã đạt G4, có `Approver`; `Conditional Acceptance` kèm `Conditions` |
 | Release Notes | Có | Bản dự thảo hoặc bản đã có |
 | Known Issues | Có | Kèm mức tác động và cách xử lý tạm |
 | Tài liệu yêu cầu | Có | URD/BRD, Business Rules, Story/AC đúng phiên bản |
 | Quyết định nghiệm thu | Có | Nếu chưa có, dừng — không bàn giao |
-| RTM | Có | `skills/ba-03-specification/assets/rtm.md` |
+| RTM | Có | `ba-records/<project>/rtm.md` (template: `skills/ba-03-specification/assets/rtm.md`) |
 
 ## Rào cản bắt buộc (không được vượt qua)
 
@@ -55,21 +55,27 @@ Riêng ở BA-07: **không xuất bản tài liệu AI dự thảo khi BA chưa 
 ### Bước 2 — Cập nhật tài liệu hướng ra ngoài
 - Release Notes, hướng dẫn sử dụng, Business Rules Catalog, FAQ.
 - Chỉ ghi hành vi đã được xác nhận; phần chưa rõ chuyển thành Known Issues hoặc câu hỏi mở.
+- Tuỳ chọn: gọi `ba-agent-qa-review` để rà soát tài liệu trước khi xuất bản.
 
 ### Bước 3 — Ghi nhận vấn đề còn mở
 - Mỗi vấn đề: mô tả, mức tác động, cách xử lý tạm, **owner**, hạn.
 - Xác định đầu mối hỗ trợ sau bàn giao.
+- Mỗi điều kiện của `Conditional Acceptance` được bàn giao như một vấn đề còn mở.
 - Vấn đề không có owner là lỗi gate.
 
 ### Bước 4 — AI tổng kết bài học và FAQ
-- AI dự thảo; BA review từng mục trước khi xuất bản.
+- Bước này không có agent chuyên trách (SOP §7). Nếu dùng AI: trả về đúng 6 phần đầu ra, `Status = DRAFT`, ghi một dòng vào `ba-records/<project>/ai-run-log.md`.
+- BA review từng mục trước khi xuất bản.
 - Loại bỏ kết luận không có bằng chứng từ Sprint/Release vừa rồi.
 
 ### Bước 5 — Lưu Knowledge Base và Retrospective
 - Lưu tài liệu **đã duyệt**, đúng phiên bản, kèm người nhận bàn giao.
 - Tham gia Retrospective, ghi Action Items có owner.
+- Tổng hợp KPI của Release theo `references/release-kpi-checklist.md` mục 2; PO xem xét.
 
 ## Đầu ra
+Đường dẫn `assets/` trong bảng là template chỉ đọc; bản ghi thật lưu tại `ba-records/<project>/` (xem mục "Template và bản ghi dự án" trong `POWER.md`).
+
 | Đầu ra | Vị trí |
 | --- | --- |
 | Handover Pack | `assets/handover-checklist.md` — khớp sheet `Handover` |
@@ -77,6 +83,7 @@ Riêng ở BA-07: **không xuất bản tài liệu AI dự thảo khi BA chưa 
 | Known Issues | Kèm trong Handover Pack |
 | RTM | Bản chốt, đúng phiên bản phát hành |
 | Action Items | Từ Retrospective, có owner và hạn |
+| Số đo KPI | `ba-records/<project>/kpi.md` |
 
 ## Quality Gate bàn giao
 Chi tiết tại `references/release-kpi-checklist.md`. Tóm tắt:
@@ -96,5 +103,5 @@ BA là người chịu trách nhiệm cuối cùng cho hoạt động bàn giao 
 - `assets/handover-checklist.md` — checklist bàn giao HO-001…HO-008 và biên bản Handover Pack.
 - `references/release-kpi-checklist.md` — gate bàn giao, 7 KPI khởi điểm (SOP §9) và checklist tổng thể (SOP §11).
 - RTM dùng chung: `skills/ba-03-specification/assets/rtm.md`.
-- Skill liên quan: `ba-agent-traceability` (Bước 1), `ba-agent-qa-review` (rà soát tài liệu trước khi xuất bản).
+- Skill liên quan: `ba-agent-traceability` (Bước 1), `ba-agent-qa-review` (Bước 2, tuỳ chọn).
 - Quy trình trước: `ba-06-test-uat`. Đây là quy trình cuối; quay lại `ba-01-requirement-intake` cho yêu cầu mới.

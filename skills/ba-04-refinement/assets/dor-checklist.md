@@ -12,8 +12,12 @@ SOP ghi rõ: DoR này **không bắt buộc theo Scrum Guide**, là khung tham k
 | 4 | Câu hỏi quan trọng đã xử lý | Không còn `Open Questions` chặn việc triển khai | | BA |
 | 5 | Dependency xác định | Có tên hệ thống/nhóm sở hữu và trạng thái | | Dev/Tech Lead |
 | 6 | Testability đủ | Có dữ liệu và môi trường kiểm thử, hoặc biết cách lấy | | QA |
-| 7 | Liên kết truy vết | Có dòng RTM cho Story/AC | | BA |
-| 8 | Kích thước phù hợp | Team đánh giá hoàn tất được trong một Sprint | | Team |
+| 7 ⚠ | Liên kết truy vết | Có dòng RTM cho Story/AC | | BA |
+| 8 ⚠ | Kích thước phù hợp | Team đánh giá hoàn tất được trong một Sprint | | Team |
+
+SOP nêu 5 tiêu chí: mục tiêu rõ, AC, câu hỏi quan trọng đã xử lý, dependency xác định, testability đủ. Tiêu chí 3 và 6 tách từ "testability đủ". Tiêu chí ⚠ là phần thêm, Team có thể bỏ khi ánh xạ quy ước.
+
+Người xác nhận chỉ xác nhận bằng chứng của tiêu chí đó. Kết luận Story đạt DoR và chuyển `Ready for Sprint` ⚠ do Team và PO đưa ra; BA không kết luận thay.
 
 **Chỉ Team xác nhận tiêu chí 8. Chỉ PO quyết định thứ tự. AI không đánh dấu bất kỳ tiêu chí nào.**
 

@@ -1,7 +1,6 @@
 # BA-T07 — Handover Checklist & Handover Pack
 
-Template này khớp sheet `Handover` của `assets/_archive/workbook-v1.0.md` (7 cột, HO-001…HO-007).
-Dòng HO-008 đánh dấu ⚠ là mục có trong BA-T07 của SOP §6 nhưng sheet chưa liệt kê — bổ sung để không sót.
+Template này khớp sheet `Handover` của `assets/_archive/workbook-v1.0.md` (7 cột, HO-001…HO-008). Bản ghi thật lưu tại `ba-records/<project>/handover/`.
 
 ## Checklist bàn giao
 
@@ -14,7 +13,7 @@ Dòng HO-008 đánh dấu ⚠ là mục có trong BA-T07 của SOP §6 nhưng sh
 | HO-005 | CR chưa thực hiện đã được bàn giao | `Not Started` | `<link Change Log>` | BA/PO | | Ghi rõ `Status` từng CR |
 | HO-006 | Vấn đề còn mở có người phụ trách | `Not Started` | `<link>` | Owner | | Không có owner là lỗi gate |
 | HO-007 | AI output đã review trước khi xuất bản | `Not Started` | `<link bản review>` | BA | | Ghi prompt version + model |
-| HO-008 ⚠ | Đầu mối hỗ trợ sau bàn giao đã xác định | `Not Started` | `<tên / kênh liên hệ>` | BA/PO | | SOP §6 BA-T07: "Support owner identified" |
+| HO-008 | Đầu mối hỗ trợ sau phát hành đã xác định | `Not Started` | `<tên / kênh liên hệ>` | PO/Business | | SOP §6 BA-T07: "Support owner identified" |
 
 Giá trị `Status` hợp lệ: `Not Started` | `In Progress` | `Done` | `Blocked` | `N/A`. Mặc định khi tạo: `Not Started`.
 
@@ -30,6 +29,7 @@ Giá trị `Status` hợp lệ: `Not Started` | `In Progress` | `Done` | `Blocke
 | Phạm vi phát hành | `<danh sách Story/AC>` |
 | Kết quả kiểm thử | `<Passed / Failed / Blocked / Not Run>` — lấy từ UAT Report |
 | Quyết định nghiệm thu | `<Accept / Conditional Acceptance + Approver + ngày>` |
+| Điều kiện nghiệm thu ⚠ | `<điều kiện — owner — hạn>`; bắt buộc khi `Conditional Acceptance` |
 | Known Issues | `<vấn đề — tác động — xử lý tạm — owner>` |
 | CR còn mở | `<CR ID — Status — người theo dõi>` |
 | Đầu mối hỗ trợ | `<tên / kênh / giờ làm việc>` |

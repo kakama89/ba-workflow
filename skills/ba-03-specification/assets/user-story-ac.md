@@ -1,6 +1,6 @@
 # BA-T03 — User Story & Acceptance Criteria
 
-Template này khớp sheet `User Story AC` của `assets/_archive/workbook-v1.0.md` (18 cột).
+Template này khớp sheet `User Story AC` của `assets/_archive/workbook-v1.0.md` (18 cột). Trường và cột ⚠ là phần thêm mà G3 hoặc truy vết cần, sheet chưa có.
 Mỗi Story là một khối thông tin; mỗi AC là một dòng trong bảng AC.
 
 ## Khối Story
@@ -21,10 +21,12 @@ Mỗi Story là một khối thông tin; mỗi AC là một dòng trong bảng A
 | NFR | `<NFR-000>` | Chỉ ghi khi có nguồn hoặc ràng buộc kỹ thuật |
 | Open Questions | `<câu hỏi — owner>` | Câu hỏi quan trọng chưa đóng thì Story chưa `Ready for Refinement` |
 | Review Status | `<Draft / In Review / Ready for Refinement / …>` | Theo SOP §12 |
+| Version ⚠ | `<0.1>` | Tăng khi nội dung Story/AC thay đổi |
+| Confirmed By / Date ⚠ | `<PO hoặc Business — YYYY-MM-DD>` | **BA và AI không tự điền**; điều kiện G3 |
 
 ## Bảng Acceptance Criteria
 
-| AC ID | Given | When | Then | Nguồn / BR liên kết | Test Case ID |
+| AC ID | Given | When | Then | Nguồn / BR liên kết ⚠ | Test Case ID ⚠ |
 | --- | --- | --- | --- | --- | --- |
 | AC-01 | `<điều kiện đầu vào, trạng thái, quyền>` | `<hành động>` | `<kết quả quan sát được>` | `<BR-000 / URL>` | `<TC-000 hoặc trống>` |
 | AC-02 | `<trường hợp ngoại lệ>` | `<hành động>` | `<thông báo lỗi / hành vi>` | `<BR-000>` | |
@@ -48,4 +50,5 @@ Mỗi AC cần trả lời được:
 - Story chưa đủ nhỏ để hoàn tất trong một Sprint: đề xuất tách, kèm lý do, không tự quyết.
 - AC suy ra từ trao đổi miệng phải ghi `[Assumption]` và tạo câu hỏi mở cho tới khi Business xác nhận.
 - Khi AI tạo bản nháp, giữ `Review Status = Draft`.
-- Sau khi Story được xác nhận, tạo hoặc cập nhật dòng tương ứng trong `rtm.md`.
+- `AC ID` chỉ duy nhất trong một Story; khi tham chiếu từ nơi khác phải ghi kèm `Story ID`.
+- Tạo dòng RTM nháp ở Bước 4 trong `ba-records/<project>/rtm.md`; bỏ ghi chú nháp sau khi Story được xác nhận.

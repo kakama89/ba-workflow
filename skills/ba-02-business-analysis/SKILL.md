@@ -15,7 +15,7 @@ compatibility: "Cần quyền đọc tài liệu nghiệp vụ, dữ liệu mẫ
 Hiểu vấn đề, quy trình hiện tại, quy trình mong muốn và các quy tắc nghiệp vụ.
 
 ## Khi nào dùng
-- Intake Record đã đạt Quality Gate G1.
+- Intake Record đã đạt Quality Gate G1 và có `Status = Accepted for Analysis`.
 - Cần dựng AS-IS/TO-BE và Business Rules Catalog có nguồn trước khi viết Story.
 - Có thay đổi lớn làm tài liệu phân tích cũ không còn đúng.
 
@@ -24,7 +24,7 @@ Không dùng skill này để viết User Story/AC — đó là `ba-03-specifica
 ## Đầu vào
 | Đầu vào | Bắt buộc | Ghi chú |
 | --- | --- | --- |
-| Yêu cầu đã sàng lọc | Có | Intake Record đạt G1 |
+| Yêu cầu đã sàng lọc | Có | Intake Record đạt G1, `Status = Accepted for Analysis` |
 | Tài liệu nghiệp vụ | Có | URD/BRD/quy trình/quy định, kèm phiên bản |
 | Dữ liệu mẫu | Nếu có | Chỉ dùng dữ liệu được phép truy cập |
 | Hệ thống / API liên quan | Nếu có | Ghi rõ môi trường và quyền truy cập |
@@ -73,9 +73,12 @@ Riêng ở BA-02: **không tự tạo chính sách, giới hạn hoặc SLA**. M
 ### Bước 6 — AI đối chiếu và BA xác minh
 - Gọi skill `ba-agent-analysis` để đối chiếu tài liệu, gợi ý điểm thiếu và mâu thuẫn.
 - BA xác minh lại với Business trước khi đưa vào tài liệu chính thức.
+- Tuỳ chọn: gọi `ba-agent-qa-review` để rà soát tài liệu trước khi đóng G2.
 - Ghi `Review Status = Draft` cho tới khi có xác nhận.
 
 ## Đầu ra
+Đường dẫn `assets/` trong bảng là template chỉ đọc; bản ghi thật lưu tại `ba-records/<project>/` (xem mục "Template và bản ghi dự án" trong `POWER.md`).
+
 | Đầu ra | Vị trí |
 | --- | --- |
 | Business Analysis Document | `assets/business-analysis-doc.md` — khớp sheet `Analysis` (19 cột) |
@@ -103,5 +106,5 @@ Không đạt G2 thì không chuyển sang BA-03.
 ## Assets & references
 - `assets/business-analysis-doc.md` — template tài liệu phân tích nghiệp vụ.
 - `references/quality-gate-g2.md` — checklist G2, quy tắc gắn nhãn bằng chứng và quy tắc dừng bước.
-- Skill liên quan: `ba-agent-analysis` (Bước 6), `ba-agent-qa-review` (rà soát tài liệu trước khi đóng G2).
+- Skill liên quan: `ba-agent-analysis` (Bước 6), `ba-agent-qa-review` (Bước 6, tuỳ chọn).
 - Quy trình trước: `ba-01-requirement-intake`. Kế tiếp: `ba-03-specification`.

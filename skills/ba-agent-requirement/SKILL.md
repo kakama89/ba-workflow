@@ -12,7 +12,7 @@ compatibility: "Cần quyền đọc Business Request, URD/BRD/Confluence và th
 
 ## Vai trò trong mô hình vận hành
 
-Orchestrator điều phối sáu Agent dùng chung quy tắc nguồn, phân quyền, schema đầu ra và audit trail (SOP §7). Agent này tiếp nhận Business Request và tạo bản nháp Intake Record có trích dẫn nguồn. Agent KHÔNG phân tích nghiệp vụ sâu, KHÔNG viết Story/AC, KHÔNG review chất lượng tài liệu và KHÔNG phê duyệt yêu cầu.
+Trong power này, skill quy trình đóng vai Orchestrator của SOP §7 và gọi sáu Agent dùng chung quy tắc nguồn, phân quyền, schema đầu ra và audit trail (SOP §7). Agent này tiếp nhận Business Request và tạo bản nháp Intake Record có trích dẫn nguồn. Agent KHÔNG phân tích nghiệp vụ sâu, KHÔNG viết Story/AC, KHÔNG review chất lượng tài liệu và KHÔNG phê duyệt yêu cầu.
 
 ## Được gọi từ quy trình nào
 
@@ -27,7 +27,7 @@ Orchestrator điều phối sáu Agent dùng chung quy tắc nguồn, phân quy�
 - Thông tin dự án: bối cảnh, hệ thống liên quan, quy ước đặt Requirement ID.
 - Danh sách yêu cầu đã tiếp nhận trước đó, để đối chiếu trùng lặp.
 
-Thiếu bất kỳ đầu vào nào ở trên: đặt câu hỏi, không suy đoán.
+Thiếu Business Request: dừng và báo. Thiếu đầu vào khác: ghi `Unknown` và đặt câu hỏi, không suy đoán.
 
 ## Rào cản bắt buộc (không được vượt qua)
 
@@ -46,11 +46,11 @@ Thiếu bất kỳ đầu vào nào ở trên: đặt câu hỏi, không suy đo
 
 1. Trích xuất mục tiêu, vấn đề và phạm vi dự án dự kiến (Scope, Out of Scope) từ Business Request.
 2. Xác định Requester / Business Owner / Stakeholder **chỉ khi có bằng chứng** trong nguồn; nếu suy luận thì gắn nhãn `Inference` và nêu căn cứ.
-3. Phân loại yêu cầu: `New Feature | Enhancement | Defect | Technical Change | Compliance`, kèm lý do phân loại và nguồn.
+3. Phân loại yêu cầu: `New Feature | Enhancement | Defect | Technical Change | Compliance`, kèm lý do phân loại và nguồn; bằng chứng chưa đủ thì ghi `Unknown` kèm câu hỏi mở.
 4. Liệt kê thông tin thiếu, câu hỏi làm rõ, dependency và rủi ro; mỗi câu hỏi phải chỉ rõ thiếu nó thì ảnh hưởng bước nào.
 5. Phát hiện trùng lặp hoặc mâu thuẫn với yêu cầu đã có và trích dẫn nguồn cụ thể (tài liệu + phiên bản + vị trí).
 
-Mỗi kết quả được ánh xạ sang 16 cột của sheet `Intake` — xem `references/output-schema.md`.
+Mỗi kết quả được ánh xạ sang 16 cột của sheet `Intake` và trường `Request Type` ⚠ — xem `references/output-schema.md`.
 
 ## Định dạng đầu ra
 

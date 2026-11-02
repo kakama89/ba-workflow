@@ -12,19 +12,24 @@ compatibility: "Cần quyền đọc artifact được review kèm phiên bản 
 
 ## Vai trò trong mô hình vận hành
 
-Orchestrator điều phối sáu Agent dùng chung quy tắc nguồn, phân quyền, schema đầu ra và audit trail (SOP §7). Agent này kiểm tra completeness, clarity, consistency, testability và traceability của tài liệu yêu cầu. Agent KHÔNG sửa tài liệu nguồn, KHÔNG tự phê duyệt và KHÔNG quyết định tài liệu đã đạt Quality Gate.
+Trong power này, skill quy trình đóng vai Orchestrator của SOP §7 và gọi sáu Agent dùng chung quy tắc nguồn, phân quyền, schema đầu ra và audit trail (SOP §7). Agent này kiểm tra completeness, clarity, consistency, testability và traceability của tài liệu yêu cầu. Agent KHÔNG sửa tài liệu nguồn, KHÔNG tự phê duyệt và KHÔNG quyết định tài liệu đã đạt Quality Gate.
 
 ## Được gọi từ quy trình nào
 
 | Quy trình | Bước | Mục đích |
 |---|---|---|
-| BA-03. Đặc tả và xác nhận yêu cầu | Bước 5–6 | Review trước khi PO/Business xác nhận |
+| BA-01. Tiếp nhận và sàng lọc yêu cầu | Bước 5 | Tuỳ chọn: rà soát record trước khi đóng G1 |
+| BA-02. Khảo sát và phân tích nghiệp vụ | Bước 6 | Tuỳ chọn: rà soát tài liệu trước khi đóng G2 |
+| BA-03. Đặc tả và xác nhận yêu cầu | Bước 5 | Review trước khi PO/Business xác nhận |
 | BA-04. Refinement và chuẩn bị Sprint | Bước 5 | AI rà soát checklist, gợi ý câu hỏi |
+| BA-05. Hỗ trợ phát triển và quản lý thay đổi | Bước 5 | Tuỳ chọn: rà soát tài liệu sau thay đổi |
+| BA-06. Kiểm thử, UAT và nghiệm thu nghiệp vụ | Bước 4 | Tuỳ chọn: rà soát tài liệu trước UAT |
+| BA-07. Release, bàn giao và cải tiến | Bước 2 | Tuỳ chọn: rà soát tài liệu trước khi xuất bản |
 
 ## Đầu vào
 
 - Artifact cần review: URD/BRD, tài liệu phân tích, bộ Story/AC, RTM hoặc Change Request — kèm phiên bản.
-- Nguồn đối chiếu: Business Rules Catalog, Requirement gốc, tài liệu phiên bản trước.
+- Nguồn đối chiếu theo giai đoạn: BA-01 cần Business Request và nguồn của nó; BA-02 cần Intake Record và tài liệu nghiệp vụ; từ BA-03 trở đi cần thêm Business Rules Catalog, Requirement gốc và tài liệu phiên bản trước nếu có.
 - Quy tắc Severity và Quality Gate của team nếu đã có.
 - Phạm vi review: toàn bộ artifact hay chỉ phần thay đổi.
 
@@ -50,7 +55,7 @@ Thiếu artifact hoặc thiếu phiên bản: dừng và hỏi, không review th
 3. Phân biệt lỗi xác định được trong tài liệu với rủi ro cần xác minh thêm; ghi rõ loại nào trong finding.
 4. Gán `Severity` theo rubric `Critical | Major | Minor | Info` — xem `references/finding-table.md`.
 5. Đề xuất `Suggested Action` và `Owner` cho từng finding; không tự thực hiện sửa.
-6. Ghi log vào `assets/ai-review-log.md` theo 15 cột của sheet `AI Review`, kèm `Prompt Version` và `Model/Version`.
+6. Đề xuất dòng log cho `ba-records/<project>/ai-review-log.md` theo template `assets/ai-review-log.md` (15 cột của sheet `AI Review`), kèm `Prompt Version` và `Model/Version` nếu hệ thống cung cấp. Không ghi vào template.
 7. Kiểm tra idempotency trước khi tạo finding mới: tra theo `Artifact ID` + `Check Category` + nội dung finding.
 
 ## Định dạng đầu ra

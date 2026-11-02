@@ -26,7 +26,7 @@ Ba vai trò cùng là R: đây là hoạt động chung của Scrum Team, không
 ## Tình huống ranh giới
 
 ### 1. PO vắng mặt, Team muốn chốt thứ tự
-Không tự chốt. Ghi nhận các phương án, đánh dấu chờ PO, chuyển `Status = Clarification Required` cho phần thứ tự.
+Không tự chốt. Ghi nhận các phương án, ghi `Chờ PO` vào `Quyết định thứ tự` của biên bản, giữ Story ở `Ready for Refinement`.
 
 ### 2. Team không thống nhất được estimate
 Ghi rõ hai phương án và lý do bất đồng; không tự chọn một bên. Đề xuất tách Story nếu bất đồng đến từ phạm vi chưa rõ.

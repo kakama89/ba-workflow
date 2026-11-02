@@ -1,10 +1,10 @@
 # AI Review Log
 
-Biểu mẫu ghi log review, khớp 15 cột sheet `AI Review` của `assets/_archive/workbook-v1.0.md`. Mỗi finding một dòng.
+Template chỉ đọc, khớp 15 cột sheet `AI Review` của `assets/_archive/workbook-v1.0.md`. Log thật lưu tại `ba-records/<project>/ai-review-log.md`. Mỗi finding một dòng.
 
 | Review ID | Artifact Type | Artifact ID | Source References | Check Category | Finding | Severity | Evidence | Suggested Action | Owner | Status | Reviewer | Prompt Version | Model/Version | Review Date |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| <AIR-xxx> | <User Story \| URD \| BRD \| Analysis \| RTM \| Change Request> | <US-001> | <URL tài liệu + vị trí> | <Completeness \| Clarity \| Consistency \| Testability \| Traceability \| Negative Cases \| NFR \| Change Impact> | <mô tả finding, một câu, có căn cứ> | <Critical \| Major \| Minor \| Info> | <AC-03 / đoạn trích / dòng-cột> | <việc cần làm để khắc phục> | <BA \| PO \| QA \| Business Owner> | <Open \| In Review \| Resolved \| Accepted Risk> | <để trống> | <1.0> | <để trống> | <để trống> |
+| <AIR-xxx> | <User Story \| URD \| BRD \| Analysis \| RTM \| Change Request> | <US-001> | <URL tài liệu + vị trí> | <Completeness \| Clarity \| Consistency \| Testability \| Traceability \| Negative Cases \| NFR \| Change Impact> | <mô tả finding, một câu, có căn cứ> | <Critical \| Major \| Minor \| Info> | <AC-03 / đoạn trích / dòng-cột> | <việc cần làm để khắc phục> | <BA \| PO \| QA \| Business Owner> | <Open \| In Review \| Resolved \| Accepted Risk> | <để trống> | <1.0> | <giá trị thật từ hệ thống; không có thì để trống> | <để trống> |
 
 ## Cách điền
 
@@ -18,7 +18,7 @@ Biểu mẫu ghi log review, khớp 15 cột sheet `AI Review` của `assets/_ar
 - `Suggested Action`: đề xuất hành động; với finding là rủi ro cần xác minh thì ghi rõ cần xác minh với ai.
 - `Owner`: vai trò nên xử lý, không phải người đã duyệt.
 - `Status`: Agent luôn ghi `Open`.
-- `Prompt Version` và `Model/Version`: ghi phiên bản prompt và model đã dùng, phục vụ audit trail (SOP §8).
+- `Prompt Version`: ghi phiên bản prompt đã dùng. `Model/Version`: chỉ ghi khi hệ thống cung cấp giá trị thật. Cả hai phục vụ audit trail (SOP §8).
 
 ## Không tự điền
 

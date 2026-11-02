@@ -1,7 +1,7 @@
 # BA-T06 — UAT Report
 
 Template này khớp sheet `UAT Report` của `assets/_archive/workbook-v1.0.md` (17 cột).
-Gồm hai phần: thông tin đợt UAT (6 trường đầu) và bảng kịch bản (11 cột còn lại).
+Gồm ba phần: thông tin đợt UAT (6 cột đầu), bảng kịch bản (9 cột) và phần tổng hợp, trong đó có 2 cột `Decision`, `Approver`. Trường ⚠ là phần thêm.
 
 ## Phần 1 — Thông tin đợt UAT
 
@@ -30,9 +30,12 @@ Gồm hai phần: thông tin đợt UAT (6 trường đầu) và bảng kịch b
 | Failed | `<số>` | |
 | Blocked | `<số>` | Ghi lý do block vào `Notes` |
 | Not Run | `<số>` | Không được tính là Pass |
+| Skipped ⚠ | `<số>` | Ngoài phạm vi đợt UAT; có lý do và người duyệt. Tổng năm trạng thái phải bằng `Total Scenarios` |
 | Open Risks | `<rủi ro còn mở>` | Kèm mức tác động theo đánh giá của người có thẩm quyền |
 | Decision | `<Pending / Accept / Reject / Conditional Acceptance>` | Mặc định `Pending` |
 | Approver | `<người có thẩm quyền>` | **BA và AI không tự điền** |
+| Approval Date | `<YYYY-MM-DD>` | SOP §6 BA-T06 `Approver / Date` |
+| Conditions ⚠ | `<điều kiện — owner — hạn>` | Bắt buộc khi `Decision = Conditional Acceptance` |
 
 ## Giá trị hợp lệ
 
@@ -52,8 +55,8 @@ Giá trị mặc định khi tạo dòng mới: `Status = Not Run`, `Decision = 
 - `Expected Result` suy ra từ ý BA thay vì từ AC đã duyệt.
 
 ## Quy tắc điền
-- Mỗi Scenario phải trỏ về một `AC ID` (ghi trong `Notes`) để giữ truy vết.
+- Mỗi Scenario phải trỏ về một `Story ID` + `AC ID` (ghi trong `Notes`) để giữ truy vết.
 - Sai khác phát hiện được phân loại ngay: `Defect` / `Requirement gap` / `Change request` — xem `../references/quality-gate-g4.md`.
 - `Blocked` phải ghi lý do và dependency đang chặn.
-- Sau khi điền xong, cập nhật RTM: `UAT Result`, `Evidence Link`, `Coverage Status`.
+- Sau khi điền xong, cập nhật `ba-records/<project>/rtm.md`: `UAT Result`, `Evidence Link`, `Coverage Status`. `Skipped` tương ứng với `Not Run - Out of Scope` trong RTM.
 - Không sửa `Actual Result` sau khi Business User đã xác nhận; nếu cần đính chính, thêm dòng mới và ghi chú.

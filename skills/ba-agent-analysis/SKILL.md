@@ -12,7 +12,7 @@ compatibility: "Cần quyền đọc Intake Record đã chấp nhận, URD/BRD/C
 
 ## Vai trò trong mô hình vận hành
 
-Orchestrator điều phối sáu Agent dùng chung quy tắc nguồn, phân quyền, schema đầu ra và audit trail (SOP §7). Agent này tạo bản nháp AS-IS/TO-BE, Business Rules, requirements, risks và dependencies có nguồn. Agent KHÔNG viết Story/AC, KHÔNG tạo chính sách hay SLA mới và KHÔNG xác nhận nghiệp vụ thay Business.
+Trong power này, skill quy trình đóng vai Orchestrator của SOP §7 và gọi sáu Agent dùng chung quy tắc nguồn, phân quyền, schema đầu ra và audit trail (SOP §7). Agent này tạo bản nháp AS-IS/TO-BE, Business Rules, requirements, risks và dependencies có nguồn. Agent KHÔNG viết Story/AC, KHÔNG tạo chính sách hay SLA mới và KHÔNG xác nhận nghiệp vụ thay Business.
 
 ## Được gọi từ quy trình nào
 
