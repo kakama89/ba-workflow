@@ -64,6 +64,13 @@ Quy trình (điều phối con người):
 | `ba-06-test-uat` | Thiết kế test, chạy UAT, đối chiếu RTM | G4 |
 | `ba-07-release-handover` | Bàn giao phát hành, checklist và KPI | Gate bàn giao |
 
+Tài liệu chính thức (tổng hợp từ kết quả phân tích):
+
+| Skill | Khi nào | Gate |
+| --- | --- | --- |
+| `ba-doc-brd` | Tạo BRD chính thức sau G2, phục vụ sponsor/stakeholder | Gate BRD |
+| `ba-doc-urd` | Tạo URD chính thức sau G2, mô tả yêu cầu từ góc nhìn người dùng | Gate URD |
+
 AI agent (chỉ tạo bản nháp):
 
 | Skill | Gọi từ |
@@ -111,6 +118,8 @@ trong repo của từng dự án:
 | Handover Pack | `handover/<Release>.md` |
 | Log finding của QA Review | `ai-review-log.md` |
 | Audit trail AI | `ai-run-log.md` |
+| BRD | `brd/<BRD-ID>.md` |
+| URD | `urd/<URD-ID>.md` |
 | KPI | `kpi.md` |
 
 Dự án dùng Jira, Confluence hoặc hệ thống khác thì ghi ánh xạ vào

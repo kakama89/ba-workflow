@@ -19,13 +19,43 @@ Hệ quả cần biết:
 
 Chi tiết: `assets/_archive/README.md`.
 
-## Vị trí và cách gọi
-- **Dạng phân phối**: đây là một **Kiro Power** tự chứa — manifest ở `plugin.json`, hướng dẫn power ở `POWER.md`, 13 skill ở `skills/`, tài liệu nguồn lưu trữ ở `assets/_archive/`, icon ở `assets/icon.png`.
-- **Cài đặt**: thêm power vào Kiro qua registry `user-added` — nguồn `local` trỏ tới thư mục này, hoặc nguồn `repo` nếu đẩy lên git remote. Sau khi cài, Kiro sao power vào `~/.kiro/powers/installed/<tên>/`.
-- **Icon**: bản gốc 512×512 ở `assets/icon.png`. Ảnh nhúng base64 ở đầu file này và `iconUrl` trong `POWER.md` đều là bản dẫn xuất thu nhỏ 100×100 của chính file đó; đổi icon thì phải sinh lại cả hai chỗ.
-- **Gọi tự động**: Kiro khớp yêu cầu với trường `description` của từng skill.
+## Cài đặt Kiro Power
+
+![Hướng dẫn cài đặt Kiro Power](assets/install-power.png)
+
+### Cách 1 — Cài từ thư mục local
+
+1. Mở **Kiro IDE** → vào phần **Powers**.
+2. Chọn **Install from local** (hoặc **Add Power** → **Local**).
+3. Trỏ tới thư mục chứa power này (thư mục có `plugin.json` và `POWER.md`).
+4. Kiro sẽ sao power vào `~/.kiro/powers/installed/ba-agile-ai/`.
+5. Sau khi cài xong, các skill sẽ xuất hiện trong danh sách — gọi bằng `/` + tên skill.
+
+### Cách 2 — Cài từ git repo
+
+1. Push thư mục này lên git remote (GitHub, GitLab, CodeCommit, …).
+2. Mở **Kiro IDE** → **Powers** → **Add Power** → **Repository**.
+3. Dán URL của repo → Kiro clone và cài tự động.
+
+### Cách 3 — Dùng Kiro CLI
+
+```bash
+# Từ thư mục local
+kiro power install --source local --path /đường/dẫn/tới/Bo_Quy_Trinh_BA_Agile_AI
+
+# Từ git repo
+kiro power install --source repo --url https://github.com/<user>/Bo_Quy_Trinh_BA_Agile_AI
+```
+
+### Sau khi cài đặt
+
+- **Gọi tự động**: Kiro khớp yêu cầu với trường `description` của từng skill và tự chọn skill phù hợp.
 - **Gọi thủ công**: gõ `/` + tên skill, ví dụ `/ba-03-specification`. Chữ sau tên skill được truyền vào làm ngữ cảnh.
 - **Custom agent**: skill **không** được nạp mặc định; phải khai báo trong trường `resources` bằng URI `skill://`.
+
+### Thông tin bổ sung
+- **Dạng phân phối**: đây là một **Kiro Power** tự chứa — manifest ở `plugin.json`, hướng dẫn power ở `POWER.md`, 15 skill ở `skills/`, tài liệu nguồn lưu trữ ở `assets/_archive/`, icon ở `assets/icon.png`.
+- **Icon**: bản gốc 512×512 ở `assets/icon.png`. Ảnh nhúng base64 ở đầu file này và `iconUrl` trong `POWER.md` đều là bản dẫn xuất thu nhỏ 100×100 của chính file đó; đổi icon thì phải sinh lại cả hai chỗ.
 
 ## 7 skill quy trình
 
@@ -38,6 +68,13 @@ Chi tiết: `assets/_archive/README.md`.
 | `ba-05-change-management` | BA-05 | Gate thay đổi | Change Log / BA-T05 |
 | `ba-06-test-uat` | BA-06 | G4 | UAT Report / BA-T06 + RTM |
 | `ba-07-release-handover` | BA-07 | Gate bàn giao | Handover / BA-T07 |
+
+## 2 skill tài liệu chính thức
+
+| Skill | Mục đích | Gate |
+| --- | --- | --- |
+| `ba-doc-brd` | Tạo BRD (Business Requirements Document) từ kết quả phân tích đạt G2 | Gate BRD |
+| `ba-doc-urd` | Tạo URD (User Requirements Document) từ kết quả phân tích đạt G2 | Gate URD |
 
 ## 6 skill AI Agent
 
@@ -68,6 +105,8 @@ RTM đặt ở `ba-03` vì đó là nơi dòng truy vết đầu tiên được 
 Yêu cầu mới
   → /ba-01-requirement-intake      (gọi ba-agent-requirement ở Bước 4)   → G1
   → /ba-02-business-analysis       (gọi ba-agent-analysis ở Bước 6)      → G2
+  → /ba-doc-brd                    (tạo BRD chính thức từ kết quả G2)    → Gate BRD
+  → /ba-doc-urd                    (tạo URD từ góc nhìn người dùng)      → Gate URD
   → /ba-03-specification           (gọi ba-agent-specification, ba-agent-qa-review) → G3 + tạo RTM
   → /ba-04-refinement              (gọi ba-agent-qa-review)              → DoR
   → Sprint
@@ -79,14 +118,16 @@ Theo sự kiện, từ BA-03 trở đi:
   → quay lại BA-02, BA-03, BA-04 hoặc BA-06 theo Bước 6 của BA-05
 ```
 
+BRD và URD có thể tạo song song hoặc tuần tự sau G2, trước hoặc song song với BA-03. Không bắt buộc cả hai — tuỳ yêu cầu dự án.
+
 Sau G1, PO chọn đường đi theo `Request Type`; `Defect` và `Technical Change` có đường rút gọn (đề xuất, chủ quy trình cần chốt — xem BA-01). Không đạt G4 hoặc `Decision = Reject` thì quay lại theo Bước 7 của BA-06.
 
 Nguyên tắc: **skill quy trình điều phối con người, skill agent chỉ tạo bản nháp.** Không skill nào tự đóng gate.
 
-## Quy ước chung của cả 13 skill
+## Quy ước chung của cả 15 skill
 - `description` song ngữ: tiếng Anh trước (có mệnh đề `Use when …`) rồi tới `Tiếng Việt:` — để Kiro khớp được cả hai ngôn ngữ.
 - Thân skill viết tiếng Việt, giữ nguyên thuật ngữ tiếng Anh như SOP.
-- Khối **"Rào cản bắt buộc"** 10 điều giống hệt nhau ở cả 13 skill (Grounding · Fact/Assumption/Inference/Unknown · không tự tạo Business Rules · không tự phê duyệt · DRAFT · không đoán · Idempotency · Error handling · Data protection · Audit trail).
+- Khối **"Rào cản bắt buộc"** 10 điều giống hệt nhau ở cả 15 skill (Grounding · Fact/Assumption/Inference/Unknown · không tự tạo Business Rules · không tự phê duyệt · DRAFT · không đoán · Idempotency · Error handling · Data protection · Audit trail).
 - Đầu ra agent theo 6 phần: Summary · Facts with sources · Findings/Open Questions · Suggested actions · Confidence limitations · `Status = DRAFT`.
 - Cột biểu mẫu khớp đúng tên cột trong `assets/_archive/workbook-v1.0.md`; trường đánh dấu ⚠ là phần thêm.
 - Kiểm định sau khi sửa: `python scripts/validate_power.py`.
