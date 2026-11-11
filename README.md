@@ -1,43 +1,571 @@
-# Kiro Power — Quy trình BA Agile/Scrum có AI Agent
+# Quy trình BA Agile/Scrum có AI Agent
 
-![BA Agile/Scrum AI](data:image/png;base64,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)
+> Bộ công cụ gồm **15 skill** dùng trong Kiro: 7 quy trình chính, 2 tài liệu chính thức, và 6 AI agent hỗ trợ. Mọi đầu ra của AI đều là bản nháp — con người luôn là người duyệt cuối cùng.
 
-> File này là **mục lục dành cho người** của power, không phải một skill. Kiro nạp các skill từ thư mục `skills/` (mỗi thư mục con có `SKILL.md`).
+---
 
-Phiên bản: 1.1 · Nguồn: `assets/_archive/sop-v1.0.md`, `assets/_archive/workbook-v1.0.md`, `assets/_archive/prompt-pack-v1.0.md`
+## Mục lục
 
-## Trạng thái tài liệu nguồn — đọc trước khi dùng
+- [Cài đặt](#cài-đặt)
+- [Cách gọi skill](#cách-gọi-skill)
+- [7 Skill quy trình](#7-skill-quy-trình)
+  - [ba-01-requirement-intake — Tiếp nhận yêu cầu](#ba-01-requirement-intake--tiếp-nhận-yêu-cầu)
+  - [ba-02-business-analysis — Phân tích nghiệp vụ](#ba-02-business-analysis--phân-tích-nghiệp-vụ)
+  - [ba-03-specification — Viết đặc tả](#ba-03-specification--viết-đặc-tả)
+  - [ba-04-refinement — Làm mịn backlog](#ba-04-refinement--làm-mịn-backlog)
+  - [ba-05-change-management — Quản lý thay đổi](#ba-05-change-management--quản-lý-thay-đổi)
+  - [ba-06-test-uat — Kiểm thử và nghiệm thu](#ba-06-test-uat--kiểm-thử-và-nghiệm-thu)
+  - [ba-07-release-handover — Bàn giao phát hành](#ba-07-release-handover--bàn-giao-phát-hành)
+- [2 Skill tài liệu chính thức](#2-skill-tài-liệu-chính-thức)
+  - [ba-doc-brd — Tạo BRD](#ba-doc-brd--tạo-brd)
+  - [ba-doc-urd — Tạo URD](#ba-doc-urd--tạo-urd)
+- [6 Skill AI Agent](#6-skill-ai-agent)
+  - [ba-agent-requirement — Trích xuất yêu cầu](#ba-agent-requirement--trích-xuất-yêu-cầu)
+  - [ba-agent-analysis — Phân tích nghiệp vụ tự động](#ba-agent-analysis--phân-tích-nghiệp-vụ-tự-động)
+  - [ba-agent-specification — Viết User Story và AC](#ba-agent-specification--viết-user-story-và-ac)
+  - [ba-agent-qa-review — Rà soát chất lượng](#ba-agent-qa-review--rà-soát-chất-lượng)
+  - [ba-agent-test-design — Thiết kế test case](#ba-agent-test-design--thiết-kế-test-case)
+  - [ba-agent-traceability — Kiểm tra truy vết](#ba-agent-traceability--kiểm-tra-truy-vết)
+- [3 đường đi theo mức độ](#3-đường-đi-theo-mức-độ)
+- [Luồng gọi điển hình](#luồng-gọi-điển-hình)
+- [Tài nguyên dùng chung](#tài-nguyên-dùng-chung)
+- [Quy ước chung](#quy-ước-chung)
+- [Cài đặt chi tiết](#cài-đặt-chi-tiết)
+- [Ghi chú kỹ thuật](#ghi-chú-kỹ-thuật)
 
-Bốn tài liệu gốc (`01_SOP_BA_Agile_AI.docx`, `02_Bo_Template_BA.xlsx`, `03_Prompt_Pack_BA_AI.md`, `README.md`) **đã bị xoá khỏi thư mục dự án vào 2026-10-30** theo quyết định của chủ tài liệu, và đó là **bản duy nhất** — thời điểm đó thư mục chưa là git repo, không có bản sao ở Confluence/SharePoint/Jira.
+---
 
-Toàn bộ nội dung chữ của chúng được lưu tại **`assets/_archive/`**, trích xuất bằng script trực tiếp từ file nhị phân chứ không gõ lại tay. Đã kiểm tra trước khi xoá: cả hai file nhị phân **không chứa** ảnh, media, drawing, textbox, OLE object, comment, footnote, endnote, header/footer, công thức, data validation, conditional formatting, chart hay defined name — nên không mất nội dung nào. Thứ không giữ lại được là định dạng trực quan (font, màu, độ rộng cột, freeze pane) và khả năng mở bằng Word/Excel.
+## Cài đặt
 
-Hệ quả cần biết:
-- Bộ skill **tự chủ về nội dung**: 7 quy trình, 7 gate, 6 agent, tên cột của cả 9 sheet, KPI §9, checklist §11, trạng thái §12, RACI §5 và bảng vai trò §4 đều đã nằm trong power này (thư mục `skills/`).
-- **Không còn bản gốc có định dạng để đối chiếu.** Nếu cần phục hồi `.docx`/`.xlsx`, nguồn duy nhất là Recycle Bin của máy này.
-- Nếu sau này tổ chức công bố SOP trên Confluence/SharePoint, cập nhật các đường dẫn `_archive/` trong bộ skill trỏ về nguồn chính thức đó.
+### Cách nhanh nhất
 
-Chi tiết: `assets/_archive/README.md`.
+1. Mở **Kiro IDE** → vào **Powers** → chọn **Install from local**.
+2. Trỏ tới thư mục chứa file `plugin.json` này.
+3. Xong. Các skill sẽ hiện trong danh sách, gọi bằng `/` + tên skill.
 
-## Cài đặt Kiro Power
+Chi tiết các cách cài khác xem phần [Cài đặt chi tiết](#cài-đặt-chi-tiết) ở cuối tài liệu.
 
-![Hướng dẫn cài đặt Kiro Power](assets/install-power.png)
+## Cách gọi skill
+
+| Cách gọi | Mô tả |
+|---|---|
+| **Tự động** | Gõ yêu cầu bằng ngôn ngữ tự nhiên — Kiro tự chọn skill phù hợp dựa vào mô tả của skill |
+| **Thủ công** | Gõ `/ba-01-requirement-intake` (thay tên skill tương ứng). Chữ sau tên skill là ngữ cảnh truyền vào |
+| **Trong custom agent** | Khai báo skill trong trường `resources` bằng URI `skill://` |
+
+---
+
+## 7 Skill quy trình
+
+Skill quy trình **điều phối con người** — hướng dẫn BA, PO, Dev, QA làm từng bước. Không skill nào tự đóng gate.
+
+---
+
+### ba-01-requirement-intake — Tiếp nhận yêu cầu
+
+**Mục đích:** Tiếp nhận yêu cầu từ business, cấp mã Requirement ID, phân loại, sàng lọc và ghi nhận đầy đủ thông tin ban đầu.
+
+**Khi nào dùng:**
+- Có yêu cầu mới từ business, khách hàng, hoặc các bên liên quan.
+- Cần phân loại yêu cầu: New Feature, Enhancement, Defect, Technical Change, Compliance, hoặc Unknown.
+- Bắt đầu một vòng đời yêu cầu mới.
+
+**Cách dùng:**
+```
+/ba-01-requirement-intake [mô tả yêu cầu hoặc link tài liệu]
+```
+
+**Các bước chính:**
+1. Tạo mã Requirement ID, ghi nguồn và người yêu cầu.
+2. Phân loại yêu cầu (New Feature / Enhancement / Defect / ...).
+3. Kiểm tra tài liệu, phiên bản, phạm vi, phụ thuộc, quyền truy cập.
+4. Gọi `ba-agent-requirement` để AI trích xuất thông tin từ tài liệu.
+5. BA xác minh bản nháp, PO quyết định bước tiếp theo.
+
+**Đầu vào cần có:** Yêu cầu nghiệp vụ, nguồn tài liệu (có phiên bản), người yêu cầu, chủ sở hữu nghiệp vụ.
+
+**Đầu ra:** Bản ghi tiếp nhận yêu cầu (16 cột), danh sách câu hỏi mở, danh sách nguồn.
+
+**Quality Gate — G1:** Có mã yêu cầu, có mục tiêu, có nguồn + phiên bản, có chủ sở hữu, nội dung AI tách biệt rõ ràng với nội dung đã xác nhận.
+
+**Bước tiếp theo:** → `ba-02-business-analysis`
+
+---
+
+### ba-02-business-analysis — Phân tích nghiệp vụ
+
+**Mục đích:** Điều tra và phân tích nghiệp vụ toàn diện — xác định bên liên quan, mô tả quy trình hiện tại (AS-IS) và kỳ vọng (TO-BE), xây dựng danh mục Business Rules, phân loại yêu cầu chức năng (FR) và phi chức năng (NFR).
+
+**Khi nào dùng:**
+- Sau khi yêu cầu đã qua G1 (tiếp nhận xong).
+- Cần hiểu rõ nghiệp vụ trước khi viết đặc tả chi tiết.
+- Cần xác định rủi ro, phụ thuộc, tác động hệ thống.
+
+**Cách dùng:**
+```
+/ba-02-business-analysis [tên yêu cầu hoặc mã Requirement ID]
+```
+
+**Các bước chính:**
+1. Xác định bên liên quan, tác nhân, mục tiêu, phạm vi.
+2. Mô tả quy trình AS-IS, điểm đau (pain points), đề xuất TO-BE.
+3. Xây dựng danh mục Business Rules (BR-xxx) có mã và nguồn.
+4. Phân loại yêu cầu chức năng (FR-xxx) và phi chức năng (NFR-xxx).
+5. Đánh giá phụ thuộc, rủi ro, tác động hệ thống.
+6. Gọi `ba-agent-analysis` + `ba-agent-qa-review` (bắt buộc), BA xác minh với Business.
+
+**Đầu vào cần có:** Bản ghi tiếp nhận đã qua G1, tài liệu nghiệp vụ, dữ liệu mẫu, thông tin hệ thống liên quan.
+
+**Đầu ra:** Tài liệu phân tích nghiệp vụ (19 cột), bản đồ bên liên quan, sơ đồ quy trình, danh mục Business Rules, FR/NFR, rủi ro và câu hỏi mở.
+
+**Quality Gate — G2:** Mọi Business Rule có nguồn, giả định được đánh dấu rõ, Business đã xác nhận TO-BE, mỗi câu hỏi mở có người chịu trách nhiệm.
+
+**Bước tiếp theo:** → `ba-03-specification` (và có thể song song `ba-doc-brd`, `ba-doc-urd`)
+
+---
+
+### ba-03-specification — Viết đặc tả
+
+**Mục đích:** Phân rã yêu cầu thành Epic / Feature / User Story, viết Acceptance Criteria (AC) theo Given-When-Then có thể kiểm thử được, tạo liên kết truy vết (RTM).
+
+**Khi nào dùng:**
+- Sau khi phân tích nghiệp vụ đã qua G2.
+- Cần chuyển yêu cầu nghiệp vụ thành đặc tả kỹ thuật mà Dev và QA hiểu được.
+- Cần tạo RTM (Requirement Traceability Matrix) để theo dõi yêu cầu.
+
+**Cách dùng:**
+```
+/ba-03-specification [tên feature hoặc mã Requirement ID]
+```
+
+**Các bước chính:**
+1. Phân rã Epic → Feature → User Story.
+2. Viết User Story (As a / I want / So that) và AC (Given / When / Then, mỗi AC có mã AC ID).
+3. Chi tiết hành vi: validation, dữ liệu, trạng thái, phân quyền, thông báo, lỗi, NFR.
+4. Tạo liên kết truy vết + dòng RTM đầu tiên.
+5. Gọi `ba-agent-specification` + `ba-agent-qa-review`, BA rà soát.
+6. Dev/Tech Lead xem tính khả thi, QA xem tính kiểm thử được, PO/Business xác nhận.
+
+**Đầu vào cần có:** Tài liệu phân tích đã qua G2, danh mục Business Rules, sơ đồ quy trình, Product Goal.
+
+**Đầu ra:** User Story + AC (18 cột), RTM (10 cột, dùng chung), cập nhật BRD/URD nếu có.
+
+**Quality Gate — G3:** AC kiểm thử được, không có giả định ẩn, đã được người có thẩm quyền xác nhận, tài liệu có phiên bản, 0 câu hỏi mở mức Critical/Major.
+
+**Bước tiếp theo:** → `ba-04-refinement`
+
+---
+
+### ba-04-refinement — Làm mịn backlog
+
+**Mục đích:** Chuẩn bị backlog cho Sprint — BA chuẩn bị nội dung, PO làm rõ giá trị và thứ tự, Dev đánh giá tính khả thi, QA đánh giá tính kiểm thử, team ước lượng và chia story.
+
+**Khi nào dùng:**
+- Trước mỗi Sprint, khi cần đưa story vào Sprint Backlog.
+- Cần kiểm tra story đã đủ điều kiện vào Sprint chưa (Definition of Ready — DoR).
+- Team cần thống nhất ước lượng và chia story lớn.
+
+**Cách dùng:**
+```
+/ba-04-refinement [tên story hoặc danh sách story cần refinement]
+```
+
+**Các bước chính:**
+1. BA chuẩn bị nội dung và câu hỏi mở.
+2. PO làm rõ giá trị và thứ tự ưu tiên.
+3. Dev/Tech Lead + QA đánh giá tính khả thi và kiểm thử.
+4. Team chia story và ước lượng.
+5. Gọi `ba-agent-qa-review` kiểm tra DoR + `ba-agent-traceability` nếu story bị chia.
+
+**Đầu vào cần có:** Product Backlog đã qua G3, Story/AC, phụ thuộc, Product Goal, năng lực team.
+
+**Đầu ra:** Backlog đã làm rõ, ước lượng đã thống nhất, checklist DoR.
+
+**Quality Gate — DoR:** Story đạt DoR khi Team + PO đồng ý đủ điều kiện → chuyển sang `Ready for Sprint`.
+
+**Bước tiếp theo:** → Sprint → `ba-06-test-uat`
+
+---
+
+### ba-05-change-management — Quản lý thay đổi
+
+**Mục đích:** Kiểm soát thay đổi trong quá trình phát triển — trả lời câu hỏi từ nguồn xác nhận, ghi nhận quyết định, tạo Change Request (CR) với phân tích tác động, giữ RTM nhất quán.
+
+**Khi nào dùng:**
+- Dev hoặc QA hỏi về yêu cầu trong Sprint.
+- Business yêu cầu thay đổi scope, logic, hoặc quy tắc nghiệp vụ.
+- Phát hiện yêu cầu mâu thuẫn hoặc thiếu sót cần sửa.
+- Cần ghi nhận bất kỳ quyết định nào ảnh hưởng đến yêu cầu.
+
+> **Lưu ý:** Skill này là **theo sự kiện**, không phải giai đoạn cố định. Có thể gọi bất cứ lúc nào từ BA-03 trở đi.
+
+**Cách dùng:**
+```
+/ba-05-change-management [mô tả thay đổi hoặc câu hỏi cần xử lý]
+```
+
+**Các bước chính:**
+1. Trả lời câu hỏi + ghi nhận quyết định.
+2. Tạo CR (CR-xxx), ghi hiện trạng và đề xuất thay đổi.
+3. Phân tích tác động qua `ba-agent-traceability` (Story, AC, BR, API, dữ liệu, test case, tài liệu, Sprint, RTM).
+4. PO quyết định, BA ghi nhận người duyệt và phiên bản có hiệu lực.
+5. BA cập nhật tài liệu, gọi `ba-agent-traceability` + `ba-agent-qa-review` (tùy chọn).
+6. **Quay lại đúng điểm kiểm soát** — bảng trong skill chỉ rõ loại thay đổi nào quay về skill/bước nào.
+
+**Đầu vào cần có:** Sprint Backlog, Story/AC đã xác nhận, câu hỏi hoặc yêu cầu thay đổi, RTM hiện tại.
+
+**Đầu ra:** Nhật ký quyết định, Change Request (13 cột), phân tích tác động, tài liệu đã cập nhật.
+
+**Quality Gate — Gate thay đổi:** Có người quyết định, có lý do, có phiên bản hiệu lực, đã thông báo bên bị ảnh hưởng, truy vết đã cập nhật.
+
+---
+
+### ba-06-test-uat — Kiểm thử và nghiệm thu
+
+**Mục đích:** Rà soát liên kết yêu cầu–AC–test case, hỗ trợ chạy test, phân loại sai lệch (defect / thiếu yêu cầu / thay đổi), chuẩn bị UAT, cập nhật RTM với bằng chứng, hỗ trợ quyết định nghiệm thu.
+
+**Khi nào dùng:**
+- Sprint kết thúc, cần kiểm thử và nghiệm thu (UAT).
+- Cần kiểm tra chuỗi truy vết Requirement → Story → AC → Test Case → Kết quả.
+- Business cần chạy UAT và ra quyết định chấp nhận.
+
+**Cách dùng:**
+```
+/ba-06-test-uat [tên feature hoặc Sprint cần kiểm thử]
+```
+
+**Các bước chính:**
+1. BA + QA rà soát chuỗi truy vết qua `ba-agent-traceability`.
+2. QA chạy test, BA hỗ trợ giải thích quy tắc nghiệp vụ.
+3. Phân loại sai lệch: defect, thiếu yêu cầu, hay cần Change Request.
+4. Chuẩn bị kịch bản UAT (UAT-xxx) từ AC đã duyệt, gọi `ba-agent-qa-review` (bắt buộc).
+5. Business Users chạy UAT.
+6. Tổng hợp kết quả, cập nhật RTM, gọi `ba-agent-traceability` + `ba-agent-test-design` (tùy chọn).
+7. Quyết định nghiệm thu: Accept / Reject / Conditional Acceptance / Pending.
+
+**Đầu vào cần có:** Story/AC đã xác nhận, Business Rules, bản build (có phiên bản), Test Plan/Cases, môi trường test.
+
+**Đầu ra:** Báo cáo rà soát test, RTM đã cập nhật, báo cáo UAT (17 cột), danh sách defect, quyết định nghiệm thu.
+
+**Quality Gate — G4:** Kết quả có bằng chứng, defect nghiêm trọng đã xử lý hoặc chấp nhận rủi ro, có người duyệt + ngày, coverage ≥ ngưỡng, pass rate ≥ ngưỡng, 0 defect Critical/Major còn mở.
+
+**Bước tiếp theo:** → `ba-07-release-handover`
+
+---
+
+### ba-07-release-handover — Bàn giao phát hành
+
+**Mục đích:** Đối chiếu phạm vi phát hành với kết quả thực tế, cập nhật tài liệu hướng ra ngoài (release notes, user guide, FAQ), ghi nhận vấn đề còn mở, rút bài học kinh nghiệm, lưu trữ tài liệu.
+
+**Khi nào dùng:**
+- Sau khi đạt G4, chuẩn bị phát hành.
+- Cần bàn giao cho vận hành, hỗ trợ, hoặc khách hàng.
+- Cần lưu trữ tài liệu và rút kinh nghiệm.
+
+**Cách dùng:**
+```
+/ba-07-release-handover [tên release hoặc Sprint]
+```
+
+**Các bước chính:**
+1. Đối chiếu phạm vi phát hành qua `ba-agent-traceability`.
+2. Cập nhật release notes, user guide, FAQ (tùy chọn gọi `ba-agent-qa-review`).
+3. Ghi nhận vấn đề còn mở với người chịu trách nhiệm + hạn.
+4. AI soạn bản nháp bài học kinh nghiệm + FAQ (Status = DRAFT).
+5. Lưu trữ vào Knowledge Base, tham gia Retrospective, tổng hợp KPI.
+
+**Đầu vào cần có:** Kết quả UAT đã qua G4, Release Notes, Known Issues, tài liệu yêu cầu, RTM.
+
+**Đầu ra:** Gói bàn giao (handover checklist), Release Notes, Known Issues, RTM cuối, Action Items, KPI.
+
+**Quality Gate — Gate bàn giao:** Đúng phiên bản, có người nhận, tài liệu AI đã được rà soát, vấn đề mở có người chịu trách nhiệm.
+
+**Kết thúc vòng đời.** Yêu cầu mới → quay lại `ba-01`.
+
+---
+
+## 2 Skill tài liệu chính thức
+
+Hai skill này tạo tài liệu nghiệp vụ chính thức, chạy sau khi phân tích qua G2. Có thể chạy song song với nhau hoặc song song với `ba-03`.
+
+---
+
+### ba-doc-brd — Tạo BRD
+
+**Mục đích:** Tạo tài liệu **Business Requirements Document (BRD)** — mô tả yêu cầu nghiệp vụ từ góc nhìn tổ chức: mục tiêu kinh doanh, phạm vi, bên liên quan, AS-IS/TO-BE, FR/NFR, quy tắc nghiệp vụ, ràng buộc, rủi ro, chỉ số thành công.
+
+**Khi nào dùng:**
+- Dự án cần tài liệu yêu cầu nghiệp vụ chính thức cho phê duyệt, đấu thầu, hoặc ký hợp đồng.
+- Track **Heavy** bắt buộc có BRD.
+- Cần tài liệu tổng quan cho Ban lãnh đạo hoặc Sponsor.
+
+**Cách dùng:**
+```
+/ba-doc-brd [tên dự án hoặc mã Requirement ID]
+```
+
+**Các bước chính:**
+1. Xác minh đầu vào và phạm vi.
+2. Tổng hợp bối cảnh, vấn đề, mục tiêu, chỉ số thành công, phạm vi, giả định, ràng buộc.
+3. Tổng hợp bên liên quan + quy trình.
+4. Tổng hợp yêu cầu (FR, NFR, BR, dữ liệu, tích hợp, phân quyền).
+5. Tổng hợp rủi ro, phụ thuộc, timeline.
+6. Gọi `ba-agent-qa-review` (tùy chọn) + BA và Business Owner rà soát.
+
+**Đầu vào cần có:** Tài liệu phân tích đã qua G2, danh mục Business Rules, bản đồ bên liên quan, sơ đồ quy trình, FR, NFR.
+
+**Đầu ra:** BRD theo template chuẩn, liên kết truy vết BRD↔FR↔BR↔REQ trong RTM.
+
+**Quality Gate — Gate BRD:** Mọi FR/NFR có nguồn + liên kết Requirement ID, BR có nguồn, giả định đánh dấu, phạm vi có Business Owner xác nhận.
+
+---
+
+### ba-doc-urd — Tạo URD
+
+**Mục đích:** Tạo tài liệu **User Requirements Document (URD)** — mô tả yêu cầu từ góc nhìn người dùng: hồ sơ người dùng, mục tiêu, use case, kịch bản sử dụng, yêu cầu UI/UX, tiêu chí khả dụng, tiêu chí nghiệm thu, yêu cầu trợ năng (accessibility).
+
+**Khi nào dùng:**
+- Dự án cần tài liệu yêu cầu từ góc nhìn người dùng cuối.
+- Track **Heavy** bắt buộc có URD.
+- Cần cơ sở cho UAT scenarios ở `ba-06-test-uat`.
+- Cần tài liệu cho thiết kế UI/UX.
+
+**Cách dùng:**
+```
+/ba-doc-urd [tên dự án hoặc mã Requirement ID]
+```
+
+**Các bước chính:**
+1. Xác minh đầu vào và phạm vi.
+2. Xây dựng hồ sơ người dùng (vai trò, đặc điểm, ngữ cảnh, tần suất, mục tiêu).
+3. Xác định mục tiêu người dùng + use case (tác nhân, tiền điều kiện, luồng chính, luồng thay thế, hậu điều kiện).
+4. Viết kịch bản người dùng (ngữ cảnh, hành động, phản hồi hệ thống, kết quả mong đợi).
+5. Yêu cầu UI/UX, khả dụng, trợ năng.
+6. Tiêu chí nghiệm thu cho từng use case.
+7. Gọi `ba-agent-qa-review` (tùy chọn) + BA và đại diện người dùng rà soát.
+
+**Đầu vào cần có:** Tài liệu phân tích đã qua G2, bản đồ bên liên quan, sơ đồ quy trình, FR, thông tin người dùng.
+
+**Đầu ra:** URD theo template chuẩn, liên kết truy vết URD↔Use Case↔FR↔REQ trong RTM.
+
+**Quality Gate — Gate URD:** Mọi hồ sơ người dùng có nguồn, use case có luồng lỗi/ngoại lệ, tiêu chí nghiệm thu kiểm thử được, đại diện người dùng đã rà soát.
+
+---
+
+## 6 Skill AI Agent
+
+Skill AI Agent **chỉ tạo bản nháp** (Status = DRAFT). Mọi đầu ra phải được con người rà soát trước khi sử dụng chính thức. Không agent nào tự duyệt, tự đóng gate, hay tự sửa tài liệu gốc.
+
+Đầu ra agent luôn theo **6 phần chuẩn:** Summary → Facts with sources → Findings/Open Questions → Suggested actions → Confidence limitations → Status = DRAFT.
+
+---
+
+### ba-agent-requirement — Trích xuất yêu cầu
+
+**Mục đích:** AI đọc tài liệu yêu cầu nghiệp vụ và trích xuất thông tin thành bản nháp Intake Record — mục tiêu, vấn đề, phạm vi, bên liên quan, phân loại, thông tin thiếu, câu hỏi cần làm rõ, phụ thuộc, rủi ro, trùng lặp.
+
+**Khi nào dùng:**
+- Được `ba-01-requirement-intake` gọi tự động ở Bước 4.
+- Khi có tài liệu yêu cầu cần trích xuất nhanh.
+
+**Cách dùng:** Thường không gọi trực tiếp — `ba-01` sẽ gọi tự động. Nếu cần gọi riêng:
+```
+/ba-agent-requirement [nội dung hoặc link tài liệu yêu cầu]
+```
+
+**Đầu vào:** Yêu cầu nghiệp vụ, tài liệu tham khảo (URD/BRD/Confluence nếu có), danh sách yêu cầu hiện có.
+
+**Đầu ra:** Bản nháp Intake Record (16 cột + Request Type), đánh dấu rõ nội dung AI suy luận vs. nội dung có nguồn.
+
+**Giới hạn:** Không tự duyệt, không suy luận Business Rules/Priority/SLA, không tạo trùng Intake Record.
+
+---
+
+### ba-agent-analysis — Phân tích nghiệp vụ tự động
+
+**Mục đích:** AI xây dựng bản nháp phân tích nghiệp vụ đầy đủ — bên liên quan, tác nhân, mục tiêu, phạm vi, AS-IS/TO-BE, danh mục Business Rules có mã, FR, NFR, luồng thay thế/lỗi, dữ liệu, tích hợp, phụ thuộc, rủi ro.
+
+**Khi nào dùng:**
+- Được `ba-02-business-analysis` gọi tự động ở Bước 6.
+- Khi cần AI hỗ trợ xây dựng tài liệu phân tích từ nhiều nguồn.
+
+**Cách dùng:** Thường không gọi trực tiếp — `ba-02` sẽ gọi tự động. Nếu cần gọi riêng:
+```
+/ba-agent-analysis [mã Requirement ID hoặc link tài liệu]
+```
+
+**Đầu vào:** Intake Record đã qua G1, tài liệu nghiệp vụ (có phiên bản), danh mục Business Rules hiện có, thông tin hệ thống/tích hợp.
+
+**Đầu ra:** Bản nháp phân tích nghiệp vụ (19 cột), theo 6 phần chuẩn.
+
+**Giới hạn:** Không tự tạo chính sách/SLA, không gán mã BR nếu không có nguồn, không quyết định phạm vi, không thăng cấp giả định thành sự thật.
+
+---
+
+### ba-agent-specification — Viết User Story và AC
+
+**Mục đích:** AI viết bản nháp User Story và Acceptance Criteria (Given-When-Then) từ yêu cầu đã rà soát — liên kết với Requirement ID và Business Rule ID, bao gồm luồng chính, ngoại lệ, validation, edge case có bằng chứng.
+
+**Khi nào dùng:**
+- Được `ba-03-specification` gọi tự động ở Bước 5.
+- Khi cần AI hỗ trợ viết story/AC từ tài liệu phân tích.
+
+**Cách dùng:** Thường không gọi trực tiếp — `ba-03` sẽ gọi tự động. Nếu cần gọi riêng:
+```
+/ba-agent-specification [mã Requirement ID hoặc tên feature]
+```
+
+**Đầu vào:** Tài liệu phân tích/yêu cầu đã rà soát + Requirement ID, danh mục Business Rules + BR ID, NFR, quy ước Story/AC của team.
+
+**Đầu ra:** Bản nháp User Story + AC (18 cột), bao gồm tự rà soát về clarity/consistency/testability/duplication.
+
+**Giới hạn:** Không tạo yêu cầu mới để lấp khoảng trống, không quyết định Priority/Story Point, không duyệt DoR, không viết AC cho hành vi chưa có nguồn.
+
+---
+
+### ba-agent-qa-review — Rà soát chất lượng
+
+**Mục đích:** AI rà soát tài liệu yêu cầu theo 8 tiêu chí: Đầy đủ, Rõ ràng, Nhất quán, Kiểm thử được, Truy vết, Trường hợp phủ định, NFR, Tác động thay đổi. Báo cáo finding có bằng chứng.
+
+**Khi nào dùng:**
+- **Bắt buộc** ở: BA-02 (Bước 6), BA-03 (Bước 5), BA-04 (Bước 5), BA-06 (Bước 4).
+- **Tùy chọn** ở: BA-01 (Bước 5), BA-05 (Bước 5), BA-07 (Bước 2), ba-doc-brd, ba-doc-urd.
+- Bất cứ khi nào cần AI rà soát chất lượng tài liệu yêu cầu.
+
+**Cách dùng:** Thường được skill quy trình gọi tự động. Nếu cần gọi riêng:
+```
+/ba-agent-qa-review [link hoặc nội dung tài liệu cần rà soát]
+```
+
+**Đầu vào:** Tài liệu cần rà soát (URD/BRD, phân tích, Story/AC, RTM, hoặc CR) có phiên bản + nguồn so sánh.
+
+**Đầu ra:** Bảng finding (7 cột: Finding ID, Category, Severity, Evidence, Requirement Reference, Suggested Action, Owner). Severity: Critical / Major / Minor / Info. Đề xuất dòng ghi vào `ai-review-log.md` (15 cột).
+
+**Giới hạn:** Không sửa tài liệu gốc, không tự duyệt, không tạo finding không có bằng chứng, không hạ mức severity, không đánh dấu Resolved/Accepted Risk.
+
+---
+
+### ba-agent-test-design — Thiết kế test case
+
+**Mục đích:** AI đề xuất kịch bản và test case cho happy path, negative path, boundary, phân quyền, tích hợp, xử lý lỗi — mỗi case liên kết với AC ID hoặc Requirement ID, kèm tiền điều kiện, bước thực hiện, dữ liệu test, kết quả mong đợi.
+
+**Khi nào dùng:**
+- Được `ba-06-test-uat` gọi tự động ở Bước 1 và 6.
+- Khi cần AI gợi ý test case từ AC đã duyệt.
+- Khi cần bổ sung coverage cho test plan.
+
+**Cách dùng:** Thường không gọi trực tiếp — `ba-06` sẽ gọi tự động. Nếu cần gọi riêng:
+```
+/ba-agent-test-design [mã Story ID hoặc danh sách AC cần thiết kế test]
+```
+
+**Đầu vào:** AC đã rà soát + AC ID + Story ID, danh mục Business Rules, dữ liệu/môi trường test cho phép, Requirement IDs.
+
+**Đầu ra:** Test Case (10 cột: Test Case ID, Story ID, Requirement/AC ID, Scenario Type, Preconditions, Steps, Test Data, Expected Result, Priority, Open Questions). Dòng RTM nháp với Test Result = Not Run, UAT Result = Not Run.
+
+**Giới hạn:** Không khẳng định test đã chạy/đạt/lỗi, không điền Test Result/UAT Result, không dùng dữ liệu thật/nhạy cảm, không thiết kế test cho AC chưa rà soát.
+
+---
+
+### ba-agent-traceability — Kiểm tra truy vết
+
+**Mục đích:** AI đối chiếu chuỗi Requirement → Story → AC → Test Case → Kết quả test/UAT. Báo cáo coverage, liên kết thiếu, bản ghi mồ côi, nghi ngờ bị ảnh hưởng bởi thay đổi, lệch phiên bản — tất cả có bằng chứng.
+
+**Khi nào dùng:**
+- Được gọi tự động từ nhiều skill: BA-04 (Bước 5), BA-05 (Bước 3, 5), BA-06 (Bước 1, 6), BA-07 (Bước 1).
+- Khi cần kiểm tra RTM có đầy đủ và nhất quán không.
+- Khi story bị chia, thay đổi xảy ra, hoặc chuẩn bị phát hành.
+
+**Cách dùng:** Thường được skill quy trình gọi tự động. Nếu cần gọi riêng:
+```
+/ba-agent-traceability [link RTM hoặc mô tả phạm vi cần kiểm tra]
+```
+
+**Đầu vào:** RTM hiện tại (có phiên bản), tài liệu phân tích + Requirement IDs, Story/AC, Test Cases + kết quả (nếu có), Change Log.
+
+**Đầu ra:** Coverage Summary, Missing Links, Suspected Impact, Source Evidence, Suggested Owner/Action. Liên kết suy luận đánh dấu `Inferred` (không bao giờ `Confirmed`).
+
+**Giới hạn:** Không coi liên kết suy luận là xác nhận, không cập nhật RTM/Story/Change Log chính thức, không điền Test Result/UAT Result, không duyệt thay đổi phạm vi, không xóa bản ghi mồ côi, không khẳng định sẵn sàng phát hành nếu chưa xác minh.
+
+---
+
+## 3 đường đi theo mức độ
+
+PO chọn đường đi (track) tại Bước 5 của BA-01 dựa vào loại yêu cầu.
+
+| Track | Áp dụng cho | Quy trình | Gate |
+|---|---|---|---|
+| **Express** | Defect lệch AC đã duyệt; Technical Change không đổi hành vi | BA-01 → BA-06 (chỉ retest) | G1, G4 |
+| **Standard** | New Feature, Enhancement, Compliance; Technical Change có đổi hành vi | BA-01 → BA-07 đầy đủ | G1–G4 + Gate thay đổi + Gate bàn giao |
+| **Heavy** | Feature lớn, compliance phức tạp, hợp đồng/đấu thầu | Standard + BRD/URD bắt buộc | Tất cả + Gate BRD + Gate URD |
+
+> `Defect` chưa có AC và `Unknown` không được vào Express.
+
+---
+
+## Luồng gọi điển hình
+
+```
+Yêu cầu mới
+  → /ba-01-requirement-intake       → G1
+  → /ba-02-business-analysis        → G2
+  → /ba-doc-brd  (tùy chọn/Heavy)   → Gate BRD
+  → /ba-doc-urd  (tùy chọn/Heavy)   → Gate URD
+  → /ba-03-specification            → G3 + tạo RTM
+  → /ba-04-refinement               → DoR
+  → Sprint
+  → /ba-06-test-uat                 → G4
+  → /ba-07-release-handover         → Gate bàn giao
+
+Theo sự kiện (từ BA-03 trở đi):
+  → /ba-05-change-management        → Gate thay đổi
+    → quay lại BA-02, BA-03, BA-04 hoặc BA-06 tùy loại thay đổi
+```
+
+Nguyên tắc: **Skill quy trình điều phối con người, skill agent chỉ tạo bản nháp.** Không skill nào tự đóng gate.
+
+---
+
+## Tài nguyên dùng chung
+
+| File | Được dùng bởi | Mô tả |
+|---|---|---|
+| `skills/ba-03-specification/assets/rtm.md` | ba-03, ba-06, ba-07, ba-agent-test-design, ba-agent-traceability | Template RTM (10 cột) — nơi tạo dòng truy vết đầu tiên |
+| `skills/ba-05-change-management/assets/decision-log-cr.md` | ba-04, ba-05, ba-06 | Template nhật ký quyết định và Change Request |
+| `assets/ai-run-log.md` | Cả 6 agent, BA-07 | Template ghi nhận lịch sử chạy AI |
+
+> Các file trên là **template chỉ đọc**. Bản ghi thật lưu tại `ba-records/<project>/` trong repo dự án.
+
+---
+
+## Quy ước chung
+
+- **Mô tả song ngữ:** Tiếng Anh trước (có `Use when …`), rồi `Tiếng Việt:` — để Kiro khớp cả hai ngôn ngữ.
+- **Nội dung tiếng Việt**, giữ nguyên thuật ngữ tiếng Anh như SOP.
+- **10 rào cản bắt buộc** nằm tại `POWER.md` — tất cả 15 skill đều tuân theo.
+- **Đầu ra agent** theo 6 phần chuẩn: Summary → Facts with sources → Findings/Open Questions → Suggested actions → Confidence limitations → Status = DRAFT.
+- **Cột biểu mẫu** khớp tên cột trong `assets/_archive/workbook-v1.0.md`. Trường thêm đánh dấu ⚠.
+- **Kiểm tra sau khi sửa:** `python scripts/validate_power.py`.
+
+---
+
+## Cài đặt chi tiết
 
 ### Cách 1 — Cài từ thư mục local
 
 1. Mở **Kiro IDE** → vào phần **Powers**.
-2. Chọn **Install from local** (hoặc **Add Power** → **Local**).
-3. Trỏ tới thư mục chứa power này (thư mục có `plugin.json` và `POWER.md`).
+2. Chọn **Install from local**.
+3. Trỏ tới thư mục chứa `plugin.json` và `POWER.md`.
 4. Kiro sẽ sao power vào `~/.kiro/powers/installed/ba-agile-ai/`.
-5. Sau khi cài xong, các skill sẽ xuất hiện trong danh sách — gọi bằng `/` + tên skill.
+5. Các skill xuất hiện trong danh sách — gọi bằng `/` + tên skill.
 
 ### Cách 2 — Cài từ git repo
 
-1. Push thư mục này lên git remote (GitHub, GitLab, CodeCommit, …).
+1. Push thư mục lên git remote (GitHub, GitLab, CodeCommit, …).
 2. Mở **Kiro IDE** → **Powers** → **Add Power** → **Repository**.
-3. Dán URL của repo → Kiro clone và cài tự động.
+3. Dán URL repo → Kiro clone và cài tự động.
 
-### Cách 3 — Dùng Kiro CLI
+### Cách 3 — Kiro CLI
 
 ```bash
 # Từ thư mục local
@@ -47,135 +575,44 @@ kiro power install --source local --path /đường/dẫn/tới/Bo_Quy_Trinh_BA_
 kiro power install --source repo --url https://github.com/<user>/Bo_Quy_Trinh_BA_Agile_AI
 ```
 
-### Sau khi cài đặt
+### Sau khi cài
 
-- **Gọi tự động**: Kiro khớp yêu cầu với trường `description` của từng skill và tự chọn skill phù hợp.
-- **Gọi thủ công**: gõ `/` + tên skill, ví dụ `/ba-03-specification`. Chữ sau tên skill được truyền vào làm ngữ cảnh.
-- **Custom agent**: skill **không** được nạp mặc định; phải khai báo trong trường `resources` bằng URI `skill://`.
+| Cách gọi | Chi tiết |
+|---|---|
+| Tự động | Kiro khớp yêu cầu với `description` của skill, tự chọn skill phù hợp |
+| Thủ công | Gõ `/` + tên skill. Chữ sau tên skill là ngữ cảnh |
+| Custom agent | Khai báo trong trường `resources` bằng URI `skill://` |
 
-### Thông tin bổ sung
-- **Dạng phân phối**: đây là một **Kiro Power** tự chứa — manifest ở `plugin.json`, hướng dẫn power ở `POWER.md`, 15 skill ở `skills/`, tài liệu nguồn lưu trữ ở `assets/_archive/`, icon ở `assets/icon.png`.
-- **Icon**: bản gốc 512×512 ở `assets/icon.png`. Ảnh nhúng base64 ở đầu file này và `iconUrl` trong `POWER.md` đều là bản dẫn xuất thu nhỏ 100×100 của chính file đó; đổi icon thì phải sinh lại cả hai chỗ.
+---
 
-## 7 skill quy trình
+## Ghi chú kỹ thuật
 
-| Skill | SOP | Gate | Template (sheet workbook) |
-| --- | --- | --- | --- |
-| `ba-01-requirement-intake` | BA-01 | G1 | Intake / BA-T01 |
-| `ba-02-business-analysis` | BA-02 | G2 | Analysis / BA-T02 |
-| `ba-03-specification` | BA-03 | G3 | User Story AC / BA-T03 + RTM / BA-T04 |
-| `ba-04-refinement` | BA-04 | DoR tham khảo | — |
-| `ba-05-change-management` | BA-05 | Gate thay đổi | Change Log / BA-T05 |
-| `ba-06-test-uat` | BA-06 | G4 | UAT Report / BA-T06 + RTM |
-| `ba-07-release-handover` | BA-07 | Gate bàn giao | Handover / BA-T07 |
+### Trạng thái tài liệu nguồn
 
-## 2 skill tài liệu chính thức
+Bốn tài liệu gốc (`01_SOP_BA_Agile_AI.docx`, `02_Bo_Template_BA.xlsx`, `03_Prompt_Pack_BA_AI.md`, `README.md`) đã bị xóa khỏi thư mục dự án vào 2026-10-30. Nội dung chữ được lưu tại `assets/_archive/`, trích xuất bằng script từ file nhị phân. Bộ skill **tự chủ về nội dung** — toàn bộ quy trình, gate, template đều nằm trong `skills/`.
 
-| Skill | Mục đích | Gate |
-| --- | --- | --- |
-| `ba-doc-brd` | Tạo BRD (Business Requirements Document) từ kết quả phân tích đạt G2 | Gate BRD |
-| `ba-doc-urd` | Tạo URD (User Requirements Document) từ kết quả phân tích đạt G2 | Gate URD |
+Chi tiết: `assets/_archive/README.md`.
 
-## 6 skill AI Agent
+### Khác biệt giữa SOP và workbook
 
-| Skill | Agent (SOP §7) | Prompt gốc | Được gọi từ |
-| --- | --- | --- | --- |
-| `ba-agent-requirement` | Requirement Agent | Prompt Pack §1 | BA-01 Bước 4 |
-| `ba-agent-analysis` | Analysis Agent | Prompt Pack §2 | BA-02 Bước 6 |
-| `ba-agent-specification` | Specification Agent | Prompt Pack §3 | BA-03 Bước 5 |
-| `ba-agent-qa-review` | QA Review Agent | Prompt Pack §4 | BA-01 Bước 5; BA-02 Bước 6; BA-03 Bước 5; BA-04 Bước 5; BA-05 Bước 5; BA-06 Bước 4; BA-07 Bước 2 |
-| `ba-agent-test-design` | Test Design Agent | Prompt Pack §5 | BA-06 Bước 1, 6 |
-| `ba-agent-traceability` | Traceability Agent | Prompt Pack §6 | BA-04 Bước 5; BA-05 Bước 3, 5; BA-06 Bước 1, 6; BA-07 Bước 1 |
+| Template | Mục SOP có nhưng sheet thiếu | Xử lý |
+|---|---|---|
+| BA-T02 / Analysis | `owner`, `Success Metrics`, `Out of Scope`, `Decision Log`, `Review & Approval` | Thêm vào assets, đánh dấu ⚠ |
+| BA-T06 / UAT Report | Cột gộp `Scope & Acceptance Criteria`, ô tổng, `Open Risks`, `Approver/Date` | Tách thành phần riêng trong assets |
 
-`ba-agent-qa-review` là bắt buộc ở BA-02, BA-03, BA-04 và BA-06; tuỳ chọn ở BA-01, BA-05 và BA-07.
+### Mở rộng so với SOP/workbook v1.0
 
-## Tài nguyên dùng chung
+Các phần mở rộng (đánh dấu ⚠ tại chỗ dùng): Request Type trong Intake, đường đi theo Request Type, Version/Confirmed By trong Story, Ready for Sprint, DoR tiêu chí 7-8, Bước 6 của BA-05, G4 tiêu chí 3, ai-run-log.md.
 
-| File | Được tham chiếu bởi |
-| --- | --- |
-| `skills/ba-03-specification/assets/rtm.md` | `ba-03`, `ba-06`, `ba-07`, `ba-agent-test-design`, `ba-agent-traceability` |
-| `skills/ba-05-change-management/assets/decision-log-cr.md` | `ba-04` (PO chấp nhận rủi ro), `ba-06` (requirement gap / CR) |
-| `assets/ai-run-log.md` | Cả 6 agent, BA-07 Bước 4 |
+### Việc cần làm trước khi áp dụng
 
-RTM đặt ở `ba-03` vì đó là nơi dòng truy vết đầu tiên được tạo (SOP BA-03 liệt kê RTM trong đầu ra). Các file này là template chỉ đọc. Bản ghi thật lưu tại `ba-records/<project>/` trong repo dự án — xem mục "Template và bản ghi dự án" trong `POWER.md`.
-
-## Đường đi theo mức độ (Process Tracks)
-
-Từ v1.1, BA-01 chính thức hóa ba đường đi theo mức độ cần thiết.
-
-| Track | Áp dụng cho | Quy trình | Gate |
-| --- | --- | --- | --- |
-| **Express** | `Defect` lệch AC đã duyệt; `Technical Change` không đổi hành vi | BA-01 → BA-06 (chỉ retest) | G1, G4 |
-| **Standard** | `New Feature`, `Enhancement`, `Compliance`; `Technical Change` có đổi hành vi | BA-01 → BA-07 đầy đủ | G1–G4 + gate thay đổi + gate bàn giao |
-| **Heavy** | Feature lớn, compliance phức tạp, hợp đồng/đấu thầu | Standard + BRD/URD bắt buộc | Tất cả + Gate BRD + Gate URD |
-
-PO chọn track tại Bước 5 của BA-01. `Defect` chưa có AC và `Unknown` không được vào Express.
-
-## Luồng gọi điển hình
-
-```
-Yêu cầu mới
-  → /ba-01-requirement-intake      (gọi ba-agent-requirement ở Bước 4)   → G1
-  → /ba-02-business-analysis       (gọi ba-agent-analysis ở Bước 6)      → G2
-  → /ba-doc-brd                    (tạo BRD chính thức từ kết quả G2)    → Gate BRD
-  → /ba-doc-urd                    (tạo URD từ góc nhìn người dùng)      → Gate URD
-  → /ba-03-specification           (gọi ba-agent-specification, ba-agent-qa-review) → G3 + tạo RTM
-  → /ba-04-refinement              (gọi ba-agent-qa-review)              → DoR
-  → Sprint
-  → /ba-06-test-uat                (gọi ba-agent-traceability, ba-agent-test-design) → G4
-  → /ba-07-release-handover        (gọi ba-agent-traceability)           → Gate bàn giao
-
-Theo sự kiện, từ BA-03 trở đi:
-  /ba-05-change-management         (gọi ba-agent-traceability)           → Gate thay đổi
-  → quay lại BA-02, BA-03, BA-04 hoặc BA-06 theo Bước 6 của BA-05
-```
-
-BRD và URD có thể tạo song song hoặc tuần tự sau G2, trước hoặc song song với BA-03. Không bắt buộc cả hai — tuỳ yêu cầu dự án.
-
-Sau G1, PO chọn đường đi theo `Request Type`; `Defect` và `Technical Change` có đường rút gọn (đề xuất, chủ quy trình cần chốt — xem BA-01). Không đạt G4 hoặc `Decision = Reject` thì quay lại theo Bước 7 của BA-06.
-
-Nguyên tắc: **skill quy trình điều phối con người, skill agent chỉ tạo bản nháp.** Không skill nào tự đóng gate.
-
-## Quy ước chung của cả 15 skill
-- `description` song ngữ: tiếng Anh trước (có mệnh đề `Use when …`) rồi tới `Tiếng Việt:` — để Kiro khớp được cả hai ngôn ngữ.
-- Thân skill viết tiếng Việt, giữ nguyên thuật ngữ tiếng Anh như SOP.
-- Khối **"Rào cản bắt buộc"** 10 điều nằm tại `POWER.md` (nguồn chính thức duy nhất); 15 skill tham chiếu về đó.
-- Đầu ra agent theo 6 phần: Summary · Facts with sources · Findings/Open Questions · Suggested actions · Confidence limitations · `Status = DRAFT`.
-- Cột biểu mẫu khớp đúng tên cột trong `assets/_archive/workbook-v1.0.md`; trường đánh dấu ⚠ là phần thêm.
-- Kiểm định sau khi sửa: `python scripts/validate_power.py`.
-
-## Khác biệt giữa SOP §6 và workbook — đã xử lý trong assets
-
-| Template | Mục SOP §6 có nhưng sheet thiếu | Xử lý |
-| --- | --- | --- |
-| BA-T02 / sheet `Analysis` | `owner`, `Success Metrics`, `Out of Scope`, `Decision Log`, `Review & Approval` | Thêm vào `skills/ba-02-business-analysis/assets/business-analysis-doc.md`, đánh dấu ⚠ |
-| BA-T06 / sheet `UAT Report` | Cột gộp `Scope & Acceptance Criteria`, các ô tổng `Total/Passed/Failed/Blocked/Not Run`, `Open Risks`, `Approver / Date` | Tách thành "Phần 3 — Tổng hợp và quyết định" trong `skills/ba-06-test-uat/assets/uat-report.md` |
-
-BA-T01, BA-T03, BA-T04, BA-T05, BA-T07: sheet workbook đầy đủ hơn hoặc bằng SOP, không cần bổ sung vì lý do này.
-
-## Mở rộng so với SOP/workbook v1.0
-
-Các phần dưới đây không có trong bản gốc, được đánh dấu ⚠ tại chỗ dùng. `assets/_archive/` giữ nguyên.
-
-| Phần mở rộng | Lý do |
-| --- | --- |
-| `Request Type` trong Intake | Bước 2 và G1 cần nơi ghi kết quả phân loại |
-| Đường đi theo `Request Type` trong BA-01 | Tránh bắt mọi yêu cầu đi hết chuỗi; **chủ quy trình cần chốt** |
-| `Version`, `Confirmed By / Date` trong Story | G3 cần bằng chứng cho hai tiêu chí này |
-| `Ready for Sprint` | Tách "được vào refinement" với "đạt DoR" |
-| DoR tiêu chí 7, 8 | Bổ sung truy vết và kích thước Story |
-| Bước 6 của BA-05 | Thay đổi đã duyệt phải qua lại điểm kiểm soát |
-| G4 tiêu chí 3, `Conditions`, `Skipped` trong tổng hợp UAT | G4 phải có quyết định cho phép đi tiếp; số liệu phải cộng khớp |
-| `ai-run-log.md` | SOP §8 yêu cầu audit trail nhưng workbook chưa có nơi ghi |
-
-Workbook gốc đã bị xoá; cấu trúc của nó được lưu tại `assets/_archive/workbook-v1.0.md`. Nếu tổ chức ban hành workbook phiên bản mới, đối chiếu lại với bản archive đó rồi cập nhật các file `assets/` tương ứng.
-
-## Việc cần làm trước khi áp dụng (theo README của bộ tài liệu, bản lưu tại `assets/_archive/pack-readme-v1.0.md`)
-1. Review và điều chỉnh quy trình theo chính sách, công cụ và phân quyền của tổ chức.
-2. Thay ví dụ minh hoạ bằng dữ liệu dự án thực tế.
+1. Review và điều chỉnh quy trình theo chính sách tổ chức.
+2. Thay ví dụ minh họa bằng dữ liệu dự án thực tế.
 3. Chốt nguồn tài liệu chính thức và quy tắc versioning.
-4. Thử nghiệm 2–4 Sprint; đo baseline trước khi đặt KPI chính thức.
-5. Chỉ tích hợp AI Agent với Jira/Confluence sau khi được cấp quyền và phê duyệt bảo mật.
+4. Thử nghiệm 2–4 Sprint, đo baseline trước khi đặt KPI.
+5. Chỉ tích hợp AI Agent với Jira/Confluence sau khi được phê duyệt bảo mật.
 6. Không dùng đầu ra AI chưa review làm yêu cầu chính thức.
 
-Kế hoạch triển khai tham khảo (SOP §10): Tuần 1–2 chốt SOP/RACI/Gate/template → Tuần 3–4 dựng Requirement Intake, Specification, QA Review Agent → Tuần 5–6 tích hợp Jira/Confluence nếu được duyệt, thiết lập RTM/approval/versioning/audit trail → Tuần 7–8 đo KPI, đánh giá lỗi AI, cải tiến prompt và quyết định mở rộng.
+### Dạng phân phối
+
+Đây là một **Kiro Power** tự chứa: manifest ở `plugin.json`, hướng dẫn power ở `POWER.md`, 15 skill ở `skills/`, tài liệu lưu trữ ở `assets/_archive/`, icon ở `assets/icon.png`.
