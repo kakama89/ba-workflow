@@ -9,6 +9,9 @@ Gate này đóng lại BA-06. Không đạt G4 thì không chuyển sang BA-07.
 | 1 | Kết quả có bằng chứng | Mỗi dòng `Pass`/`Fail` có `Evidence Link` mở được | |
 | 2 | Defect nghiêm trọng được xử lý | Đã sửa và retest, **hoặc** có chấp nhận rủi ro đúng thẩm quyền kèm tên + ngày | |
 | 3 ⚠ | Có quyết định nghiệm thu cho phép đi tiếp | `Decision` là `Accept` hoặc `Conditional Acceptance`, có `Approver` và `Approval Date`; `Conditional Acceptance` có `Conditions` kèm owner và hạn | |
+| 4 ⚠ | RTM coverage ≥ ngưỡng dự án | Tỷ lệ dòng RTM có `Coverage Status = Covered` so với tổng dòng ≥ ngưỡng do PO chốt (mặc định 100 % cho Standard/Heavy, 100 % phần liên quan cho Express); dòng `Not Applicable` được loại khỏi mẫu số; `Skipped` phải có lý do và người duyệt | |
+| 5 ⚠ | Pass Rate ≥ ngưỡng dự án | `Passed / (Passed + Failed + Blocked)` ≥ ngưỡng do PO chốt (mặc định 100 %); `Not Run` không được đếm vào Passed; `Skipped` phải có lý do | |
+| 6 ⚠ | Defect Critical/Major còn mở = 0 | Mọi defect `Critical` và `Major` đã đóng hoặc có chấp nhận rủi ro đúng thẩm quyền | |
 
 ## Tiêu chí bổ sung nên kiểm tra
 - [ ] Mọi AC cần kiểm thử đều có `Test Case ID` trong RTM; không còn `Missing Link`.

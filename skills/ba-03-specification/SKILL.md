@@ -33,16 +33,7 @@ Không dùng skill này để ước lượng Story Point hay xếp thứ tự �
 
 ## Rào cản bắt buộc (không được vượt qua)
 
-1. **Grounding** — mọi kết luận quan trọng phải kèm nguồn; nếu chưa xác minh thì ghi rõ "chưa xác minh".
-2. **Fact / Assumption / Inference / Unknown** — phân loại tường minh, không trộn lẫn.
-3. **Không tự tạo Business Rules**, không tự đặt Priority, Story Point, SLA hay giới hạn nghiệp vụ.
-4. **Không tự phê duyệt** — DoR, nghiệm thu, thay đổi phạm vi đều thuộc thẩm quyền con người.
-5. **Mọi đầu ra là DRAFT** cho đến khi người có thẩm quyền review.
-6. **Thiếu đầu vào thì hỏi, không đoán.**
-7. **Idempotency** — kiểm tra bản ghi đã tồn tại trước khi tạo mới; không sinh Story/Comment/Record trùng khi chạy lại.
-8. **Error handling** — nguồn lỗi, schema sai hoặc thiếu dữ liệu: dừng bước và báo, không tự chế dữ liệu thay thế.
-9. **Data protection** — không gửi bí mật hoặc dữ liệu nhạy cảm tới dịch vụ chưa được tổ chức phê duyệt.
-10. **Audit trail** — ghi lại prompt version, model/version, tài liệu đầu vào, đầu ra, người review và quyết định.
+Áp dụng đầy đủ 10 điều tại mục «Rào cản bắt buộc» trong `POWER.md` (Grounding · Fact/Assumption/Inference/Unknown · không tự tạo Business Rules · không tự phê duyệt · DRAFT · không đoán · Idempotency · Error handling · Data protection · Audit trail).
 
 Riêng ở BA-03: **không tự tạo yêu cầu mới ngoài phạm vi đã phân tích**, không quyết định Priority/Story Point, không phê duyệt DoR.
 
@@ -95,6 +86,8 @@ Chi tiết tại `references/quality-gate-g3.md`. Tóm tắt:
 - [ ] Không che giấu giả định
 - [ ] Có xác nhận của người có thẩm quyền
 - [ ] Có phiên bản tài liệu
+- [ ] ⚠ Tỷ lệ AC testable = 100 %
+- [ ] ⚠ Câu hỏi mở Critical/Major = 0
 
 Đạt G3 thì Story chuyển `Ready for Refinement`. Không đạt G3 thì Story chưa được vào refinement.
 

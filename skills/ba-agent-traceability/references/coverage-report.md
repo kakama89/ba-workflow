@@ -91,6 +91,10 @@ Dừng và báo lại BA, không tự chế dữ liệu thay thế, khi:
 
 Khi dừng: nêu rõ phần chuỗi đã đối chiếu được, phần bị chặn, lý do và nguồn cần cung cấp. Không đưa ra con số coverage cho phần chưa đối chiếu.
 
+## 8. AI Review Status
+
+Mọi đầu ra của agent kèm `AI Review Status = Draft - cần review`. Giá trị hợp lệ: `Draft - cần review` | `Reviewed - Accepted` | `Reviewed - Accepted with Changes` | `Reviewed - Rejected`. Người review cập nhật giá trị này; agent không tự chuyển ra khỏi `Draft - cần review`. Giá trị đồng bộ với cột `Review Decision` trong `ba-records/<project>/ai-run-log.md`.
+
 ## 7. Idempotency và audit trail
 
 - Báo cáo coverage gắn với một phiên bản RTM và một thời điểm; chạy lại trên cùng phiên bản thì cập nhật báo cáo hiện có thay vì tạo báo cáo mới.

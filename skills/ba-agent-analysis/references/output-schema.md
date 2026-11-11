@@ -81,6 +81,10 @@ Dừng và báo lại BA, không tự chế dữ liệu thay thế, khi:
 
 Khi dừng: nêu rõ bước dừng, lý do, nguồn liên quan, mục phân tích bị chặn và thông tin cần cung cấp.
 
+## 7. AI Review Status
+
+Mọi đầu ra của agent kèm `AI Review Status = Draft - cần review`. Giá trị hợp lệ: `Draft - cần review` | `Reviewed - Accepted` | `Reviewed - Accepted with Changes` | `Reviewed - Rejected`. Người review cập nhật giá trị này; agent không tự chuyển ra khỏi `Draft - cần review`. Giá trị đồng bộ với cột `Review Decision` trong `ba-records/<project>/ai-run-log.md`.
+
 ## 6. Idempotency và audit trail
 
 - Trước khi tạo tài liệu phân tích mới, tra theo `Document ID`, `Scope` và `Source References`. Nếu đã có bản nháp cho cùng phạm vi, cập nhật và tăng `Version` thay vì tạo mới.

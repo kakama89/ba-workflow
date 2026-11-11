@@ -10,6 +10,8 @@ Gate này đóng lại BA-03. Không đạt G3 thì Story chưa được đưa v
 | 2 | Không che giấu giả định | Mọi nội dung chưa xác nhận gắn `[Assumption]` hoặc `[Unknown]` | |
 | 3 | Có xác nhận | `Confirmed By / Date` ⚠: tên người xác nhận (PO/Business) và ngày | |
 | 4 | Có phiên bản | `Version` ⚠ và `Review Status` được cập nhật | |
+| 5 | ⚠ Tỷ lệ AC testable ≥ 100 % | Mọi AC trong scope phải đạt tiêu chí "AC kiểm thử được" (mục dưới); không chấp nhận AC mơ hồ | |
+| 6 | ⚠ Câu hỏi mở quan trọng ≤ 0 | Mọi câu hỏi mở có nhãn `Critical` hoặc `Major` đều đã có câu trả lời hoặc quyết định; chỉ còn `Minor`/`Info` | |
 
 ## Tiêu chí bổ sung nên kiểm tra
 - [ ] Mỗi Story có `Epic ID`, `Story ID`, `Requirement IDs` và `Business Rule IDs`.

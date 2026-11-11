@@ -78,6 +78,10 @@ Thiếu Requester hoặc Business Owner không phải điều kiện dừng củ
 
 Khi dừng: nêu rõ bước dừng, lý do, nguồn liên quan và thông tin cần BA cung cấp.
 
+## 7. AI Review Status
+
+Mọi đầu ra của agent kèm `AI Review Status = Draft - cần review`. Giá trị hợp lệ: `Draft - cần review` | `Reviewed - Accepted` | `Reviewed - Accepted with Changes` | `Reviewed - Rejected`. Người review cập nhật giá trị này; agent không tự chuyển ra khỏi `Draft - cần review`. Giá trị đồng bộ với cột `Review Decision` trong `ba-records/<project>/ai-run-log.md`.
+
 ## 6. Idempotency và audit trail
 
 - Trước khi tạo Intake Record mới, tra theo `Request Title` + `Source Documents + Version` + `Requester`. Nếu đã có bản ghi cho cùng Business Request, cập nhật bản nháp hiện có thay vì tạo mới.

@@ -82,6 +82,10 @@ Dừng và báo lại BA, không tự chế nội dung thay thế, khi:
 
 Khi dừng: nêu rõ phạm vi đã review được, phạm vi bị chặn, lý do và thông tin cần cung cấp.
 
+## 8. AI Review Status
+
+Mọi đầu ra của agent kèm `AI Review Status = Draft - cần review`. Giá trị hợp lệ: `Draft - cần review` | `Reviewed - Accepted` | `Reviewed - Accepted with Changes` | `Reviewed - Rejected`. Người review cập nhật giá trị này; agent không tự chuyển ra khỏi `Draft - cần review`. Giá trị đồng bộ với cột `Review Decision` trong `ba-records/<project>/ai-run-log.md`.
+
 ## 7. Idempotency và audit trail
 
 - Trước khi tạo finding mới, tra log theo `Artifact ID` + `Check Category` + nội dung finding. Nếu đã có, cập nhật dòng hiện có thay vì tạo dòng mới.

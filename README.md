@@ -4,7 +4,7 @@
 
 > File này là **mục lục dành cho người** của power, không phải một skill. Kiro nạp các skill từ thư mục `skills/` (mỗi thư mục con có `SKILL.md`).
 
-Phiên bản: 1.0 · Nguồn: `assets/_archive/sop-v1.0.md`, `assets/_archive/workbook-v1.0.md`, `assets/_archive/prompt-pack-v1.0.md`
+Phiên bản: 1.1 · Nguồn: `assets/_archive/sop-v1.0.md`, `assets/_archive/workbook-v1.0.md`, `assets/_archive/prompt-pack-v1.0.md`
 
 ## Trạng thái tài liệu nguồn — đọc trước khi dùng
 
@@ -87,7 +87,7 @@ kiro power install --source repo --url https://github.com/<user>/Bo_Quy_Trinh_BA
 | `ba-agent-test-design` | Test Design Agent | Prompt Pack §5 | BA-06 Bước 1, 6 |
 | `ba-agent-traceability` | Traceability Agent | Prompt Pack §6 | BA-04 Bước 5; BA-05 Bước 3, 5; BA-06 Bước 1, 6; BA-07 Bước 1 |
 
-`ba-agent-qa-review` là bắt buộc ở BA-03 và BA-04, tuỳ chọn ở các quy trình còn lại.
+`ba-agent-qa-review` là bắt buộc ở BA-02, BA-03, BA-04 và BA-06; tuỳ chọn ở BA-01, BA-05 và BA-07.
 
 ## Tài nguyên dùng chung
 
@@ -98,6 +98,18 @@ kiro power install --source repo --url https://github.com/<user>/Bo_Quy_Trinh_BA
 | `assets/ai-run-log.md` | Cả 6 agent, BA-07 Bước 4 |
 
 RTM đặt ở `ba-03` vì đó là nơi dòng truy vết đầu tiên được tạo (SOP BA-03 liệt kê RTM trong đầu ra). Các file này là template chỉ đọc. Bản ghi thật lưu tại `ba-records/<project>/` trong repo dự án — xem mục "Template và bản ghi dự án" trong `POWER.md`.
+
+## Đường đi theo mức độ (Process Tracks)
+
+Từ v1.1, BA-01 chính thức hóa ba đường đi theo mức độ cần thiết.
+
+| Track | Áp dụng cho | Quy trình | Gate |
+| --- | --- | --- | --- |
+| **Express** | `Defect` lệch AC đã duyệt; `Technical Change` không đổi hành vi | BA-01 → BA-06 (chỉ retest) | G1, G4 |
+| **Standard** | `New Feature`, `Enhancement`, `Compliance`; `Technical Change` có đổi hành vi | BA-01 → BA-07 đầy đủ | G1–G4 + gate thay đổi + gate bàn giao |
+| **Heavy** | Feature lớn, compliance phức tạp, hợp đồng/đấu thầu | Standard + BRD/URD bắt buộc | Tất cả + Gate BRD + Gate URD |
+
+PO chọn track tại Bước 5 của BA-01. `Defect` chưa có AC và `Unknown` không được vào Express.
 
 ## Luồng gọi điển hình
 
@@ -127,7 +139,7 @@ Nguyên tắc: **skill quy trình điều phối con người, skill agent chỉ
 ## Quy ước chung của cả 15 skill
 - `description` song ngữ: tiếng Anh trước (có mệnh đề `Use when …`) rồi tới `Tiếng Việt:` — để Kiro khớp được cả hai ngôn ngữ.
 - Thân skill viết tiếng Việt, giữ nguyên thuật ngữ tiếng Anh như SOP.
-- Khối **"Rào cản bắt buộc"** 10 điều giống hệt nhau ở cả 15 skill (Grounding · Fact/Assumption/Inference/Unknown · không tự tạo Business Rules · không tự phê duyệt · DRAFT · không đoán · Idempotency · Error handling · Data protection · Audit trail).
+- Khối **"Rào cản bắt buộc"** 10 điều nằm tại `POWER.md` (nguồn chính thức duy nhất); 15 skill tham chiếu về đó.
 - Đầu ra agent theo 6 phần: Summary · Facts with sources · Findings/Open Questions · Suggested actions · Confidence limitations · `Status = DRAFT`.
 - Cột biểu mẫu khớp đúng tên cột trong `assets/_archive/workbook-v1.0.md`; trường đánh dấu ⚠ là phần thêm.
 - Kiểm định sau khi sửa: `python scripts/validate_power.py`.
