@@ -27,8 +27,9 @@ skill agent chỉ tạo bản nháp. Không skill nào tự đóng gate.**
 10. **Audit trail** — ghi lại prompt version, model/version, tài liệu đầu vào, đầu ra, người review và quyết định.
 
 Mười điều trên áp dụng cho **mọi** tương tác trong power này, kể cả khi không
-gọi skill nào. Khối này giống hệt khối `## Rào cản bắt buộc` trong cả 13 skill;
-nếu sửa, phải sửa đồng thời ở đây và ở 13 skill rồi chạy `python scripts/validate_power.py`.
+gọi skill nào. Khối này là **nguồn chính thức duy nhất**: 15 skill tham chiếu
+về đây thay vì nhúng bản sao. Nếu sửa, sửa ở đây rồi chạy
+`python scripts/validate_power.py`.
 
 ## Thẩm quyền gate và phê duyệt
 
@@ -49,6 +50,11 @@ Unknown thành Fact khi chưa xác minh với nguồn.
 
 Mọi agent trả về đúng 6 phần: Summary · Facts with sources · Findings / Open
 Questions · Suggested actions · Confidence limitations · `Status = DRAFT`.
+
+Mọi agent output phải kèm `AI Review Status = Draft - cần review` cho tới khi
+người review xác nhận. Giá trị hợp lệ: `Draft - cần review` | `Reviewed - Accepted`
+| `Reviewed - Accepted with Changes` | `Reviewed - Rejected`. Giá trị này đồng bộ
+với cột `Review Decision` trong `ai-run-log.md`.
 
 ## 13 skill và khi nào dùng
 
@@ -82,7 +88,7 @@ AI agent (chỉ tạo bản nháp):
 | `ba-agent-test-design` | BA-06 Bước 1, 6 |
 | `ba-agent-traceability` | BA-04 Bước 5; BA-05 Bước 3, 5; BA-06 Bước 1, 6; BA-07 Bước 1 |
 
-`ba-agent-qa-review` là bắt buộc ở BA-03 và BA-04, tuỳ chọn ở các quy trình còn lại.
+`ba-agent-qa-review` là bắt buộc ở BA-02, BA-03, BA-04 và BA-06; tuỳ chọn ở BA-01, BA-05 và BA-07.
 Orchestrator trong SOP §7 là mô hình đề xuất; power này không có skill riêng cho nó,
 skill quy trình đóng vai điều phối. BA-07 Bước 4 không có agent chuyên trách.
 
@@ -144,6 +150,18 @@ SOP §12, thêm `Ready for Sprint` ⚠ để tách "được vào refinement" v�
 | `In Progress`, `Done` | Theo quy ước của Team | Team |
 
 Trường hoặc giá trị đánh dấu ⚠ là phần mở rộng so với SOP/workbook v1.0.
+
+## Đường đi theo mức độ (Process Tracks)
+
+Từ v1.1, BA-01 chính thức hóa ba đường đi theo mức độ cần thiết, thay vì chỉ là đề xuất.
+
+| Track | Áp dụng cho | Quy trình bắt buộc | Gate |
+| --- | --- | --- | --- |
+| **Express** | `Defect` lệch AC đã duyệt; `Technical Change` không đổi hành vi | BA-01 → BA-06 (chỉ retest phần liên quan) | G1, G4 |
+| **Standard** | `New Feature`, `Enhancement`, `Compliance`; `Technical Change` có đổi hành vi | BA-01 → BA-07 đầy đủ | G1–G4 + gate thay đổi + gate bàn giao |
+| **Heavy** | Feature lớn, compliance phức tạp, yêu cầu hợp đồng/đấu thầu | Standard + BRD/URD bắt buộc | Tất cả + Gate BRD + Gate URD |
+
+Track do PO chọn tại Bước 5 của BA-01, ghi vào `BA/PO Decision`. `Defect` chưa có AC mô tả hành vi và `Unknown` không được vào Express — phải đi Standard hoặc giữ `Clarification Required`.
 
 ## Nguyên tắc vận hành
 

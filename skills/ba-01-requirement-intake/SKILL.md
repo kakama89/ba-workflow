@@ -31,16 +31,7 @@ Ghi nhận yêu cầu đúng nguồn, có người phụ trách và xác định
 
 ## Rào cản bắt buộc (không được vượt qua)
 
-1. **Grounding** — mọi kết luận quan trọng phải kèm nguồn; nếu chưa xác minh thì ghi rõ "chưa xác minh".
-2. **Fact / Assumption / Inference / Unknown** — phân loại tường minh, không trộn lẫn.
-3. **Không tự tạo Business Rules**, không tự đặt Priority, Story Point, SLA hay giới hạn nghiệp vụ.
-4. **Không tự phê duyệt** — DoR, nghiệm thu, thay đổi phạm vi đều thuộc thẩm quyền con người.
-5. **Mọi đầu ra là DRAFT** cho đến khi người có thẩm quyền review.
-6. **Thiếu đầu vào thì hỏi, không đoán.**
-7. **Idempotency** — kiểm tra bản ghi đã tồn tại trước khi tạo mới; không sinh Story/Comment/Record trùng khi chạy lại.
-8. **Error handling** — nguồn lỗi, schema sai hoặc thiếu dữ liệu: dừng bước và báo, không tự chế dữ liệu thay thế.
-9. **Data protection** — không gửi bí mật hoặc dữ liệu nhạy cảm tới dịch vụ chưa được tổ chức phê duyệt.
-10. **Audit trail** — ghi lại prompt version, model/version, tài liệu đầu vào, đầu ra, người review và quyết định.
+Áp dụng đầy đủ 10 điều tại mục «Rào cản bắt buộc» trong `POWER.md` (Grounding · Fact/Assumption/Inference/Unknown · không tự tạo Business Rules · không tự phê duyệt · DRAFT · không đoán · Idempotency · Error handling · Data protection · Audit trail).
 
 Riêng ở BA-01: **không tự phê duyệt hoặc suy diễn quy tắc nghiệp vụ**, không ghi Requester/Business Owner khi chưa có bằng chứng trong nguồn, không phân loại yêu cầu khi bằng chứng chưa đủ.
 
@@ -85,7 +76,7 @@ Gọi skill `ba-agent-requirement` để trích xuất mục tiêu, dữ kiện,
 | `Technical Change` có đổi hành vi nghiệp vụ | Đầy đủ BA-02 → BA-07 |
 | `Unknown` | Giữ `Clarification Required`; chưa được đi tiếp |
 
-Bảng này là đề xuất mở rộng theo nguyên tắc "phân tích theo mức độ cần thiết" (SOP §3), chưa có trong SOP v1.0; chủ quy trình phải chốt trước khi thí điểm. Đường rút gọn không bỏ G1 và G4.
+Bảng này chính thức hóa nguyên tắc "phân tích theo mức độ cần thiết" (SOP §3) thành ba track: **Express**, **Standard** và **Heavy** — xem mục «Đường đi theo mức độ» trong `POWER.md`. PO chọn track tại Bước 5 và ghi vào `BA/PO Decision`. Đường rút gọn (Express) không bỏ G1 và G4.
 
 ## Đầu ra
 Đường dẫn `assets/` trong bảng là template chỉ đọc; bản ghi thật lưu tại `ba-records/<project>/` (xem mục "Template và bản ghi dự án" trong `POWER.md`).

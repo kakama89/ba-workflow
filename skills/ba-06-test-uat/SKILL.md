@@ -31,16 +31,7 @@ Xác minh sản phẩm đáp ứng yêu cầu bằng bằng chứng và hỗ tr�
 
 ## Rào cản bắt buộc (không được vượt qua)
 
-1. **Grounding** — mọi kết luận quan trọng phải kèm nguồn; nếu chưa xác minh thì ghi rõ "chưa xác minh".
-2. **Fact / Assumption / Inference / Unknown** — phân loại tường minh, không trộn lẫn.
-3. **Không tự tạo Business Rules**, không tự đặt Priority, Story Point, SLA hay giới hạn nghiệp vụ.
-4. **Không tự phê duyệt** — DoR, nghiệm thu, thay đổi phạm vi đều thuộc thẩm quyền con người.
-5. **Mọi đầu ra là DRAFT** cho đến khi người có thẩm quyền review.
-6. **Thiếu đầu vào thì hỏi, không đoán.**
-7. **Idempotency** — kiểm tra bản ghi đã tồn tại trước khi tạo mới; không sinh Story/Comment/Record trùng khi chạy lại.
-8. **Error handling** — nguồn lỗi, schema sai hoặc thiếu dữ liệu: dừng bước và báo, không tự chế dữ liệu thay thế.
-9. **Data protection** — không gửi bí mật hoặc dữ liệu nhạy cảm tới dịch vụ chưa được tổ chức phê duyệt.
-10. **Audit trail** — ghi lại prompt version, model/version, tài liệu đầu vào, đầu ra, người review và quyết định.
+Áp dụng đầy đủ 10 điều tại mục «Rào cản bắt buộc» trong `POWER.md` (Grounding · Fact/Assumption/Inference/Unknown · không tự tạo Business Rules · không tự phê duyệt · DRAFT · không đoán · Idempotency · Error handling · Data protection · Audit trail).
 
 Riêng ở BA-06: **không bao giờ ghi `Pass` khi chưa có kết quả thực thi thật**, không quyết định Accept/Reject, không tự đặt Severity cho defect.
 
@@ -69,7 +60,7 @@ Vòng sửa lỗi: Dev sửa defect, QA retest trên build mới và ghi bằng 
 
 ### Bước 4 — Chuẩn bị UAT
 - BA dựng UAT Scenario từ AC đã duyệt; mỗi Scenario một `Scenario ID` (dạng `UAT-001`) và trỏ về `Story ID` + `AC ID`.
-- Tuỳ chọn: gọi `ba-agent-qa-review` để rà soát tài liệu trước UAT.
+- Gọi `ba-agent-qa-review` để rà soát tài liệu trước UAT (bắt buộc).
 - Chuẩn bị dữ liệu và hướng dẫn Business User.
 - Chỉ dùng dữ liệu được phép; không đưa dữ liệu nhạy cảm vào môi trường chưa phê duyệt.
 
@@ -110,6 +101,9 @@ Chi tiết tại `references/quality-gate-g4.md`. Tóm tắt:
 - [ ] Kết quả có bằng chứng
 - [ ] Defect nghiêm trọng đã được xử lý hoặc được chấp nhận rủi ro đúng thẩm quyền
 - [ ] ⚠ `Decision` là `Accept` hoặc `Conditional Acceptance`, có `Approver` và ngày
+- [ ] ⚠ RTM coverage ≥ ngưỡng dự án (mặc định 100 %)
+- [ ] ⚠ Pass Rate ≥ ngưỡng dự án (mặc định 100 %)
+- [ ] ⚠ Defect Critical/Major còn mở = 0
 
 Không đạt G4 thì không chuyển sang BA-07.
 
@@ -123,5 +117,5 @@ Không đạt G4 thì không chuyển sang BA-07.
 - `assets/uat-report.md` — template UAT Report.
 - `references/quality-gate-g4.md` — checklist G4, quy tắc phân loại sai khác, quy tắc dừng bước.
 - RTM dùng chung: `skills/ba-03-specification/assets/rtm.md`.
-- Skill liên quan: `ba-agent-traceability` (Bước 1, Bước 6), `ba-agent-test-design` (Bước 1, Bước 6), `ba-agent-qa-review` (Bước 4, tuỳ chọn).
+- Skill liên quan: `ba-agent-traceability` (Bước 1, Bước 6), `ba-agent-test-design` (Bước 1, Bước 6), `ba-agent-qa-review` (Bước 4, bắt buộc).
 - Quy trình trước: `ba-04-refinement`, qua Sprint. Phát sinh thay đổi: `ba-05-change-management`. Kế tiếp: `ba-07-release-handover`.

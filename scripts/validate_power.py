@@ -30,6 +30,10 @@ SHEET_TEMPLATES = {
     "AI Review": "skills/ba-agent-qa-review/assets/ai-review-log.md",
 }
 
+GUARDRAIL_REFERENCE = (
+    "Áp dụng đầy đủ 10 điều tại mục «Rào cản bắt buộc» trong `POWER.md`"
+)
+
 
 def read(path):
     return Path(path).read_text(encoding="utf-8").replace("\r\n", "\n")
@@ -49,19 +53,31 @@ def check_counts():
 
 
 def check_guardrails():
-    blocks = {}
-    for path in [ROOT / "POWER.md", *SKILLS]:
-        match = re.search(r"^## Rào cản bắt buộc.*?\n(.*?)(?=^## |^Mười điều|^Riêng ở)", read(path), re.M | re.S)
-        if not match:
-            error("guardrails", f"{rel(path)}: không có khối rào cản")
+    """POWER.md phải có đủ 10 điều inline; mỗi skill phải tham chiếu chứ không nhúng."""
+    power_text = read(ROOT / "POWER.md")
+    match = re.search(
+        r"^## Rào cản bắt buộc.*?\n(.*?)(?=^## |^Mười điều)",
+        power_text, re.M | re.S,
+    )
+    if not match:
+        error("guardrails", "POWER.md: không có khối rào cản")
+        return
+    items = re.findall(r"^\d+\. .*$", match.group(1), re.M)
+    if len(items) != 10:
+        error("guardrails", f"POWER.md: cần 10 điều, thấy {len(items)}")
+
+    for path in SKILLS:
+        text = read(path)
+        if "## Rào cản bắt buộc" not in text:
+            error("guardrails", f"{rel(path)}: không có mục rào cản")
             continue
-        items = re.findall(r"^\d+\. .*$", match.group(1), re.M)
-        blocks.setdefault(tuple(items), []).append(rel(path))
-    if len(blocks) > 1:
-        error("guardrails", f"có {len(blocks)} phiên bản khác nhau: {list(blocks.values())}")
-    for items in blocks:
-        if len(items) != 10:
-            error("guardrails", f"cần 10 điều, thấy {len(items)}")
+        if GUARDRAIL_REFERENCE not in text:
+            # Cho phép cả dạng nhúng đầy đủ (quá độ) lẫn tham chiếu
+            inline_items = re.findall(r"^\d+\. \*\*\w+", text, re.M)
+            if len(inline_items) == 10:
+                error("guardrails", f"{rel(path)}: vẫn nhúng 10 điều, nên chuyển sang tham chiếu POWER.md")
+            elif len(inline_items) == 0:
+                error("guardrails", f"{rel(path)}: không có rào cản inline lẫn tham chiếu")
 
 
 def check_references():
@@ -132,15 +148,41 @@ def check_agent_matrix():
             error("agent-matrix", f"{name} không khớp: {detail}")
 
 
+def check_frontmatter():
+    """Kiểm tra mỗi SKILL.md có frontmatter YAML hợp lệ với trường name và description."""
+    for path in SKILLS:
+        text = read(path)
+        if not text.startswith("---\n"):
+            error("frontmatter", f"{rel(path)}: thiếu YAML frontmatter")
+            continue
+        end = text.find("\n---\n", 4)
+        if end == -1:
+            error("frontmatter", f"{rel(path)}: frontmatter không đóng")
+            continue
+        fm = text[4:end]
+        if not re.search(r"^name:\s*\S", fm, re.M):
+            error("frontmatter", f"{rel(path)}: thiếu trường name")
+        if not re.search(r"^description:\s*", fm, re.M):
+            error("frontmatter", f"{rel(path)}: thiếu trường description")
+
+
 def main():
     sys.stdout.reconfigure(encoding="utf-8")
-    for check in (check_counts, check_guardrails, check_references, check_frozen, check_template_columns, check_agent_matrix):
+    for check in (
+        check_counts,
+        check_guardrails,
+        check_references,
+        check_frozen,
+        check_template_columns,
+        check_agent_matrix,
+        check_frontmatter,
+    ):
         check()
     if ERRORS:
         print("\n".join(ERRORS))
         print(f"\nKHÔNG ĐẠT: {len(ERRORS)} lỗi")
         return 1
-    print("ĐẠT: số skill, rào cản, tham chiếu, file đóng băng, cột template, ma trận gọi agent")
+    print("ĐẠT: số skill, rào cản, tham chiếu, file đóng băng, cột template, ma trận gọi agent, frontmatter")
     return 0
 
 

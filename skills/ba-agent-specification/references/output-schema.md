@@ -82,6 +82,10 @@ Dừng và báo lại BA, không tự chế nội dung thay thế, khi:
 
 Khi dừng: nêu rõ Story/AC bị chặn, lý do, nguồn liên quan và thông tin cần cung cấp.
 
+## 7. AI Review Status
+
+Mọi đầu ra của agent kèm `AI Review Status = Draft - cần review`. Giá trị hợp lệ: `Draft - cần review` | `Reviewed - Accepted` | `Reviewed - Accepted with Changes` | `Reviewed - Rejected`. Người review cập nhật giá trị này; agent không tự chuyển ra khỏi `Draft - cần review`. Giá trị đồng bộ với cột `Review Decision` trong `ba-records/<project>/ai-run-log.md`.
+
 ## 6. Idempotency và audit trail
 
 - Trước khi tạo Story mới, tra theo `Requirement IDs` + `Title` + `Epic ID`. Nếu đã có Story cho cùng phạm vi, cập nhật bản nháp hiện có thay vì tạo mới.
